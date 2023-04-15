@@ -10,6 +10,7 @@ public class Artigo{
     private String descricao;
     private String marca;
     private double preco_base;
+    private double estado_utilizacao; //valor de 0 a 1
 
     //contrutores
     public Artigo(){
@@ -20,10 +21,12 @@ public class Artigo{
         this.descricao="";
         this.marca="";
         this.preco_base=0;
+        this.estado_utilizacao=0;
+
     }
 
     public Artigo(String cod_barras, boolean artigo_novo, String estado, int num_donos,
-    String descricao, String marca,double preco_base){
+    String descricao, String marca,double preco_base,double estado_utilizacao){
         this.cod_barras=cod_barras;
         this.artigo_novo=artigo_novo;
         this.estado=estado;
@@ -31,6 +34,7 @@ public class Artigo{
         this.descricao=descricao;
         this.marca=marca;
         this.preco_base=preco_base;
+        this.estado_utilizacao=estado_utilizacao;
     }
 
     public Artigo(Artigo novo){
@@ -41,6 +45,7 @@ public class Artigo{
         this.descricao=novo.getDescricao();
         this.marca=novo.getMarca();
         this.preco_base=novo.getPreco_base();
+        this.estado_utilizacao=novo.getEstado_utilizacao();
     }
 
 
@@ -51,43 +56,49 @@ public class Artigo{
     public boolean getArtigo_novo(){
         return this.artigo_novo;
     }
-    public String getEstado() {
+    public String getEstado(){
         return this.estado;
     }
-    public int getNum_donos() {
+    public int getNum_donos(){
         return this.num_donos;
     }
-    public String getDescricao() {
+    public String getDescricao(){
         return this.descricao;
     }
-    public String getMarca() {
+    public String getMarca(){
         return this.marca;
     }
-    public double getPreco_base() {
+    public double getPreco_base(){
         return this.preco_base;
+    }
+    public double getEstado_utilizacao(){
+        return estado_utilizacao;
     }
 
     //sets
-    public void setCod_barras(String cod_barras) {
+    public void setCod_barras(String cod_barras){
         this.cod_barras = cod_barras;
     }
-    public void setArtigo_novo(boolean artigo_novo) {
+    public void setArtigo_novo(boolean artigo_novo){
         this.artigo_novo = artigo_novo;
     }
-    public void setEstado(String estado) {
+    public void setEstado(String estado){
         this.estado = estado;
     }
-    public void setNum_donos(int num_donos) {
+    public void setNum_donos(int num_donos){
         this.num_donos = num_donos;
     }
-    public void setDescricao(String descricao) {
+    public void setDescricao(String descricao){
         this.descricao = descricao;
     }
-    public void setMarca(String marca) {
+    public void setMarca(String marca){
         this.marca = marca;
     }
-    public void setPreco_base(double preco_base) {
+    public void setPreco_base(double preco_base){
         this.preco_base = preco_base;
+    }
+    public void setEstado_utilizacao(double estado_utilizacao){
+        this.estado_utilizacao = estado_utilizacao;
     }
 
     @Override
@@ -105,7 +116,7 @@ public class Artigo{
         return (this.cod_barras==art.getCod_barras() && this.artigo_novo==art.getArtigo_novo() && 
         this.estado==art.getEstado() && this.num_donos==art.getNum_donos() && 
         this.descricao==art.getDescricao() && this.marca==art.getMarca() &&
-        this.preco_base==art.getPreco_base());
+        this.preco_base==art.getPreco_base() && this.estado_utilizacao==art.getEstado_utilizacao());
     }
 
     @Override
@@ -123,6 +134,7 @@ public class Artigo{
         sb.append("Descricao: "+this.getDescricao()+"\n");
         sb.append("Marca: "+this.getMarca()+"\n");
         sb.append("Preco base: "+this.getDescricao()+"\n");
+        sb.append("Estado de utilizacao (0-1): "+this.getEstado_utilizacao()+"\n");
 
         return sb.toString();
     }  
