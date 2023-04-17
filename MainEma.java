@@ -1,4 +1,4 @@
-public class Main{
+public class MainEma{
     public static void main(String[] args){
         Artigo art1 = new Artigo();
         System.out.println(art1);
