@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 public class Main{
     public static void main(String[] args){
         Artigo art1 = new Artigo();
@@ -13,18 +15,18 @@ public class Main{
 
         Sapatilha art4 = new Sapatilha("12345", true, "novo",
         1, "Sapatilha de corrida", "Nike", 100.0,
-        0.9, 42, true, "preta", false,
+        0.9, 42, true,new Color(0,0,0), false,
         "2022-01-01");
         System.out.println(art4); 
 
         Mala art5 = new Mala("12345", true, "novo",
         1, "Sapatilha de corrida", "Nike", 100.0,
-        0.9,2,"Couro","2022-12-23",true);
+        0.9,Dimensao.PEQUENO,"Couro","2022-12-23",true);
         System.out.println(art5);
 
         Tshirt art6 = new Tshirt("12345", true, "novo",
         1, "Sapatilha de corrida", "Nike", 100.0,
-        0.9,2,2);
+        0.9,Tamanho.L,Padrao.LISO);
         System.out.println(art6);
 
 

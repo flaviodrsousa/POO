@@ -1,19 +1,26 @@
+enum Tamanho{
+    S,M,L,XL
+}
+enum Padrao{
+    LISO,RICAS,PALMEIRAS
+}
+
 public class Tshirt extends Artigo{
-    private int tamanho; //0,1,2,3 = S/M/L/XL
-    private int padrao;//0,1,2 = liso,riscas,palmeiras
+    private Tamanho tamanho;
+    private Padrao padrao;
     private double desconto;
     private double preco_final;
 
     public Tshirt(){
         super();
-        this.tamanho=0;
-        this.padrao=0;
+        this.tamanho=Tamanho.S;
+        this.padrao=Padrao.LISO;
         this.desconto=0;
         this.preco_final=0;
     }
     public Tshirt(String cod_barras, boolean artigo_novo, String estado, int num_donos,
     String descricao, String marca,double preco_base,double estado_utilizacao,
-    int tamanho,int padrao){
+    Tamanho tamanho,Padrao padrao){
         super(cod_barras,artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao);
         this.tamanho=tamanho;
         this.padrao=padrao;
@@ -31,11 +38,11 @@ public class Tshirt extends Artigo{
     }
 
     //gets
-    public int getTamanho(){
+    public Tamanho getTamanho(){
         return this.tamanho;
     }
-    public int getPadrao(){
-        return padrao;
+    public Padrao getPadrao(){
+        return this.padrao;
     }
     public double getDesconto(){
         return this.desconto;
@@ -45,10 +52,10 @@ public class Tshirt extends Artigo{
     }
 
     //sets
-    public void setTamanho(int tamanho){
+    public void setTamanho(Tamanho tamanho){
         this.tamanho = tamanho;
     }
-    public void setPadrao(int padrao){
+    public void setPadrao(Padrao padrao){
         this.padrao = padrao;
     }
     public void setDesconto(double desconto){
@@ -81,21 +88,21 @@ public class Tshirt extends Artigo{
         sb.append(super.toString());
         sb.append("........T-SHIRT.........\n");
         
-        int tam=this.getTamanho();
-        if(tam==0){
+        Tamanho tam=this.getTamanho();
+        if(tam==Tamanho.S){
             sb.append("Tamanho: S"+"\n");
-        }else if(tam==1){
+        }else if(tam==Tamanho.M){
             sb.append("Tamanho: M"+"\n");
-        }else if(tam==2){
+        }else if(tam==Tamanho.L){
             sb.append("Tamanho: L"+"\n");
         }else{
             sb.append("Tamanho: XL"+"\n");
         }
 
-        int padrao=this.getPadrao();
-        if(padrao==0){
+        Padrao padrao=this.getPadrao();
+        if(padrao==Padrao.LISO){
             sb.append("Padrao: Liso"+"\n");
-        }else if(padrao==1){
+        }else if(padrao==Padrao.RICAS){
             sb.append("Padrao: Riscas"+"\n");
         }else{
             sb.append("Tamanho: Palmeiras"+"\n");

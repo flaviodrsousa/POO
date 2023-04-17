@@ -133,7 +133,7 @@ public class Artigo{
         }
         sb.append("Descricao: "+this.getDescricao()+"\n");
         sb.append("Marca: "+this.getMarca()+"\n");
-        sb.append("Preco base: "+this.getDescricao()+"\n");
+        sb.append("Preco base: "+this.getPreco_base()+"\n");
         sb.append("Estado de utilizacao (0-1): "+this.getEstado_utilizacao()+"\n");
 
         return sb.toString();

@@ -1,10 +1,11 @@
 import java.time.LocalDate;
 import java.time.Period;
+import java.awt.Color;
 
 public class Sapatilha extends Artigo{
     private int tamanho;
     private boolean atacadores;
-    private String cor;
+    private Color cor;//Usar tuplo para RGB
     private LocalDate data_lancamento; //Passada como argumento em String "XXXX-XX-XX"
     private boolean premium;
     private double desconto;
@@ -14,14 +15,14 @@ public class Sapatilha extends Artigo{
         super();
         this.tamanho=0;
         this.atacadores=false;
-        this.cor="";
+        this.cor=new Color(0,0,0);
         this.data_lancamento= LocalDate.now();
         this.premium=false;
         this.desconto=0;
         this.preco_final=this.total_pagar();
     }
     public Sapatilha(String cod_barras, boolean artigo_novo, String estado, int num_donos,
-    String descricao, String marca,double preco_base,double estado_utilizacao,int tamanho,boolean atacadores,String cor,
+    String descricao, String marca,double preco_base,double estado_utilizacao,int tamanho,boolean atacadores,Color cor,
     boolean premium,String data_colecao){
         super(cod_barras,artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao);
         this.tamanho=tamanho;
@@ -51,7 +52,7 @@ public class Sapatilha extends Artigo{
     public boolean getAtacadores(){
         return this.atacadores;
     }
-    public String getCor(){
+    public Color getCor(){
         return this.cor;
     }
     public LocalDate getData_lancamento(){
@@ -74,7 +75,7 @@ public class Sapatilha extends Artigo{
     public void setAtacadores(boolean atacadores){
         this.atacadores=atacadores;
     }
-    public void setCor(String cor){
+    public void setCor(Color cor){
         this.cor = cor;
     }
     public void setData_lancamento(LocalDate data_lancamento) {
@@ -115,7 +116,7 @@ public class Sapatilha extends Artigo{
         sb.append("........SAPATILHA.........\n");
         sb.append("Tamanho: "+this.getTamanho()+"\n");
         sb.append("Atacadores: " + (this.getAtacadores() ? "Sim" : "Não") + "\n");
-        sb.append("Cor: "+this.getCor()+"\n");
+        sb.append("Cor: ("+cor.getRed() + "," + cor.getGreen() + "," + cor.getBlue()+")\n");
         sb.append("Data de lancamento: "+this.getData_lancamento()+"\n");
         sb.append("Desconto: "+this.getDesconto()+"\n");
         sb.append("Premium: " + (this.getPremium() ? "Sim" : "Não") + "\n");
@@ -130,7 +131,7 @@ public class Sapatilha extends Artigo{
             int diferencaAnos = periodo.getYears();
             return this.getPreco_base()*0.1*diferencaAnos;
         }else{
-            if(this.getArtigo_novo()){
+            if(super.getArtigo_novo()){
                 if(this.getTamanho()>45){
                     return this.getPreco_base() * 0.3;
                 } else {

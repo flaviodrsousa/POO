@@ -1,8 +1,12 @@
 import java.time.LocalDate;
 import java.time.Period;
 
+enum Dimensao{
+    PEQUENO,MEDIO,GRANDE
+}
+
 public class Mala extends Artigo{
-    private int dimensao; //0 1 ou 2 pequeno, medio ou grande
+    private Dimensao dimensao;
     private String material;
     private LocalDate data_colecao;
     private boolean premium;
@@ -11,7 +15,7 @@ public class Mala extends Artigo{
 
     public Mala(){
         super();
-        this.dimensao=0;
+        this.dimensao=Dimensao.PEQUENO;
         this.material="";
         this.data_colecao=LocalDate.now();
         this.premium=false;
@@ -21,7 +25,7 @@ public class Mala extends Artigo{
 
     public Mala(String cod_barras, boolean artigo_novo, String estado, int num_donos,
     String descricao, String marca,double preco_base,double estado_utilizacao,
-    int dimensao,String material,String data_colecao,boolean premium){
+    Dimensao dimensao,String material,String data_colecao,boolean premium){
         super(cod_barras,artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao);
         this.dimensao=dimensao;
         this.material=material;
@@ -42,7 +46,7 @@ public class Mala extends Artigo{
     }
 
     //gets
-    public int getDimensao(){
+    public Dimensao getDimensao(){
         return this.dimensao;
     }
     public String getMaterial(){
@@ -62,7 +66,7 @@ public class Mala extends Artigo{
     }
 
     //set
-    public void setDimensao(int dimensao){
+    public void setDimensao(Dimensao dimensao){
         this.dimensao = dimensao;
     }
     public void setMaterial(String material){
@@ -104,10 +108,10 @@ public class Mala extends Artigo{
         StringBuilder sb = new StringBuilder();
         sb.append(super.toString());
         sb.append("........MALA.........\n");
-        int dim=this.getDimensao();
-        if(dim==0){
+        Dimensao dim=this.getDimensao();
+        if(dim==Dimensao.PEQUENO){
             sb.append("Tamanho: Pequeno"+"\n");
-        }else if(dim==1){
+        }else if(dim==Dimensao.MEDIO){
             sb.append("Tamanho: Medio"+"\n");
         }else{
             sb.append("Tamanho: Grande"+"\n");
@@ -128,10 +132,10 @@ public class Mala extends Artigo{
             int diferencaAnos = periodo.getYears();
             return this.getPreco_base()*0.1*diferencaAnos;
         }else{
-            int dim=this.getDimensao();
-            if(dim==0){
+            Dimensao dim=this.getDimensao();
+            if(dim==Dimensao.PEQUENO){
                 return (1/0.1)*this.getPreco_base();
-            }else if(dim==1){
+            }else if(dim==Dimensao.MEDIO){
                 return (1/0.25)*this.getPreco_base();
             }else{
                 return (1/0.5)*this.getPreco_base();
