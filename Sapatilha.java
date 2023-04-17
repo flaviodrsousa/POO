@@ -8,8 +8,6 @@ public class Sapatilha extends Artigo{
     private Color cor;//Usar tuplo para RGB
     private LocalDate data_lancamento; //Passada como argumento em String "XXXX-XX-XX"
     private boolean premium;
-    private double desconto;
-    private double preco_final;
 
     public Sapatilha(){
         super();
@@ -18,8 +16,6 @@ public class Sapatilha extends Artigo{
         this.cor=new Color(0,0,0);
         this.data_lancamento= LocalDate.now();
         this.premium=false;
-        this.desconto=0;
-        this.preco_final=this.total_pagar();
     }
     public Sapatilha(String cod_barras, boolean artigo_novo, String estado, int num_donos,
     String descricao, String marca,double preco_base,double estado_utilizacao,int tamanho,boolean atacadores,Color cor,
@@ -30,8 +26,6 @@ public class Sapatilha extends Artigo{
         this.cor=cor;
         this.data_lancamento=LocalDate.parse(data_colecao);
         this.premium=premium;
-        this.desconto=this.desconto();
-        this.preco_final=this.total_pagar();
     }
 
     public Sapatilha(Sapatilha novo){
@@ -41,8 +35,6 @@ public class Sapatilha extends Artigo{
         this.cor=novo.getCor();
         this.data_lancamento=novo.getData_lancamento();
         this.premium=novo.getPremium();
-        this.desconto=novo.getDesconto();
-        this.preco_final=novo.getPreco_final();
     }
 
     //get
@@ -61,12 +53,6 @@ public class Sapatilha extends Artigo{
     public boolean getPremium(){
         return this.premium;
     }
-    public double getDesconto(){
-        return this.desconto;
-    }
-    public double getPreco_final(){
-        return preco_final;
-    }
 
     //set
     public void setTamanho(int tamanho){
@@ -84,12 +70,6 @@ public class Sapatilha extends Artigo{
     public void serPremium(boolean premium){
         this.premium=premium;
     }
-    public void setDesconto(double desconto){
-        this.desconto = desconto;
-    }
-    public void setPreco_final(double preco_final){
-        this.preco_final=preco_final;
-    }
 
     @Override
     public Sapatilha clone(){
@@ -105,8 +85,7 @@ public class Sapatilha extends Artigo{
         Sapatilha sap = (Sapatilha) obj;
         return (super.equals(sap) && this.tamanho==sap.getTamanho() && 
         this.atacadores==sap.getAtacadores() && this.cor==sap.getCor() && 
-        this.data_lancamento==sap.getData_lancamento() && this.desconto==sap.getDesconto()
-        && this.premium==sap.getPremium() && this.preco_final==sap.getPreco_final()); 
+        this.data_lancamento==sap.getData_lancamento() && this.premium==sap.getPremium() ); 
     }
 
     @Override
@@ -118,14 +97,12 @@ public class Sapatilha extends Artigo{
         sb.append("Atacadores: " + (this.getAtacadores() ? "Sim" : "Não") + "\n");
         sb.append("Cor: ("+cor.getRed() + "," + cor.getGreen() + "," + cor.getBlue()+")\n");
         sb.append("Data de lancamento: "+this.getData_lancamento()+"\n");
-        sb.append("Desconto: "+this.getDesconto()+"\n");
         sb.append("Premium: " + (this.getPremium() ? "Sim" : "Não") + "\n");
-        sb.append("Preco final: " + this.getPreco_final()+"\n");
-        
+       
         return sb.toString();
     }  
 
-    private double desconto(){
+    public double desconto(){
         if(this.getPremium()){
             Period periodo = Period.between(LocalDate.now(),this.getData_lancamento());
             int diferencaAnos = periodo.getYears();
@@ -143,7 +120,7 @@ public class Sapatilha extends Artigo{
         }
     }
 
-    private double total_pagar(){
+    public double preco_final(){
         return (this.getAtacadores() ? this.getPreco_base()+this.getDesconto() : this.getPreco_base()-this.getDesconto());
     }
     

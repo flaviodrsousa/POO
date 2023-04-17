@@ -10,8 +10,6 @@ public class Mala extends Artigo{
     private String material;
     private LocalDate data_colecao;
     private boolean premium;
-    private double desconto;
-    private double preco_final;
 
     public Mala(){
         super();
@@ -19,8 +17,6 @@ public class Mala extends Artigo{
         this.material="";
         this.data_colecao=LocalDate.now();
         this.premium=false;
-        this.desconto=0;
-        this.preco_final=0;
     }
 
     public Mala(String cod_barras, boolean artigo_novo, String estado, int num_donos,
@@ -31,8 +27,6 @@ public class Mala extends Artigo{
         this.material=material;
         this.data_colecao=LocalDate.parse(data_colecao);
         this.premium=premium;
-        this.desconto=this.desconto();
-        this.preco_final=this.total();
     }
 
     public Mala(Mala novo){
@@ -41,8 +35,6 @@ public class Mala extends Artigo{
         this.material=this.getMaterial();
         this.data_colecao=this.getData_colecao();
         this.premium=this.getPremium();
-        this.desconto=this.getDesconto();
-        this.preco_final=this.getPreco_final();
     }
 
     //gets
@@ -58,12 +50,6 @@ public class Mala extends Artigo{
     public boolean getPremium(){
         return this.premium;
     }
-    public double getDesconto(){
-        return this.desconto;
-    }
-    public double getPreco_final(){
-        return this.preco_final;
-    }
 
     //set
     public void setDimensao(Dimensao dimensao){
@@ -77,12 +63,6 @@ public class Mala extends Artigo{
     }
     public void setPremium(boolean premium){
         this.premium=premium;
-    }
-    public void setDesconto(double desconto){
-        this.desconto = desconto;
-    }
-    public void setPreco_final(double preco_final){
-        this.preco_final = preco_final;
     }
 
     @Override
@@ -99,8 +79,7 @@ public class Mala extends Artigo{
         Mala mal = (Mala) obj;
         return (super.equals(mal) && this.dimensao==mal.getDimensao() && 
         this.material==mal.getMaterial() && this.data_colecao==mal.getData_colecao() &&
-        this.premium==mal.getPremium() && this.desconto==mal.getDesconto() &&
-        this.preco_final==mal.getPreco_final()); 
+        this.premium==mal.getPremium()); 
     }
 
     @Override
@@ -119,14 +98,12 @@ public class Mala extends Artigo{
         sb.append("Material: "+this.getMaterial()+"\n");
         sb.append("Data da colecao: "+this.getData_colecao()+"\n");
         sb.append("Premium: " + (this.getPremium() ? "Sim" : "Não") + "\n");
-        sb.append("Desconto: "+this.getDesconto()+"\n");
-        sb.append("Preco final: "+this.getPreco_final()+"\n");
 
         return sb.toString();
     }  
 
 
-    private double desconto(){
+    public double desconto(){
         if(this.getPremium()){
             Period periodo = Period.between(LocalDate.now(),this.getData_colecao());
             int diferencaAnos = periodo.getYears();
@@ -143,7 +120,7 @@ public class Mala extends Artigo{
         }
     }
 
-    private double total(){
+    public double preco_final(){
         if(this.getPremium()){
             return this.getPreco_base()+this.getDesconto();
         }else{

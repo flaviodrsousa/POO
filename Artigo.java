@@ -1,4 +1,4 @@
-public class Artigo{
+public abstract class Artigo{
     private String cod_barras;
     private boolean artigo_novo; //true=novo;false=velho;
 
@@ -11,6 +11,8 @@ public class Artigo{
     private String marca;
     private double preco_base;
     private double estado_utilizacao; //valor de 0 a 1
+    private double desconto;
+    private double preco_final;
 
     //contrutores
     public Artigo(){
@@ -22,6 +24,8 @@ public class Artigo{
         this.marca="";
         this.preco_base=0;
         this.estado_utilizacao=0;
+        this.desconto=0;
+        this.preco_final=0;
 
     }
 
@@ -35,6 +39,8 @@ public class Artigo{
         this.marca=marca;
         this.preco_base=preco_base;
         this.estado_utilizacao=estado_utilizacao;
+        this.desconto=this.desconto();
+        this.preco_final=this.preco_final();
     }
 
     public Artigo(Artigo novo){
@@ -46,6 +52,8 @@ public class Artigo{
         this.marca=novo.getMarca();
         this.preco_base=novo.getPreco_base();
         this.estado_utilizacao=novo.getEstado_utilizacao();
+        this.desconto=this.desconto();
+        this.preco_final=this.preco_final();
     }
 
 
@@ -74,6 +82,12 @@ public class Artigo{
     public double getEstado_utilizacao(){
         return estado_utilizacao;
     }
+    public double getDesconto(){
+        return this.desconto;
+    }
+    public double getPreco_final(){
+        return preco_final;
+    }
 
     //sets
     public void setCod_barras(String cod_barras){
@@ -100,10 +114,11 @@ public class Artigo{
     public void setEstado_utilizacao(double estado_utilizacao){
         this.estado_utilizacao = estado_utilizacao;
     }
-
-    @Override
-    public Artigo clone(){
-        return new Artigo(this);
+    public void setDesconto(double desconto){
+        this.desconto = desconto;
+    }
+    public void setPreco_final(double preco_final){
+        this.preco_final=preco_final;
     }
 
     @Override
@@ -133,9 +148,14 @@ public class Artigo{
         }
         sb.append("Descricao: "+this.getDescricao()+"\n");
         sb.append("Marca: "+this.getMarca()+"\n");
-        sb.append("Preco base: "+this.getPreco_base()+"\n");
         sb.append("Estado de utilizacao (0-1): "+this.getEstado_utilizacao()+"\n");
+        sb.append("Preco base: "+this.getPreco_base()+"\n");
+        sb.append("Desconto: "+this.getDesconto()+"\n");
+        sb.append("Preco final: " + this.getPreco_final()+"\n");
 
         return sb.toString();
     }  
+
+    public abstract double desconto();
+    public abstract double preco_final();
 }
