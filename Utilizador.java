@@ -192,11 +192,11 @@ public class Utilizador{
     //Artigo vendido por um Vendedor
     public void artigo_Vendido(Artigo artigo){
         this.aVenda.remove(artigo);
-        this.historicoVendas.add(artigo);
+        this.historicoVendas.add(artigo.clone());
     }
 
     //Artigo comprado por um Comprador
     public void artigo_Comprado(Artigo artigo){
-        this.historicoCompras.add(artigo);
+        this.historicoCompras.add(artigo.clone());
     }
 }
