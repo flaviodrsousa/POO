@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Encomenda extends Artigo{
+public class Encomenda{
     
     private List<Artigo> artigos;
     private int dimensaoEmbalagem;
@@ -116,12 +116,12 @@ public class Encomenda extends Artigo{
         int quantidadeUsados = 0;
         double precototal = 0;
         for (Artigo artigo : this.artigos) {
-            if (getArtigo_novo()) {
+            if (artigo.getArtigo_novo()) {
                 quantidadeNovos++;
             } else {
                 quantidadeUsados++;
             }
-            precototal += getPreco_base();
+            precototal += artigo.getPreco_base();
         }
         this.precoFinal = (precototal + (quantidadeNovos * 0.5) + (quantidadeUsados * 0.25)) + this.taxaGarantia + this.custoExpedicao;
     }
