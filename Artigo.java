@@ -156,6 +156,7 @@ public abstract class Artigo{
         return sb.toString();
     }  
 
+    public abstract Artigo clone();
     public abstract double desconto();
     public abstract double preco_final();
 }
