@@ -137,48 +137,6 @@ public class Encomenda{
         this.expedida = expedida;
     }
 
-    //metodos adicionais
-    public void pagar() {
-        this.paga = true;
-    }
-    
-    public void expedir() {
-        this.expedida = true;
-    }
-    
-    public void entregar() {
-        this.dataEntrega = new Date();
-    }
-    
-    public boolean foi_Entregue() {
-        return this.dataEntrega != null;
-    }
-    
-    public boolean isDentroDoPrazoDevolucao() {
-        if (this.dataEntrega != null) {
-            long diferencaMilissegundos = this.dataEntrega.getTime() - this.dataCriacao.getTime();
-            long diferencaHoras = diferencaMilissegundos / (60 * 60 * 1000);
-            return diferencaHoras < 48;
-        } else {
-            return false;
-        }
-    }
-
-    private void atualizarPrecoFinal() {
-        int quantidadeNovos = 0;
-        int quantidadeUsados = 0;
-        double precototal = 0;
-        for (Artigo artigo : this.artigos) {
-            if (artigo.getArtigo_novo()) {
-                quantidadeNovos++;
-            } else {
-                quantidadeUsados++;
-            }
-            precototal += artigo.getPreco_base();
-        }
-        this.precoFinal = (precototal + (quantidadeNovos * 0.5) + (quantidadeUsados * 0.25)) + this.taxaGarantia + this.custoExpedicao;
-    }
-
     //clone
     public Encomenda clone(){
         return new Encomenda(this);
@@ -238,5 +196,47 @@ public class Encomenda{
                 }
             }
         return sb.toString();
+    }
+
+    //métodos adicionais
+    public void pagar() {
+        this.paga = true;
+    }
+    
+    public void expedir() {
+        this.expedida = true;
+    }
+    
+    public void entregar() {
+        this.dataEntrega = new Date();
+    }
+    
+    public boolean foi_Entregue() {
+        return this.dataEntrega != null;
+    }
+    
+    public boolean isDentroDoPrazoDevolucao() {
+        if (this.dataEntrega != null) {
+            long diferencaMilissegundos = this.dataEntrega.getTime() - this.dataCriacao.getTime();
+            long diferencaHoras = diferencaMilissegundos / (60 * 60 * 1000);
+            return diferencaHoras < 48;
+        } else {
+            return false;
+        }
+    }
+
+    private void atualizarPrecoFinal() {
+        int quantidadeNovos = 0;
+        int quantidadeUsados = 0;
+        double precototal = 0;
+        for (Artigo artigo : this.artigos) {
+            if (artigo.getArtigo_novo()) {
+                quantidadeNovos++;
+            } else {
+                quantidadeUsados++;
+            }
+            precototal += artigo.getPreco_base();
+        }
+        this.precoFinal = (precototal + (quantidadeNovos * 0.5) + (quantidadeUsados * 0.25)) + this.taxaGarantia + this.custoExpedicao;
     }
 }
