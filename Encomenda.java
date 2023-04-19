@@ -232,6 +232,9 @@ public class Encomenda{
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("........Encomenda.........\n");
+        for (Artigo artigo:artigos){
+            sb.append(artigo.toString());
+        }
         if(this.get_DimensaoEmbalagem() == DimensaoEmbalagem.pequeno){
             sb.append("DimensãoEmbalagem: Pequena\n");
         }else if(this.get_DimensaoEmbalagem()==DimensaoEmbalagem.medio){
@@ -239,9 +242,9 @@ public class Encomenda{
         }else{
             sb.append("DimensãoEmbalagem: Grande\n");
         }
-        sb.append("PrecoTotal: "+this.get_PrecoFinal()+"\n");
-        sb.append("DataCriaçao: "+this.get_DataCriacao()+"\n");
-        sb.append("DataEntrega: "+this.get_DataEntrega()+"\n");
+        sb.append("Vendedor: "+this.getVendedor()+"\n");
+        sb.append("Comprador: "+this.getComprador()+"\n");
+        sb.append("Transportadora: "+this.getTransportadora()+"\n");
         if(this.get_Paga() == false && this.get_Expedida() == false){
             sb.append("Estado: Pendente\n");
         }else{
@@ -251,6 +254,8 @@ public class Encomenda{
                 sb.append("Estado: Expedida\n");
             }
         }
+        sb.append("DataCriação: "+this.get_DataCriacao()+"\n");
+        sb.append("DataEntrega: "+this.get_DataEntrega()+"\n");
         if(this.get_Expedida() == false) {
             sb.append("Prazo de Devolução: Encomenda ainda não foi enviada\n");
             }else{
@@ -260,9 +265,7 @@ public class Encomenda{
                     sb.append("Prazo de Devolução: Fora do Prazo\n");
                 }
             }
-        sb.append("Vendedor: "+this.getVendedor()+"\n");
-        sb.append("Comprador: "+this.getComprador()+"\n");
-        sb.append("Transportadora: "+this.getTransportadora()+"\n");
+        sb.append("PrecoTotal: "+this.get_PrecoFinal()+"\n");
         return sb.toString();
     }
 
