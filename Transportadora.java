@@ -1,23 +1,27 @@
 public class Transportadora {
+    private String nome;
     private int precoExpPequena; //1 artigo
     private int precoExpMedia; //2 a 5 artigos
     private int precoExpGrande; // >5 artigos
 
     //Construtores
     public Transportadora(){
+        this.nome="";
         this.precoExpPequena=0;
         this.precoExpMedia=0;
         this.precoExpGrande=0;
     }
 
-    public Transportadora(int precoExpPequena,int precoExpMedia,
+    public Transportadora(String nome,int precoExpPequena,int precoExpMedia,
     int precoExpGrande){
+        this.nome=nome;
         this.precoExpPequena=precoExpPequena;
         this.precoExpMedia=precoExpMedia;
         this.precoExpGrande=precoExpGrande;
     }
 
     public Transportadora(Transportadora umTransportadora){
+        this.nome=umTransportadora.getNome();
         this.precoExpPequena=umTransportadora.getPrecoExpPequena();
         this.precoExpMedia=umTransportadora.getPrecoExpMedia();
         this.precoExpGrande=umTransportadora.getPrecoExpGrande();
@@ -36,6 +40,10 @@ public class Transportadora {
         return this.precoExpGrande;
     }
 
+    public String getNome() {
+        return this.nome;
+    }
+
     //sets
     public void setPrecoExpPequena(int precoExpPequena) {
         this.precoExpPequena = precoExpPequena;
@@ -47,6 +55,10 @@ public class Transportadora {
 
     public void setPrecoExpGrande(int precoExpGrande) {
         this.precoExpGrande = precoExpGrande;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     //clone
@@ -61,7 +73,8 @@ public class Transportadora {
         if ((o==null) || (this.getClass() != o.getClass())) 
             return false;
         Transportadora transportadora = (Transportadora) o;
-        return (transportadora.getPrecoExpPequena()==this.precoExpPequena &&
+        return (transportadora.getNome().equals(this.nome) &&
+        transportadora.getPrecoExpPequena()==this.precoExpPequena &&
         transportadora.getPrecoExpMedia()==this.precoExpMedia &&
         transportadora.getPrecoExpGrande()==this.precoExpGrande);
     }
@@ -70,11 +83,11 @@ public class Transportadora {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("........Transportadora......\n");
+        sb.append("Nome: "+this.getNome()+"\n");
         sb.append("PreçoExp Encomenda pequena: "+this.getPrecoExpPequena()+"\n");
         sb.append("PreçoExp Encomenda media: "+this.getPrecoExpMedia()+"\n");
         sb.append("PreçoExp Encomenda grande: "+this.getPrecoExpGrande()+"\n");
 
         return sb.toString();
     }
-
 }

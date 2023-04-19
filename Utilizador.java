@@ -7,6 +7,7 @@ public class Utilizador{
     private String nome;
     private String morada;
     private int numFiscal;
+    private Transportadora transportadora;
 
     private List<Artigo> historicoCompras; //Historico de artigos comprados
     private List<Artigo> historicoVendas; //Historico de artigos vendidos
@@ -19,18 +20,20 @@ public class Utilizador{
         this.nome="";
         this.morada="";
         this.numFiscal=0;
+        this.transportadora=null;
         this.historicoCompras= new ArrayList<>();
         this.historicoVendas= new ArrayList<>();
         this.aVenda= new ArrayList<>();
     }
 
     public Utilizador(String codUtilizador,String email,String nome,String morada,
-    int numFiscal,List<Artigo> historicoCompras,List<Artigo> aVenda){
+    int numFiscal,List<Artigo> historicoCompras,List<Artigo> aVenda,Transportadora transportadora){
         this.codUtilizador=codUtilizador;
         this.email=email;
         this.nome=nome;
         this.morada=morada;
         this.numFiscal=numFiscal;
+        this.transportadora=transportadora;
 
         this.historicoCompras= new ArrayList<>();
         for (Artigo artigo:historicoCompras){
@@ -104,6 +107,10 @@ public class Utilizador{
         return new_aVenda;
     }
 
+    public Transportadora getTransportadora() {
+        return this.transportadora.clone();
+    }
+
     //sets
     public void setCodUtilizador(String codUtilizador) {
         this.codUtilizador = codUtilizador;
@@ -146,6 +153,10 @@ public class Utilizador{
         }
     }
 
+    public void setTransportadora(Transportadora transportadora) {
+        this.transportadora = transportadora;
+    }
+
     //clone
     public Utilizador clone(){
         return new Utilizador(this);
@@ -165,7 +176,8 @@ public class Utilizador{
         utilizador.getNumFiscal()==this.numFiscal &&
         utilizador.getHistoricoCompras().equals(this.historicoCompras) &&
         utilizador.getHistoricoVendas().equals(this.historicoVendas) &&
-        utilizador.getaVenda().equals(this.aVenda));
+        utilizador.getaVenda().equals(this.aVenda) &&
+        utilizador.getTransportadora().equals(this.transportadora));
     }
 
     //toString
@@ -177,9 +189,10 @@ public class Utilizador{
         sb.append("Nome: "+this.getNome()+"\n");
         sb.append("Morada: "+this.getMorada()+"\n");
         sb.append("Número Fiscal "+this.getNumFiscal()+"\n");
-        sb.append("Histórico Compras: "+this.getHistoricoCompras().toString());
-        sb.append("Histórico Vendas: "+this.getHistoricoVendas().toString());
-        sb.append("À Venda: "+this.getaVenda().toString());
+        sb.append("Histórico Compras: "+this.getHistoricoCompras().toString()+"\n");
+        sb.append("Histórico Vendas: "+this.getHistoricoVendas().toString()+"\n");
+        sb.append("À Venda: "+this.getaVenda().toString()+"\n");
+        sb.append("Transportadora: "+this.getTransportadora()+"\n");
 
         return sb.toString();
     }

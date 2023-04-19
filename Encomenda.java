@@ -2,10 +2,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+enum DimensaoEmbalagem{
+    pequeno,medio,grande
+}
+
 public class Encomenda{
     
     private List<Artigo> artigos;
-    private int dimensaoEmbalagem; //1 para pequena,2 para media e outro para grande
+    private DimensaoEmbalagem dimensaoEmbalagem; 
     private double taxaGarantia;
     private double custoExpedicao;
     private double precoFinal;
@@ -13,11 +17,14 @@ public class Encomenda{
     private Date dataEntrega;
     private boolean paga;
     private boolean expedida;
+    private Utilizador vendedor;
+    private Utilizador comprador;
+    private Transportadora transportadora;
     
     //Construtores
     public Encomenda() {
         this.artigos = new ArrayList<>();
-        this.dimensaoEmbalagem = 1;
+        this.dimensaoEmbalagem = DimensaoEmbalagem.pequeno;
         this.taxaGarantia = 0;
         this.custoExpedicao = 0;
         this.precoFinal = 0;
@@ -25,10 +32,29 @@ public class Encomenda{
         this.dataEntrega = null;
         this.paga = false;
         this.expedida = false;
+        this.vendedor=null;
+        this.comprador=null;
+        this.transportadora=null;
     }
 
-    public Encomenda(List<Artigo> artigos,int dimensaoEmbalagem,double taxaGarantia,double custoExpedicao,
-    double precoFinal,Date dataCriacao,Date dataEntrega,boolean paga, boolean expedida){
+    private double calcularPrecoFinal() {
+        int quantidadeNovos = 0;
+        int quantidadeUsados = 0;
+        double precototal = 0;
+        for (Artigo artigo : this.artigos) {
+            if (artigo.getArtigo_novo()) {
+                quantidadeNovos++;
+            } else {
+                quantidadeUsados++;
+            }
+            precototal += artigo.getPreco_base();
+        }
+        return ((precototal + (quantidadeNovos * 0.5) + (quantidadeUsados * 0.25)) + this.taxaGarantia + this.custoExpedicao);
+    }
+
+    public Encomenda(List<Artigo> artigos,DimensaoEmbalagem dimensaoEmbalagem,double taxaGarantia,double custoExpedicao,
+    double precoFinal,Date dataCriacao,Date dataEntrega,boolean paga, boolean expedida,Utilizador vendedor,
+    Utilizador comprador){
         this.artigos= new ArrayList<>();
         for (Artigo artigo:artigos){
             this.artigos.add(artigo.clone());
@@ -36,12 +62,23 @@ public class Encomenda{
 
         this.dimensaoEmbalagem=dimensaoEmbalagem;
         this.taxaGarantia=taxaGarantia;
-        this.custoExpedicao=custoExpedicao;
-        this.precoFinal=precoFinal;
+
+        if(dimensaoEmbalagem==DimensaoEmbalagem.pequeno){
+            this.custoExpedicao=vendedor.getTransportadora().getPrecoExpPequena();
+        }else if (dimensaoEmbalagem==DimensaoEmbalagem.medio){
+            this.custoExpedicao=vendedor.getTransportadora().getPrecoExpMedia();
+        }else{
+            this.custoExpedicao=vendedor.getTransportadora().getPrecoExpGrande();
+        }
+
+        this.precoFinal=this.calcularPrecoFinal();
         this.dataCriacao=dataCriacao;
         this.dataEntrega=dataEntrega;
         this.paga=paga;
         this.expedida=expedida;
+        this.vendedor=vendedor;
+        this.comprador=comprador;
+        this.transportadora=vendedor.getTransportadora(); //transportadora é definida por defeito pelo vendedor
     }
 
     public Encomenda(Encomenda umEncomenda){
@@ -54,6 +91,9 @@ public class Encomenda{
         this.dataEntrega=umEncomenda.get_DataEntrega();
         this.paga=umEncomenda.get_Paga();
         this.expedida=umEncomenda.get_Expedida();
+        this.vendedor=umEncomenda.getVendedor();
+        this.comprador=umEncomenda.getComprador();
+        this.transportadora=umEncomenda.getTransportadora();
     }
     
     //gets
@@ -65,7 +105,7 @@ public class Encomenda{
         return new_Artigos;
     }
 
-    public int get_DimensaoEmbalagem() {
+    public DimensaoEmbalagem get_DimensaoEmbalagem() {
         return this.dimensaoEmbalagem;
     }
 
@@ -97,6 +137,18 @@ public class Encomenda{
         return this.expedida;
     }
 
+    public Utilizador getVendedor() {
+        return this.vendedor.clone();
+    }
+
+    public Utilizador getComprador() {
+        return this.comprador.clone();
+    }
+
+    public Transportadora getTransportadora() {
+        return this.transportadora.clone();
+    }
+
     //sets
     public void setArtigos(List<Artigo> artigos) {
         this.artigos=new ArrayList<Artigo>();
@@ -105,7 +157,7 @@ public class Encomenda{
         }
     }
 
-    public void set_DimensaoEmbalagem(int dimensaoEmbalagem) {
+    public void set_DimensaoEmbalagem(DimensaoEmbalagem dimensaoEmbalagem) {
         this.dimensaoEmbalagem = dimensaoEmbalagem;
     }
 
@@ -137,6 +189,18 @@ public class Encomenda{
         this.expedida = expedida;
     }
 
+    public void setVendedor(Utilizador vendedor) {
+        this.vendedor = vendedor;
+    }
+
+    public void setComprador(Utilizador comprador) {
+        this.comprador = comprador;
+    }
+
+    public void setTransportadora(Transportadora transportadora) {
+        this.transportadora = transportadora;
+    }
+
     //clone
     public Encomenda clone(){
         return new Encomenda(this);
@@ -157,7 +221,10 @@ public class Encomenda{
         encomenda.get_DataCriacao().equals(this.dataCriacao) &&
         encomenda.get_DataEntrega().equals(this.dataEntrega) &&
         encomenda.get_Paga()==this.paga &&
-        encomenda.get_Expedida()==this.expedida);
+        encomenda.get_Expedida()==this.expedida &&
+        encomenda.getVendedor().equals(this.vendedor) &&
+        encomenda.getComprador().equals(this.comprador) &&
+        encomenda.getTransportadora().equals(this.transportadora));
     }
 
     //toString
@@ -165,14 +232,12 @@ public class Encomenda{
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("........Encomenda.........\n");
-        if(this.get_DimensaoEmbalagem() == 1){
+        if(this.get_DimensaoEmbalagem() == DimensaoEmbalagem.pequeno){
             sb.append("DimensãoEmbalagem: Pequena\n");
+        }else if(this.get_DimensaoEmbalagem()==DimensaoEmbalagem.medio){
+            sb.append("DimensãoEmbalagem: Média\n");
         }else{
-            if(this.get_DimensaoEmbalagem()==2){
-                sb.append("DimensãoEmbalagem: Média\n");
-            }else{
-                sb.append("DimensãoEmbalagem: Grande\n");
-            }
+            sb.append("DimensãoEmbalagem: Grande\n");
         }
         sb.append("PrecoTotal: "+this.get_PrecoFinal()+"\n");
         sb.append("DataCriaçao: "+this.get_DataCriacao()+"\n");
@@ -195,6 +260,9 @@ public class Encomenda{
                     sb.append("Prazo de Devolução: Fora do Prazo\n");
                 }
             }
+        sb.append("Vendedor: "+this.getVendedor()+"\n");
+        sb.append("Comprador: "+this.getComprador()+"\n");
+        sb.append("Transportadora: "+this.getTransportadora()+"\n");
         return sb.toString();
     }
 
@@ -223,20 +291,5 @@ public class Encomenda{
         } else {
             return false;
         }
-    }
-
-    private void atualizarPrecoFinal() {
-        int quantidadeNovos = 0;
-        int quantidadeUsados = 0;
-        double precototal = 0;
-        for (Artigo artigo : this.artigos) {
-            if (artigo.getArtigo_novo()) {
-                quantidadeNovos++;
-            } else {
-                quantidadeUsados++;
-            }
-            precototal += artigo.getPreco_base();
-        }
-        this.precoFinal = (precototal + (quantidadeNovos * 0.5) + (quantidadeUsados * 0.25)) + this.taxaGarantia + this.custoExpedicao;
     }
 }
