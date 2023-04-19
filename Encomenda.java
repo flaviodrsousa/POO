@@ -25,6 +25,9 @@ public class Encomenda{
     private Utilizador vendedor;
     private Utilizador comprador;
     private Transportadora transportadora;
+    private int numeroEncomenda;
+    static int contador = 0;
+
     
     //Construtores
     public Encomenda() {
@@ -40,6 +43,8 @@ public class Encomenda{
         this.vendedor=null;
         this.comprador=null;
         this.transportadora=null;
+        this.numeroEncomenda=contador;
+        contador++;
     }
 
     private double calcularPrecoFinal() {
@@ -99,6 +104,8 @@ public class Encomenda{
         this.vendedor=vendedor;
         this.comprador=comprador;
         this.transportadora=vendedor.getTransportadora(); //transportadora é definida por defeito pelo vendedor
+        this.numeroEncomenda=contador;
+        contador++;
     }
 
     public Encomenda(Encomenda umEncomenda){
@@ -114,6 +121,7 @@ public class Encomenda{
         this.vendedor=umEncomenda.getVendedor();
         this.comprador=umEncomenda.getComprador();
         this.transportadora=umEncomenda.getTransportadora();
+        this.numeroEncomenda=umEncomenda.getNumeroEncomenda();
     }
     
     //gets
@@ -168,6 +176,12 @@ public class Encomenda{
     public Transportadora getTransportadora() {
         return this.transportadora.clone();
     }
+    public int getNumeroEncomenda() {
+        return this.numeroEncomenda;
+    }
+    public static int getContador() {
+        return Encomenda.contador;
+    }
 
     //sets
     public void setArtigos(List<Artigo> artigos) {
@@ -219,6 +233,12 @@ public class Encomenda{
 
     public void setTransportadora(Transportadora transportadora) {
         this.transportadora = transportadora;
+    }
+    public void setNumeroEncomenda(int numeroEncomenda) {
+        this.numeroEncomenda = numeroEncomenda;
+    }
+    public static void setContador(int contador) {
+        Encomenda.contador = contador;
     }
 
     //clone
