@@ -17,14 +17,15 @@ public class Vintage{
     }
 
     public Vintage(Vintage novo) {
-        this.data_atual=get_DataAtual();
+        this.data_atual=novo.get_DataAtual();
         this.vendas = new HashMap<>();
     }
 
-//gets
+    //gets
     public Date get_DataAtual() {
         return this.data_atual;
     }
+
     public Map<Integer, Encomenda> getVendas() {
         Map<Integer,Encomenda> novo = new HashMap<>();
         for(Map.Entry<Integer,Encomenda> entry: this.vendas.entrySet()){
@@ -33,10 +34,11 @@ public class Vintage{
         return novo;
     }
 
-//sets
+    //sets
     public Date set_DataAtual(Date data) {
         return this.data_atual = data;
     }
+
     public void setVendas(Encomenda novo) {
         this.vendas=new HashMap<>();
         for(Map.Entry<Integer,Encomenda> entry: this.vendas.entrySet()){
@@ -44,17 +46,19 @@ public class Vintage{
         }
     }
 
-//Outras funcoes
+    //Outras funcoes
     private Map<Integer, Encomenda> addVendas(Encomenda encomenda){
         Map<Integer,Encomenda> novo = getVendas();
         novo.put(encomenda.getNumeroEncomenda(),encomenda.clone());
         return novo;
     }
+
     private Map<Integer, Encomenda> removeVendas(Encomenda encomenda){
         Map<Integer,Encomenda> novo = getVendas();
         novo.remove(encomenda.getNumeroEncomenda());
         return novo;  
     }
+
     private String fatura(Encomenda encomenda){
         StringBuilder sb = new StringBuilder();
         sb.append(encomenda.toString());
