@@ -137,7 +137,6 @@ public abstract class Artigo{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("........ARTIGO.........\n");
         sb.append("Codigo de barras: "+this.getCod_barras()+"\n");
         if(this.getArtigo_novo()==false){
             sb.append("Usado/Novo: Usado\n");
