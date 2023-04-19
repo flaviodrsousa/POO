@@ -6,6 +6,10 @@ enum DimensaoEmbalagem{
     pequeno,medio,grande
 }
 
+enum Estado{
+    pendente,paga,expedida,entregue
+}
+
 public class Encomenda{
     
     private List<Artigo> artigos;
@@ -17,6 +21,7 @@ public class Encomenda{
     private Date dataEntrega;
     private boolean paga;
     private boolean expedida;
+    private Estado estado;
     private Utilizador vendedor;
     private Utilizador comprador;
     private Transportadora transportadora;
@@ -50,6 +55,21 @@ public class Encomenda{
             precototal += artigo.getPreco_base();
         }
         return ((precototal + (quantidadeNovos * 0.5) + (quantidadeUsados * 0.25)) + this.taxaGarantia + this.custoExpedicao);
+    }
+    private Estado definirEstado(Vintage data) {
+          if(this.get_Paga() == false && this.get_Expedida() == false){
+            return(this.estado = estado.pendente);
+        }else{
+            if(this.get_Paga() == true && this.get_Expedida() == false){
+                return(this.estado = estado.paga);
+            }else{
+                if(this.get_DataEntrega() == null || (data.get_DataAtual().compareTo(this.get_DataEntrega()) < 0)) {
+                    return(this.estado = estado.expedida);
+                } else {
+                    return(this.estado = estado.entregue);
+                }          
+            }      
+        }
     }
 
     public Encomenda(List<Artigo> artigos,DimensaoEmbalagem dimensaoEmbalagem,double taxaGarantia,double custoExpedicao,
