@@ -1,5 +1,9 @@
+import java.util.Date;
+
 public class Vintage{
-    public static void main(String[] args) {
-        
+    private Date data_atual;
+
+    public Vintage(){
+        this.data_atual=new Date();
     }
 }
