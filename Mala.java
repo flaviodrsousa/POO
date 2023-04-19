@@ -85,8 +85,9 @@ public class Mala extends Artigo{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(super.toString());
+        
         sb.append("........MALA.........\n");
+        sb.append(super.toString());
         Dimensao dim=this.getDimensao();
         if(dim==Dimensao.PEQUENO){
             sb.append("Tamanho: Pequeno"+"\n");

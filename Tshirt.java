@@ -63,8 +63,9 @@ public class Tshirt extends Artigo{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(super.toString());
+        
         sb.append("........T-SHIRT.........\n");
+        sb.append(super.toString());
         
         Tamanho tam=this.getTamanho();
         if(tam==Tamanho.S){

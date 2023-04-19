@@ -91,8 +91,8 @@ public class Sapatilha extends Artigo{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(super.toString());
         sb.append("........SAPATILHA.........\n");
+        sb.append(super.toString());
         sb.append("Tamanho: "+this.getTamanho()+"\n");
         sb.append("Atacadores: " + (this.getAtacadores() ? "Sim" : "Não") + "\n");
         sb.append("Cor: ("+cor.getRed() + "," + cor.getGreen() + "," + cor.getBlue()+")\n");
