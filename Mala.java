@@ -78,7 +78,7 @@ public class Mala extends Artigo{
            return false;
         Mala mal = (Mala) obj;
         return (super.equals(mal) && this.dimensao==mal.getDimensao() && 
-        this.material==mal.getMaterial() && this.data_colecao==mal.getData_colecao() &&
+        this.material.equals(mal.getMaterial()) && this.data_colecao==mal.getData_colecao() &&
         this.premium==mal.getPremium()); 
     }
 
@@ -87,7 +87,6 @@ public class Mala extends Artigo{
         StringBuilder sb = new StringBuilder();
         
         sb.append("........MALA.........\n");
-        sb.append(super.toString());
         Dimensao dim=this.getDimensao();
         if(dim==Dimensao.PEQUENO){
             sb.append("Tamanho: Pequeno"+"\n");

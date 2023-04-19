@@ -3,7 +3,7 @@ public abstract class Artigo{
     private boolean artigo_novo; //true=novo;false=velho;
 
     //....Em caso de ser usado........
-    private String estado; //Valor de 0 a 1 que corresponde a percentagem
+    private String estado; //descricao do quanto usado esta
     private int num_donos;
     //................................
 
@@ -128,9 +128,9 @@ public abstract class Artigo{
         if(obj==null || obj.getClass() != this.getClass()) 
            return false;
         Artigo art = (Artigo) obj;
-        return (this.cod_barras==art.getCod_barras() && this.artigo_novo==art.getArtigo_novo() && 
-        this.estado==art.getEstado() && this.num_donos==art.getNum_donos() && 
-        this.descricao==art.getDescricao() && this.marca==art.getMarca() &&
+        return (this.cod_barras.equals(art.getCod_barras()) && this.artigo_novo==art.getArtigo_novo() && 
+        this.estado.equals(art.getEstado()) && this.num_donos==art.getNum_donos() && 
+        this.descricao.equalsIgnoreCase(art.getDescricao()) && this.marca.equals(art.getMarca()) &&
         this.preco_base==art.getPreco_base() && this.estado_utilizacao==art.getEstado_utilizacao());
     }
 
