@@ -7,23 +7,30 @@ public class Vintage{
     private Date data_atual;
 
     public Vintage(){
+        this.vendas = new HashMap<>();
         this.data_atual=new Date();
-        this.vendas = new HashMap<>();
     }
 
-    public Vintage(Date data) {
-        this.data_atual=data;
+    public Vintage(Date data_atual,Map<Integer,Encomenda> vendas) {
+        this.data_atual=data_atual;
         this.vendas = new HashMap<>();
+        for (Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
+            this.vendas.put(entry.getKey(), entry.getValue().clone());
+        }
     }
 
-    public Vintage(Vintage novo) {
-        this.data_atual=novo.get_DataAtual();
+    public Vintage(Vintage vintage) {
+        this.data_atual=vintage.get_DataAtual();
         this.vendas = new HashMap<>();
+        for (Map.Entry<Integer,Encomenda> entry: vintage.getVendas().entrySet()){
+            this.vendas.put(entry.getKey(), entry.getValue().clone());
+        }
     }
 
     //gets
     public Date get_DataAtual() {
-        return this.data_atual;
+        Date newDate = new Date(this.data_atual.getTime());
+        return newDate;
     }
 
     public Map<Integer, Encomenda> getVendas() {
@@ -36,7 +43,7 @@ public class Vintage{
 
     //sets
     public Date set_DataAtual(Date data) {
-        return this.data_atual = data;
+        return this.data_atual = new Date(data.getTime());
     }
 
     public void setVendas(Encomenda novo) {
@@ -47,16 +54,12 @@ public class Vintage{
     }
 
     //Outras funcoes
-    private Map<Integer, Encomenda> addVendas(Encomenda encomenda){
-        Map<Integer,Encomenda> novo = getVendas();
-        novo.put(encomenda.getNumeroEncomenda(),encomenda.clone());
-        return novo;
+    private void addVendas(Encomenda encomenda){
+        this.vendas.put(encomenda.getNumeroEncomenda(),encomenda.clone());
     }
 
-    private Map<Integer, Encomenda> removeVendas(Encomenda encomenda){
-        Map<Integer,Encomenda> novo = getVendas();
-        novo.remove(encomenda.getNumeroEncomenda());
-        return novo;  
+    private void removeVendas(Encomenda encomenda){
+        this.vendas.remove(encomenda.getNumeroEncomenda());
     }
 
     private String fatura(Encomenda encomenda){

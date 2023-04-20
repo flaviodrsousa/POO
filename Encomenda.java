@@ -11,7 +11,8 @@ enum Estado{
 }
 
 public class Encomenda{
-    
+
+    private int numeroEncomenda;
     private List<Artigo> artigos;
     private DimensaoEmbalagem dimensaoEmbalagem; 
     private double taxaGarantia;
@@ -19,18 +20,16 @@ public class Encomenda{
     private double precoFinal;
     private Date dataCriacao;
     private Date dataEntrega;
-    private boolean paga;
-    private boolean expedida;
     private Estado estado;
     private Utilizador vendedor;
     private Utilizador comprador;
     private Transportadora transportadora;
-    private int numeroEncomenda;
-    static int contador = 0;
 
-    
+    private static int contador = 1;
+
     //Construtores
     public Encomenda() {
+        this.numeroEncomenda=contador++;
         this.artigos = new ArrayList<>();
         this.dimensaoEmbalagem = DimensaoEmbalagem.pequeno;
         this.taxaGarantia = 0;
@@ -38,13 +37,10 @@ public class Encomenda{
         this.precoFinal = 0;
         this.dataCriacao = new Date();
         this.dataEntrega = null;
-        this.paga = false;
-        this.expedida = false;
+        this.estado=null;
         this.vendedor=null;
         this.comprador=null;
         this.transportadora=null;
-        this.numeroEncomenda=contador;
-        contador++;
     }
 
     private double calcularPrecoFinal() {
@@ -54,32 +50,19 @@ public class Encomenda{
         for (Artigo artigo : this.artigos) {
             if (artigo.getArtigo_novo()) {
                 quantidadeNovos++;
-            } else {
+            }else {
                 quantidadeUsados++;
             }
             precototal += artigo.getPreco_base();
         }
         return ((precototal + (quantidadeNovos * 0.5) + (quantidadeUsados * 0.25)) + this.taxaGarantia + this.custoExpedicao);
     }
-    private Estado definirEstado(Vintage data) {
-          if(this.get_Paga() == false && this.get_Expedida() == false){
-            return(this.estado = estado.pendente);
-        }else{
-            if(this.get_Paga() == true && this.get_Expedida() == false){
-                return(this.estado = estado.paga);
-            }else{
-                if(this.get_DataEntrega() == null || (data.get_DataAtual().compareTo(this.get_DataEntrega()) < 0)) {
-                    return(this.estado = estado.expedida);
-                } else {
-                    return(this.estado = estado.entregue);
-                }          
-            }      
-        }
-    }
 
     public Encomenda(List<Artigo> artigos,DimensaoEmbalagem dimensaoEmbalagem,double taxaGarantia,double custoExpedicao,
-    double precoFinal,Date dataCriacao,Date dataEntrega,boolean paga, boolean expedida,Utilizador vendedor,
-    Utilizador comprador){
+    double precoFinal,Date dataCriacao,Date dataEntrega,Date data_atual,Estado estado,
+    Utilizador vendedor,Utilizador comprador){
+        this.numeroEncomenda=contador++;
+
         this.artigos= new ArrayList<>();
         for (Artigo artigo:artigos){
             this.artigos.add(artigo.clone());
@@ -99,16 +82,14 @@ public class Encomenda{
         this.precoFinal=this.calcularPrecoFinal();
         this.dataCriacao=dataCriacao;
         this.dataEntrega=dataEntrega;
-        this.paga=paga;
-        this.expedida=expedida;
+        this.estado=estado;
         this.vendedor=vendedor;
         this.comprador=comprador;
         this.transportadora=vendedor.getTransportadora(); //transportadora é definida por defeito pelo vendedor
-        this.numeroEncomenda=contador;
-        contador++;
     }
 
     public Encomenda(Encomenda umEncomenda){
+        this.numeroEncomenda=umEncomenda.getNumeroEncomenda();
         this.artigos=umEncomenda.getArtigos();
         this.dimensaoEmbalagem=get_DimensaoEmbalagem();
         this.taxaGarantia=umEncomenda.getTaxaGarantia();
@@ -116,15 +97,17 @@ public class Encomenda{
         this.precoFinal=umEncomenda.get_PrecoFinal();
         this.dataCriacao=umEncomenda.get_DataCriacao();
         this.dataEntrega=umEncomenda.get_DataEntrega();
-        this.paga=umEncomenda.get_Paga();
-        this.expedida=umEncomenda.get_Expedida();
+        this.estado=umEncomenda.getEstado();
         this.vendedor=umEncomenda.getVendedor();
         this.comprador=umEncomenda.getComprador();
         this.transportadora=umEncomenda.getTransportadora();
-        this.numeroEncomenda=umEncomenda.getNumeroEncomenda();
     }
     
     //gets
+    public int getNumeroEncomenda() {
+        return this.numeroEncomenda;
+    }
+
     public List<Artigo> getArtigos() {
         List<Artigo> new_Artigos = new ArrayList<>();
         for (Artigo artigo:this.artigos){
@@ -138,11 +121,11 @@ public class Encomenda{
     }
 
     public double getTaxaGarantia() {
-        return taxaGarantia;
+        return this.taxaGarantia;
     }
 
     public double getCustoExpedicao() {
-        return custoExpedicao;
+        return this.custoExpedicao;
     }
 
     public double get_PrecoFinal() {
@@ -150,19 +133,17 @@ public class Encomenda{
     }
 
     public Date get_DataCriacao() {
-        return this.dataCriacao;
+        Date newDate = new Date(this.dataCriacao.getTime());
+        return newDate;
     }
 
     public Date get_DataEntrega() {
-        return this.dataEntrega;
+        Date newDate = new Date(this.dataEntrega.getTime());
+        return newDate;
     }
 
-    public boolean get_Paga() {
-        return this.paga;
-    }
-
-    public boolean get_Expedida() {
-        return this.expedida;
+    public Estado getEstado() {
+        return this.estado;
     }
 
     public Utilizador getVendedor() {
@@ -176,14 +157,12 @@ public class Encomenda{
     public Transportadora getTransportadora() {
         return this.transportadora.clone();
     }
-    public int getNumeroEncomenda() {
-        return this.numeroEncomenda;
-    }
-    public static int getContador() {
-        return Encomenda.contador;
-    }
 
     //sets
+    public void setNumeroEncomenda(int numeroEncomenda) {
+        this.numeroEncomenda = numeroEncomenda;
+    }
+
     public void setArtigos(List<Artigo> artigos) {
         this.artigos=new ArrayList<Artigo>();
         for(Artigo artigo:artigos){
@@ -214,13 +193,9 @@ public class Encomenda{
     public void set_DataEntrega(Date dataEntrega) {
         this.dataEntrega = dataEntrega;
     }
-    
-    public void set_paga(boolean paga) {
-        this.paga = paga;
-    }
 
-    public void set_expedida(boolean expedida) {
-        this.expedida = expedida;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     public void setVendedor(Utilizador vendedor) {
@@ -233,12 +208,6 @@ public class Encomenda{
 
     public void setTransportadora(Transportadora transportadora) {
         this.transportadora = transportadora;
-    }
-    public void setNumeroEncomenda(int numeroEncomenda) {
-        this.numeroEncomenda = numeroEncomenda;
-    }
-    public static void setContador(int contador) {
-        Encomenda.contador = contador;
     }
 
     //clone
@@ -253,15 +222,15 @@ public class Encomenda{
         if ((o==null) || (this.getClass() != o.getClass())) 
             return false;
         Encomenda encomenda = (Encomenda) o;
-        return (encomenda.getArtigos().equals(this.artigos) &&
+        return (encomenda.getNumeroEncomenda()==this.numeroEncomenda &&
+        encomenda.getArtigos().equals(this.artigos) &&
         encomenda.get_DimensaoEmbalagem()==this.dimensaoEmbalagem &&
         encomenda.getTaxaGarantia()==this.getTaxaGarantia() &&
         encomenda.getCustoExpedicao()==this.custoExpedicao &&
         encomenda.get_PrecoFinal()==this.precoFinal &&
         encomenda.get_DataCriacao().equals(this.dataCriacao) &&
         encomenda.get_DataEntrega().equals(this.dataEntrega) &&
-        encomenda.get_Paga()==this.paga &&
-        encomenda.get_Expedida()==this.expedida &&
+        encomenda.getEstado()==this.estado &&
         encomenda.getVendedor().equals(this.vendedor) &&
         encomenda.getComprador().equals(this.comprador) &&
         encomenda.getTransportadora().equals(this.transportadora));
@@ -272,6 +241,7 @@ public class Encomenda{
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("........Encomenda.........\n");
+        sb.append("Numero de Encomenda: "+this.getNumeroEncomenda()+'\n');
         for (Artigo artigo:artigos){
             sb.append(artigo.toString());
         }
@@ -285,53 +255,39 @@ public class Encomenda{
         sb.append("Vendedor: "+this.getVendedor()+"\n");
         sb.append("Comprador: "+this.getComprador()+"\n");
         sb.append("Transportadora: "+this.getTransportadora()+"\n");
-        if(this.get_Paga() == false && this.get_Expedida() == false){
-            sb.append("Estado: Pendente\n");
-        }else{
-            if(this.get_Paga() == true && this.get_Expedida() == false){
-                sb.append("Estado: Paga\n");
-            }else{
-                sb.append("Estado: Expedida\n");
-            }
-        }
         sb.append("DataCriação: "+this.get_DataCriacao()+"\n");
         sb.append("DataEntrega: "+this.get_DataEntrega()+"\n");
-        if(this.get_Expedida() == false) {
-            sb.append("Prazo de Devolução: Encomenda ainda não foi enviada\n");
+        sb.append("Estado: "+this.getEstado()+'\n');
+        if(this.getEstado() == Estado.entregue) {
+            if(isDentroDoPrazoDevolucao()){
+                sb.append("Prazo de Devolução: No prazo\n");
             }else{
-                if(isDentroDoPrazoDevolucao()){
-                    sb.append("Prazo de Devolução: No prazo\n");
-                }else{
-                    sb.append("Prazo de Devolução: Fora do Prazo\n");
-                }
+                sb.append("Prazo de Devolução: Prazo de devolução já expirou\n");
             }
+        }
         sb.append("PrecoTotal: "+this.get_PrecoFinal()+"\n");
         return sb.toString();
     }
 
-    //métodos adicionais
-    public void pagar() {
-        this.paga = true;
-    }
-    
-    public void expedir() {
-        this.expedida = true;
-    }
-    
+    //métodos adicionais    
     public void entregar() {
         this.dataEntrega = new Date();
     }
-    
-    public boolean foi_Entregue() {
-        return this.dataEntrega != null;
+
+    public Estado atualizarEstado(Date data) { //recebe a data atual do sistema e atualiza se
+        if(data.compareTo(this.get_DataEntrega()) > 0) {
+            return(this.estado = Estado.entregue);
+        }else{
+            return(this.estado);
+        }              
     }
     
     public boolean isDentroDoPrazoDevolucao() {
-        if (this.dataEntrega != null) {
+        if (this.getEstado()==Estado.entregue) {
             long diferencaMilissegundos = this.dataEntrega.getTime() - this.dataCriacao.getTime();
             long diferencaHoras = diferencaMilissegundos / (60 * 60 * 1000);
             return diferencaHoras < 48;
-        } else {
+        }else {
             return false;
         }
     }
