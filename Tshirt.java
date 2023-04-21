@@ -1,11 +1,12 @@
-enum Tamanho{
-    S,M,L,XL
-}
-enum Padrao{
-    LISO,RICAS,PALMEIRAS
-}
-
 public class Tshirt extends Artigo{
+    public enum Tamanho{
+        S,M,L,XL
+    }
+
+    public enum Padrao{
+        LISO,RICAS,PALMEIRAS
+    }
+
     private Tamanho tamanho;
     private Padrao padrao;
 
@@ -14,6 +15,7 @@ public class Tshirt extends Artigo{
         this.tamanho=Tamanho.S;
         this.padrao=Padrao.LISO;
     }
+
     public Tshirt(String cod_barras, boolean artigo_novo, String estado, int num_donos,
     String descricao, String marca,double preco_base,double estado_utilizacao,
     Tamanho tamanho,Padrao padrao){
@@ -32,6 +34,7 @@ public class Tshirt extends Artigo{
     public Tamanho getTamanho(){
         return this.tamanho;
     }
+
     public Padrao getPadrao(){
         return this.padrao;
     }
@@ -40,6 +43,7 @@ public class Tshirt extends Artigo{
     public void setTamanho(Tamanho tamanho){
         this.tamanho = tamanho;
     }
+
     public void setPadrao(Padrao padrao){
         this.padrao = padrao;
     }
@@ -94,6 +98,7 @@ public class Tshirt extends Artigo{
         if(this.getArtigo_novo()) return 0;
         return this.getPreco_base()*0.5; 
     }
+    
     public double preco_final(){
         return this.getPreco_base()-this.getDesconto();
     }

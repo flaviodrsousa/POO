@@ -41,15 +41,19 @@ public class Sapatilha extends Artigo{
     public int getTamanho(){
         return this.tamanho;
     }
+
     public boolean getAtacadores(){
         return this.atacadores;
     }
+
     public Color getCor(){
         return this.cor;
     }
+
     public LocalDate getData_lancamento(){
         return this.data_lancamento;
     }
+    
     public boolean getPremium(){
         return this.premium;
     }
@@ -58,15 +62,19 @@ public class Sapatilha extends Artigo{
     public void setTamanho(int tamanho){
         this.tamanho = tamanho;
     }
+
     public void setAtacadores(boolean atacadores){
         this.atacadores=atacadores;
     }
+
     public void setCor(Color cor){
         this.cor = cor;
     }
+
     public void setData_lancamento(LocalDate data_lancamento) {
         this.data_lancamento = data_lancamento;
     }
+
     public void serPremium(boolean premium){
         this.premium=premium;
     }

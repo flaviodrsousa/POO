@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Vintage{
-    private Map<Integer,Encomenda> vendas;
+    private Map<Integer,Encomenda> vendas; //map das diversas encomendas vendidas (chave é numeroEncomenda).
     private Date data_atual;
 
     public Vintage(){
@@ -53,7 +53,7 @@ public class Vintage{
         }
     }
 
-    //Outras funcoes
+    //Outros métodos
     private void addVendas(Encomenda encomenda){
         this.vendas.put(encomenda.getNumeroEncomenda(),encomenda.clone());
     }
@@ -67,7 +67,4 @@ public class Vintage{
         sb.append(encomenda.toString());
         return sb.toString();
     }
-
-
-
 }

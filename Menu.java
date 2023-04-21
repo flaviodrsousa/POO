@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public class Main {
+public class Menu {
     public static void main(String[] args) {
         Vintage vintage = new Vintage();
         Date date= vintage.get_DataAtual();

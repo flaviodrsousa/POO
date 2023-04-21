@@ -56,35 +56,43 @@ public abstract class Artigo{
         this.preco_final=this.preco_final();
     }
 
-
     //gets
     public String getCod_barras() {
         return this.cod_barras;
     }
+
     public boolean getArtigo_novo(){
         return this.artigo_novo;
     }
+
     public String getEstado(){
         return this.estado;
     }
+
     public int getNum_donos(){
         return this.num_donos;
     }
+
     public String getDescricao(){
         return this.descricao;
     }
+
     public String getMarca(){
         return this.marca;
     }
+
     public double getPreco_base(){
         return this.preco_base;
     }
+
     public double getEstado_utilizacao(){
         return estado_utilizacao;
     }
+
     public double getDesconto(){
         return this.desconto;
     }
+
     public double getPreco_final(){
         return preco_final;
     }
@@ -93,30 +101,39 @@ public abstract class Artigo{
     public void setCod_barras(String cod_barras){
         this.cod_barras = cod_barras;
     }
+
     public void setArtigo_novo(boolean artigo_novo){
         this.artigo_novo = artigo_novo;
     }
+
     public void setEstado(String estado){
         this.estado = estado;
     }
+
     public void setNum_donos(int num_donos){
         this.num_donos = num_donos;
     }
+
     public void setDescricao(String descricao){
         this.descricao = descricao;
     }
+
     public void setMarca(String marca){
         this.marca = marca;
     }
+
     public void setPreco_base(double preco_base){
         this.preco_base = preco_base;
     }
+
     public void setEstado_utilizacao(double estado_utilizacao){
         this.estado_utilizacao = estado_utilizacao;
     }
+
     public void setDesconto(double desconto){
         this.desconto = desconto;
     }
+    
     public void setPreco_final(double preco_final){
         this.preco_final=preco_final;
     }

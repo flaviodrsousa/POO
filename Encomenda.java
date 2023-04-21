@@ -2,15 +2,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-enum DimensaoEmbalagem{
-    pequeno,medio,grande
-}
-
-enum Estado{
-    pendente,paga,expedida,entregue
-}
-
 public class Encomenda{
+    public enum DimensaoEmbalagem{
+        pequeno,medio,grande
+    }
+    
+    public enum Estado{
+        pendente,paga,expedida,entregue
+    }
 
     private int numeroEncomenda;
     private List<Artigo> artigos;

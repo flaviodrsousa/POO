@@ -16,10 +16,7 @@ public class MainEma{
 
         Tshirt art6 = new Tshirt("12345", true, "novo",
         1, "Sapatilha de corrida", "Nike", 100.0,
-        0.9,Tamanho.L,Padrao.LISO);
+        0.9,Tshirt.Tamanho.L,Tshirt.Padrao.LISO);
         System.out.println(art6);
-
-
     }
-    
 }
