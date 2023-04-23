@@ -202,11 +202,11 @@ public class Encomenda{
     }
 
     public void set_DataCriacao(Date dataCriacao) {
-        this.dataCriacao = dataCriacao;
+        this.dataCriacao = new Date(dataCriacao.getTime());
     }
 
     public void set_DataEntrega(Date dataEntrega) {
-        this.dataEntrega = dataEntrega;
+        this.dataEntrega = new Date(dataEntrega.getTime());
     }
 
     public void setEstado(Estado estado) {

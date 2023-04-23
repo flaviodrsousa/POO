@@ -98,6 +98,7 @@ public class Vintage{
         Encomenda encomenda = new Encomenda(listArtigos,Encomenda.DimensaoEmbalagem.pequeno,5,10,
         "05-07-2002","10-07-2002",Encomenda.Estado.entregue,utilizador1,utilizador2);
 
+        this.vendas = new HashMap<>();
         this.vendas.put(encomenda.getNumeroEncomenda(), encomenda.clone());
     }
 

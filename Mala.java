@@ -1,5 +1,7 @@
-import java.time.LocalDate;
-import java.time.Period;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 enum Dimensao{
     PEQUENO,MEDIO,GRANDE
@@ -8,14 +10,16 @@ enum Dimensao{
 public class Mala extends Artigo{
     private Dimensao dimensao;
     private String material;
-    private LocalDate data_colecao;
+    private Date data_colecao;
     private boolean premium;
+
+    private static DateFormat dataFormato = new SimpleDateFormat("dd-MM-yyyy");
 
     public Mala(){
         super();
         this.dimensao=Dimensao.PEQUENO;
         this.material="";
-        this.data_colecao=LocalDate.now();
+        this.data_colecao=new Date();
         this.premium=false;
     }
 
@@ -25,7 +29,11 @@ public class Mala extends Artigo{
         super(cod_barras,artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao);
         this.dimensao=dimensao;
         this.material=material;
-        this.data_colecao=LocalDate.parse(data_colecao);
+        try {
+            this.data_colecao=dataFormato.parse(data_colecao);
+        } catch (ParseException exception) {
+            System.out.println("Data no formato errado");
+        }
         this.premium=premium;
     }
 
@@ -41,12 +49,16 @@ public class Mala extends Artigo{
     public Dimensao getDimensao(){
         return this.dimensao;
     }
+
     public String getMaterial(){
         return this.material;
     }
-    public LocalDate getData_colecao(){
-        return this.data_colecao;
+
+    public Date getData_colecao(){
+        Date new_Date = new Date(this.data_colecao.getTime());
+        return new_Date;
     }
+
     public boolean getPremium(){
         return this.premium;
     }
@@ -55,12 +67,15 @@ public class Mala extends Artigo{
     public void setDimensao(Dimensao dimensao){
         this.dimensao = dimensao;
     }
+
     public void setMaterial(String material){
         this.material = material;
     }
-    public void setData_colecao(LocalDate data_colecao){
-        this.data_colecao = data_colecao;
+
+    public void setData_colecao(Date data_colecao){
+        this.data_colecao = new Date(data_colecao.getTime());
     }
+    
     public void setPremium(boolean premium){
         this.premium=premium;
     }
@@ -105,9 +120,10 @@ public class Mala extends Artigo{
 
     public double desconto(){
         if(this.getPremium()){
-            Period periodo = Period.between(LocalDate.now(),this.getData_colecao());
-            int diferencaAnos = periodo.getYears();
-            return this.getPreco_base()*0.1*diferencaAnos;
+            Date dataAtual = new Date();
+            long diffInMilliseconds = Math.abs(dataAtual.getTime() - this.getData_colecao().getTime());
+            long diffInYears = diffInMilliseconds / (1000 * 60 * 60 * 24 * 365);
+            return this.getPreco_base()*0.1*diffInYears;
         }else{
             Dimensao dim=this.getDimensao();
             if(dim==Dimensao.PEQUENO){

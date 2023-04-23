@@ -36,20 +36,26 @@ public class Utilizador{
         this.numFiscal=numFiscal;
         this.transportadora=transportadora;
 
-        this.historicoCompras= new ArrayList<>();
-        for (Artigo artigo:historicoCompras){
-            this.historicoCompras.add(artigo.clone());
-        }
+        if (historicoCompras!=null){
+            this.historicoCompras= new ArrayList<>();
+            for (Artigo artigo:historicoCompras){
+                this.historicoCompras.add(artigo.clone());
+            }    
+        }else this.historicoCompras=new ArrayList<>();
 
-        this.historicoVendas= new ArrayList<>();
-        for (Artigo artigo:historicoVendas){
-            this.historicoVendas.add(artigo.clone());
-        }
+        if (historicoVendas!=null){
+            this.historicoVendas= new ArrayList<>();
+            for (Artigo artigo:historicoVendas){
+                this.historicoVendas.add(artigo.clone());
+            }
+        }else this.historicoVendas=new ArrayList<>();
 
-        this.aVenda= new ArrayList<>();
-        for (Artigo artigo:aVenda){
-            this.aVenda.add(artigo.clone());
-        }
+        if (aVenda!=null){
+            this.aVenda= new ArrayList<>();
+            for (Artigo artigo:aVenda){
+                this.aVenda.add(artigo.clone());
+            }
+        }else this.aVenda=new ArrayList<>();
     }
 
     public Utilizador(Utilizador umUtilizador){
