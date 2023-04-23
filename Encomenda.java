@@ -1,3 +1,6 @@
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +17,7 @@ public class Encomenda{
     private int numeroEncomenda;
     private List<Artigo> artigos;
     private DimensaoEmbalagem dimensaoEmbalagem; 
-    private double taxaGarantia;
+    private double taxaGarantia; //preco pago no inicio, como uma garantia ao vendedor
     private double custoExpedicao;
     private double precoFinal;
     private Date dataCriacao;
@@ -24,7 +27,9 @@ public class Encomenda{
     private Utilizador comprador;
     private Transportadora transportadora;
 
+    private static DateFormat dataFormato = new SimpleDateFormat("dd-MM-yyyy");
     private static int contador = 1;
+
 
     //Construtores
     public Encomenda() {
@@ -57,8 +62,8 @@ public class Encomenda{
         return ((precototal + (quantidadeNovos * 0.5) + (quantidadeUsados * 0.25)) + this.taxaGarantia + this.custoExpedicao);
     }
 
-    public Encomenda(List<Artigo> artigos,DimensaoEmbalagem dimensaoEmbalagem,double taxaGarantia,double custoExpedicao,
-    double precoFinal,Date dataCriacao,Date dataEntrega,Date data_atual,Estado estado,
+    public Encomenda(List<Artigo> artigos,DimensaoEmbalagem dimensaoEmbalagem,double taxaGarantia,
+    double custoExpedicao,String dataCriacao,String dataEntrega,Estado estado,
     Utilizador vendedor,Utilizador comprador){
         this.numeroEncomenda=contador++;
 
@@ -79,8 +84,19 @@ public class Encomenda{
         }
 
         this.precoFinal=this.calcularPrecoFinal();
-        this.dataCriacao=dataCriacao;
-        this.dataEntrega=dataEntrega;
+
+        try {
+            this.dataCriacao= dataFormato.parse(dataCriacao);
+        }catch (ParseException e) {
+            System.out.println("Data no formato errado");
+        }
+
+        try {
+            this.dataEntrega= dataFormato.parse(dataEntrega);
+        }catch (ParseException e) {
+            System.out.println("Data no formato errado");
+        }
+        
         this.estado=estado;
         this.vendedor=vendedor;
         this.comprador=comprador;

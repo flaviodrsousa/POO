@@ -17,6 +17,7 @@ public class Sapatilha extends Artigo{
         this.data_lancamento= LocalDate.now();
         this.premium=false;
     }
+    
     public Sapatilha(String cod_barras, boolean artigo_novo, String estado, int num_donos,
     String descricao, String marca,double preco_base,double estado_utilizacao,int tamanho,boolean atacadores,Color cor,
     boolean premium,String data_colecao){

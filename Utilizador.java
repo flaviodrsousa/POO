@@ -27,7 +27,8 @@ public class Utilizador{
     }
 
     public Utilizador(String codUtilizador,String email,String nome,String morada,
-    int numFiscal,List<Artigo> historicoCompras,List<Artigo> aVenda,Transportadora transportadora){
+    int numFiscal,List<Artigo> historicoCompras,List<Artigo> historicoVendas,
+    List<Artigo> aVenda,Transportadora transportadora){
         this.codUtilizador=codUtilizador;
         this.email=email;
         this.nome=nome;
