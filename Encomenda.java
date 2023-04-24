@@ -1,6 +1,3 @@
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +24,6 @@ public class Encomenda{
     private Utilizador comprador;
     private Transportadora transportadora;
 
-    private static DateFormat dataFormato = new SimpleDateFormat("dd-MM-yyyy");
     private static int contador = 1;
 
 
@@ -85,18 +81,8 @@ public class Encomenda{
 
         this.precoFinal=this.calcularPrecoFinal();
 
-        try {
-            this.dataCriacao= dataFormato.parse(dataCriacao);
-        }catch (ParseException e) {
-            System.out.println("Data no formato errado");
-        }
-
-        try {
-            this.dataEntrega= dataFormato.parse(dataEntrega);
-        }catch (ParseException e) {
-            System.out.println("Data no formato errado");
-        }
-        
+        this.dataCriacao=Data.StringtoDate(dataCriacao);
+        this.dataEntrega=Data.StringtoDate(dataEntrega);
         this.estado=estado;
         this.vendedor=vendedor;
         this.comprador=comprador;
@@ -267,9 +253,9 @@ public class Encomenda{
         }else{
             sb.append("DimensãoEmbalagem: Grande\n");
         }
-        sb.append("Vendedor: "+this.getVendedor()+"\n");
-        sb.append("Comprador: "+this.getComprador()+"\n");
-        sb.append("Transportadora: "+this.getTransportadora()+"\n");
+        sb.append("Vendedor: "+this.getVendedor().toString()+"\n");
+        sb.append("Comprador: "+this.getComprador().toString()+"\n");
+        sb.append("Transportadora: "+this.getTransportadora().toString()+"\n");
         sb.append("DataCriação: "+this.get_DataCriacao()+"\n");
         sb.append("DataEntrega: "+this.get_DataEntrega()+"\n");
         sb.append("Estado: "+this.getEstado()+'\n');

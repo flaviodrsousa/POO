@@ -10,16 +10,40 @@ public class Vintage{
     private Date data_atual;
 
     //Construtores
+    private void estadoInicial_Vintage(){
+        this.data_atual = new Date();
+
+        Artigo artigo1 = new Sapatilha("sap1a",true,"novo",1,"sapatilha vermelha num 45",
+        "Nike",50.5,1,45,true,Color.RED,false,"10-05-2000");
+        
+        List<Artigo> listArtigos = new ArrayList<>();
+        listArtigos.add(artigo1);
+
+        Transportadora transportadora = new Transportadora("Fedex",10,20,50);
+
+        Utilizador utilizador1 = new Utilizador("u0001","u0001@gmail.com","Henrique Malheiro","Rua Braga Parque",
+        1000,listArtigos,null,null,transportadora);
+        Utilizador utilizador2 = new Utilizador("u0002","u0002@gmail.com","Carolina Melo","Rua de Baixo",
+        1005,null,listArtigos,null,transportadora);
+
+        Encomenda encomenda = new Encomenda(listArtigos,Encomenda.DimensaoEmbalagem.pequeno,5,10,
+        "05-07-2002","10-07-2002",Encomenda.Estado.entregue,utilizador1,utilizador2);
+
+        this.vendas = new HashMap<>();
+        this.addVendas(encomenda);
+    }
+
     public Vintage(){
         this.estadoInicial_Vintage();
     }
 
-    public Vintage(Date data_atual,Map<Integer,Encomenda> vendas) {
+    public Vintage(String data_atual,Map<Integer,Encomenda> vendas) {
+        this.data_atual=Data.StringtoDate(data_atual);
+
         this.vendas = new HashMap<>();
         for (Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
             this.vendas.put(entry.getKey(), entry.getValue().clone());
         }
-        this.data_atual=data_atual;
     }
 
     public Vintage(Vintage vintage) {
@@ -42,13 +66,22 @@ public class Vintage{
     }
 
     //sets
-    public Date set_DataAtual(Date data) {
-        return this.data_atual = new Date(data.getTime());
+    public void set_DataAtual(Date data) {
+        this.data_atual = new Date(data.getTime());
+        this.entregaEncomenda(); //posso fazer isto?
     }
 
-    public void setVendas(Encomenda novo) {
+    private void entregaEncomenda(){
+        for (Map.Entry<Integer,Encomenda> entry: this.vendas.entrySet()){
+            if (this.data_atual.compareTo(entry.getValue().get_DataEntrega())>0){
+                entry.getValue().setEstado(Encomenda.Estado.entregue);
+            }
+        }
+    }
+
+    public void setVendas(Map<Integer,Encomenda> vendas) {
         this.vendas=new HashMap<>();
-        for(Map.Entry<Integer,Encomenda> entry: this.vendas.entrySet()){
+        for(Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
             this.vendas.put(entry.getKey(),entry.getValue().clone());
         }
     }
@@ -79,29 +112,6 @@ public class Vintage{
     }
 
     //Outros métodos
-    private void estadoInicial_Vintage(){
-        this.data_atual = new Date();
-
-        Artigo artigo1 = new Sapatilha("sap1a",true,"novo",1,"sapatilha vermelha num 45",
-        "Nike",50.5,1,45,true,Color.RED,false,"10-05-2000");
-        
-        List<Artigo> listArtigos = new ArrayList<>();
-        listArtigos.add(artigo1);
-
-        Transportadora transportadora = new Transportadora("Fedex",10,20,50);
-
-        Utilizador utilizador1 = new Utilizador("u0001","u0001@gmail.com","Henrique Malheiro","Rua Braga Parque",
-        1000,listArtigos,null,null,transportadora);
-        Utilizador utilizador2 = new Utilizador("u0002","u0002@gmail.com","Carolina Melo","Rua de Baixo",
-        1005,null,listArtigos,null,transportadora);
-
-        Encomenda encomenda = new Encomenda(listArtigos,Encomenda.DimensaoEmbalagem.pequeno,5,10,
-        "05-07-2002","10-07-2002",Encomenda.Estado.entregue,utilizador1,utilizador2);
-
-        this.vendas = new HashMap<>();
-        this.vendas.put(encomenda.getNumeroEncomenda(), encomenda.clone());
-    }
-
     public void addVendas(Encomenda encomenda){
         this.vendas.put(encomenda.getNumeroEncomenda(),encomenda.clone());
     }
@@ -114,5 +124,24 @@ public class Vintage{
         StringBuilder sb = new StringBuilder();
         sb.append(encomenda.toString());
         return sb.toString();
+    }
+
+    //Q3
+    public void encomendasVendedor(Utilizador utilizador){
+        for(Map.Entry<Integer,Encomenda> entry: this.vendas.entrySet()){
+            if (entry.getValue().getVendedor().equals(utilizador)){
+                System.out.println(entry.getValue().toString());
+            }
+        }
+    }
+
+    //Q5
+    public double ganhosVintage(){
+        int ganhosTotais=0;
+        for(Map.Entry<Integer,Encomenda> entry: this.vendas.entrySet()){
+            ganhosTotais+=entry.getValue().get_PrecoFinal();
+        }
+
+        return ganhosTotais;
     }
 }

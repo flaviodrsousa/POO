@@ -1,6 +1,3 @@
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 enum Dimensao{
@@ -12,8 +9,6 @@ public class Mala extends Artigo{
     private String material;
     private Date data_colecao;
     private boolean premium;
-
-    private static DateFormat dataFormato = new SimpleDateFormat("dd-MM-yyyy");
 
     public Mala(){
         super();
@@ -29,11 +24,7 @@ public class Mala extends Artigo{
         super(cod_barras,artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao);
         this.dimensao=dimensao;
         this.material=material;
-        try {
-            this.data_colecao=dataFormato.parse(data_colecao);
-        } catch (ParseException exception) {
-            System.out.println("Data no formato errado");
-        }
+        this.data_colecao=Data.StringtoDate(data_colecao);
         this.premium=premium;
     }
 

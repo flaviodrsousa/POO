@@ -20,7 +20,7 @@ public class Utilizador{
         this.nome="";
         this.morada="";
         this.numFiscal=0;
-        this.transportadora=null;
+        this.transportadora=new Transportadora();
         this.historicoCompras= new ArrayList<>();
         this.historicoVendas= new ArrayList<>();
         this.aVenda= new ArrayList<>();
@@ -34,7 +34,7 @@ public class Utilizador{
         this.nome=nome;
         this.morada=morada;
         this.numFiscal=numFiscal;
-        this.transportadora=transportadora;
+        this.transportadora=transportadora.clone();
 
         if (historicoCompras!=null){
             this.historicoCompras= new ArrayList<>();
@@ -67,6 +67,7 @@ public class Utilizador{
         this.historicoCompras=umUtilizador.getHistoricoCompras();
         this.historicoVendas=umUtilizador.getHistoricoVendas();
         this.aVenda=umUtilizador.getaVenda();
+        this.transportadora=umUtilizador.getTransportadora();
     }
 
     //gets
@@ -161,7 +162,7 @@ public class Utilizador{
     }
 
     public void setTransportadora(Transportadora transportadora) {
-        this.transportadora = transportadora;
+        this.transportadora = transportadora.clone();
     }
 
     //clone

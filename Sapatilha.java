@@ -1,8 +1,5 @@
 import java.util.Date;
 import java.awt.Color;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 public class Sapatilha extends Artigo{
     private int tamanho;
@@ -10,8 +7,6 @@ public class Sapatilha extends Artigo{
     private Color cor;//Usar tuplo para RGB
     private Date data_lancamento; //Passada como argumento em String "dd-MM-yyyy"
     private boolean premium;
-
-    private static DateFormat dataFormato = new SimpleDateFormat("dd-MM-yyyy");
 
     public Sapatilha(){
         super();
@@ -29,11 +24,7 @@ public class Sapatilha extends Artigo{
         this.tamanho=tamanho;
         this.atacadores=atacadores;
         this.cor=cor;
-        try {
-            this.data_lancamento=dataFormato.parse(data_colecao);
-        } catch (ParseException exception) {
-            System.out.println("Data no formato errado");
-        }
+        this.data_lancamento=Data.StringtoDate(data_colecao);
         this.premium=premium;
     }
 
