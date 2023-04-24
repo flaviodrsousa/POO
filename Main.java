@@ -22,11 +22,11 @@ public class Main {
         vintage.encomendasVendedor(utilizador1);
         vintage.encomendasVendedor(utilizador2);
 
-/*         Controlador_Menu_Vintage controlador_Menu_Vintage = new Controlador_Menu_Vintage(vintage);
+        Controlador_Menu_Vintage controlador_Menu_Vintage = new Controlador_Menu_Vintage(vintage);
 
         Menu menu = new Menu(controlador_Menu_Vintage);
 
-        System.out.println(menu.getMenu()); */
+        System.out.println(menu.getMenu());
         //Ciclo com scanners, passam isto para o vintage que vai chamar as respetivas queries com os argumentos do scanner.
     }
 }
