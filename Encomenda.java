@@ -253,9 +253,9 @@ public class Encomenda{
         }else{
             sb.append("DimensãoEmbalagem: Grande\n");
         }
-        sb.append("Vendedor: "+this.getVendedor().toString()+"\n");
-        sb.append("Comprador: "+this.getComprador().toString()+"\n");
-        sb.append("Transportadora: "+this.getTransportadora().toString()+"\n");
+        sb.append("Vendedor: \n"+this.getVendedor().toString()+"\n");
+        sb.append("Comprador: \n"+this.getComprador().toString()+"\n");
+        sb.append("Transportadora utilizada: \n"+this.getTransportadora().toString()+"\n");
         sb.append("DataCriação: "+this.get_DataCriacao()+"\n");
         sb.append("DataEntrega: "+this.get_DataEntrega()+"\n");
         sb.append("Estado: "+this.getEstado()+'\n');

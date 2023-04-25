@@ -60,7 +60,7 @@ public class Utilizador{
 
     public Utilizador(Utilizador umUtilizador){
         this.codUtilizador=umUtilizador.getCodUtilizador();
-        this.email=umUtilizador.getCodUtilizador();
+        this.email=umUtilizador.getEmail();
         this.nome=umUtilizador.getNome();
         this.morada=umUtilizador.getMorada();
         this.numFiscal=umUtilizador.getNumFiscal();
@@ -200,7 +200,7 @@ public class Utilizador{
         sb.append("Histórico Compras: "+this.getHistoricoCompras().toString()+"\n");
         sb.append("Histórico Vendas: "+this.getHistoricoVendas().toString()+"\n");
         sb.append("À Venda: "+this.getaVenda().toString()+"\n");
-        sb.append("Transportadora: "+this.getTransportadora()+"\n");
+        sb.append(this.getTransportadora()+"\n");
 
         return sb.toString();
     }

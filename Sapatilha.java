@@ -93,8 +93,8 @@ public class Sapatilha extends Artigo{
            return false;
         Sapatilha sap = (Sapatilha) obj;
         return (super.equals(sap) && this.tamanho==sap.getTamanho() && 
-        this.atacadores==sap.getAtacadores() && this.cor==sap.getCor() && 
-        this.data_lancamento==sap.getData_lancamento() && this.premium==sap.getPremium() ); 
+        this.atacadores==sap.getAtacadores() && this.cor.equals(sap.getCor()) && 
+        this.data_lancamento.equals(sap.getData_lancamento()) && this.premium==sap.getPremium() ); 
     }
 
     @Override
