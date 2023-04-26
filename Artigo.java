@@ -1,12 +1,8 @@
 public abstract class Artigo{
     private String cod_barras;
     private boolean artigo_novo; //true=novo;false=velho;
-
-    //....Em caso de ser usado........
     private String estado; //descricao do quanto usado esta
     private int num_donos;
-    //................................
-
     private String descricao;
     private String marca;
     private double preco_base;

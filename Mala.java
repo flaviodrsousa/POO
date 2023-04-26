@@ -1,10 +1,10 @@
 import java.util.Date;
 
-enum Dimensao{
-    PEQUENO,MEDIO,GRANDE
-}
-
 public class Mala extends Artigo{
+    enum Dimensao{
+        PEQUENO,MEDIO,GRANDE
+    }
+
     private Dimensao dimensao;
     private String material;
     private Date data_colecao;
@@ -84,7 +84,7 @@ public class Mala extends Artigo{
            return false;
         Mala mal = (Mala) obj;
         return (super.equals(mal) && this.dimensao==mal.getDimensao() && 
-        this.material.equals(mal.getMaterial()) && this.data_colecao==mal.getData_colecao() &&
+        this.material.equals(mal.getMaterial()) && this.data_colecao.equals(mal.getData_colecao()) &&
         this.premium==mal.getPremium()); 
     }
 

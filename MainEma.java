@@ -11,7 +11,7 @@ public class MainEma{
 
         Mala art5 = new Mala("12345", true, "novo",
         1, "Sapatilha de corrida", "Nike", 100.0,
-        0.9,Dimensao.PEQUENO,"Couro","2022-12-23",true);
+        0.9,Mala.Dimensao.PEQUENO,"Couro","2022-12-23",true);
         System.out.println(art5);
 
         Tshirt art6 = new Tshirt("12345", true, "novo",

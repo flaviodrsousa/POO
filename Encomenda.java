@@ -226,7 +226,7 @@ public class Encomenda{
         return (encomenda.getNumeroEncomenda()==this.numeroEncomenda &&
         encomenda.getArtigos().equals(this.artigos) &&
         encomenda.get_DimensaoEmbalagem()==this.dimensaoEmbalagem &&
-        encomenda.getTaxaGarantia()==this.getTaxaGarantia() &&
+        encomenda.getTaxaGarantia()==this.taxaGarantia &&
         encomenda.getCustoExpedicao()==this.custoExpedicao &&
         encomenda.get_PrecoFinal()==this.precoFinal &&
         encomenda.get_DataCriacao().equals(this.dataCriacao) &&
