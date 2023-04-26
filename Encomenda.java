@@ -1,3 +1,4 @@
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,7 +61,7 @@ public class Encomenda{
 
     public Encomenda(List<Artigo> artigos,DimensaoEmbalagem dimensaoEmbalagem,double taxaGarantia,
     double custoExpedicao,String dataCriacao,String dataEntrega,Estado estado,
-    Utilizador vendedor,Utilizador comprador){
+    Utilizador vendedor,Utilizador comprador) throws ParseException{
         this.numeroEncomenda=contador++;
 
         this.artigos= new ArrayList<>();
@@ -80,9 +81,8 @@ public class Encomenda{
         }
 
         this.precoFinal=this.calcularPrecoFinal();
-
         this.dataCriacao=Data.StringtoDate(dataCriacao);
-        this.dataEntrega=Data.StringtoDate(dataEntrega);
+        this.dataEntrega=Data.StringtoDate(dataEntrega);     
         this.estado=estado;
         this.vendedor=vendedor;
         this.comprador=comprador;
@@ -226,7 +226,7 @@ public class Encomenda{
         return (encomenda.getNumeroEncomenda()==this.numeroEncomenda &&
         encomenda.getArtigos().equals(this.artigos) &&
         encomenda.get_DimensaoEmbalagem()==this.dimensaoEmbalagem &&
-        encomenda.getTaxaGarantia()==this.getTaxaGarantia() &&
+        encomenda.getTaxaGarantia()==this.taxaGarantia &&
         encomenda.getCustoExpedicao()==this.custoExpedicao &&
         encomenda.get_PrecoFinal()==this.precoFinal &&
         encomenda.get_DataCriacao().equals(this.dataCriacao) &&

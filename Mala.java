@@ -1,10 +1,11 @@
+import java.text.ParseException;
 import java.util.Date;
 
-enum Dimensao{
-    PEQUENO,MEDIO,GRANDE
-}
-
 public class Mala extends Artigo{
+    enum Dimensao{
+        PEQUENO,MEDIO,GRANDE
+    }
+
     private Dimensao dimensao;
     private String material;
     private Date data_colecao;
@@ -20,11 +21,11 @@ public class Mala extends Artigo{
 
     public Mala(String cod_barras, boolean artigo_novo, String estado, int num_donos,
     String descricao, String marca,double preco_base,double estado_utilizacao,
-    Dimensao dimensao,String material,String data_colecao,boolean premium){
+    Dimensao dimensao,String material,String data_colecao,boolean premium) throws ParseException{
         super(cod_barras,artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao);
         this.dimensao=dimensao;
         this.material=material;
-        this.data_colecao=Data.StringtoDate(data_colecao);
+        this.data_colecao=Data.StringtoDate(data_colecao);        
         this.premium=premium;
     }
 
@@ -84,7 +85,7 @@ public class Mala extends Artigo{
            return false;
         Mala mal = (Mala) obj;
         return (super.equals(mal) && this.dimensao==mal.getDimensao() && 
-        this.material.equals(mal.getMaterial()) && this.data_colecao==mal.getData_colecao() &&
+        this.material.equals(mal.getMaterial()) && this.data_colecao.equals(mal.getData_colecao()) &&
         this.premium==mal.getPremium()); 
     }
 
