@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class Vintage{
     private Map<Integer,Encomenda> vendas; //map das diversas encomendas vendidas (chave é numeroEncomenda).
+    
     private Date data_atual;
 
     //Construtores
