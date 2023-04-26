@@ -1,3 +1,4 @@
+import java.text.ParseException;
 import java.util.Date;
 
 public class Mala extends Artigo{
@@ -24,7 +25,13 @@ public class Mala extends Artigo{
         super(cod_barras,artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao);
         this.dimensao=dimensao;
         this.material=material;
-        this.data_colecao=Data.StringtoDate(data_colecao);
+
+        try{
+            this.data_colecao=Data.StringtoDate(data_colecao);
+        }catch(ParseException e){
+            System.out.println(e.getMessage());
+        }
+        
         this.premium=premium;
     }
 

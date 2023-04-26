@@ -1,3 +1,4 @@
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -81,8 +82,13 @@ public class Encomenda{
 
         this.precoFinal=this.calcularPrecoFinal();
 
-        this.dataCriacao=Data.StringtoDate(dataCriacao);
-        this.dataEntrega=Data.StringtoDate(dataEntrega);
+        try{
+            this.dataCriacao=Data.StringtoDate(dataCriacao);
+            this.dataEntrega=Data.StringtoDate(dataEntrega);
+        }catch (ParseException e){
+            System.out.println(e.getMessage());
+        }
+        
         this.estado=estado;
         this.vendedor=vendedor;
         this.comprador=comprador;

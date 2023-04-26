@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,7 +39,11 @@ public class Vintage{
     }
 
     public Vintage(String data_atual,Map<Integer,Encomenda> vendas) {
-        this.data_atual=Data.StringtoDate(data_atual);
+        try{
+            this.data_atual=Data.StringtoDate(data_atual);
+        }catch (ParseException e){
+            System.out.println(e.getMessage());
+        }
 
         this.vendas = new HashMap<>();
         for (Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){

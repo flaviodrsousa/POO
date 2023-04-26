@@ -1,5 +1,6 @@
 import java.util.Date;
 import java.awt.Color;
+import java.text.ParseException;
 
 public class Sapatilha extends Artigo{
     private int tamanho;
@@ -24,7 +25,13 @@ public class Sapatilha extends Artigo{
         this.tamanho=tamanho;
         this.atacadores=atacadores;
         this.cor=cor;
-        this.data_lancamento=Data.StringtoDate(data_colecao);
+
+        try{
+            this.data_lancamento=Data.StringtoDate(data_colecao);
+        }catch (ParseException e){
+            System.out.println(e.getMessage());
+        }
+
         this.premium=premium;
     }
 
