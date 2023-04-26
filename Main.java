@@ -8,7 +8,7 @@ public class Main {
             Menu menu = new Menu(controlador_Menu_Vintage);
             System.out.println(menu.getMenu());
         }catch (ParseException e){
-            System.out.println(e.getMessage());;
+            System.out.println(e.getMessage());
         }
     }
 }
