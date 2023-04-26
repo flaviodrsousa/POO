@@ -1,9 +1,11 @@
+import java.text.ParseException;
+
 public class Menu {
     private Controlador_Menu_Vintage controlador_Menu_Vintage;
     private String Menu;
 
     //Contrutores
-    public Menu(){
+    public Menu() throws ParseException{
         this.controlador_Menu_Vintage= new Controlador_Menu_Vintage();
         this.Menu=this.menu_String();
     }

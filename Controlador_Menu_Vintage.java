@@ -1,8 +1,10 @@
+import java.text.ParseException;
+
 public class Controlador_Menu_Vintage {
     private Vintage vintage;
 
     //Construtores
-    public Controlador_Menu_Vintage(){
+    public Controlador_Menu_Vintage() throws ParseException{
         this.vintage=new Vintage();
     }
 

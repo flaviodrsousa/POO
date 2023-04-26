@@ -11,7 +11,7 @@ public class Vintage{
     private Date data_atual;
 
     //Construtores
-    private void estadoInicial_Vintage(){
+    private void estadoInicial_Vintage() throws ParseException{
         this.data_atual = new Date();
 
         Artigo artigo1 = new Sapatilha("sap1a",true,"novo",1,"sapatilha vermelha num 45",
@@ -34,16 +34,12 @@ public class Vintage{
         this.addVendas(encomenda);
     }
 
-    public Vintage(){
+    public Vintage() throws ParseException{
         this.estadoInicial_Vintage();
     }
 
-    public Vintage(String data_atual,Map<Integer,Encomenda> vendas) {
-        try{
-            this.data_atual=Data.StringtoDate(data_atual);
-        }catch (ParseException e){
-            System.out.println(e.getMessage());
-        }
+    public Vintage(String data_atual,Map<Integer,Encomenda> vendas) throws ParseException{
+        this.data_atual=Data.StringtoDate(data_atual);
 
         this.vendas = new HashMap<>();
         for (Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
@@ -73,7 +69,6 @@ public class Vintage{
     //sets
     public void set_DataAtual(Date data) {
         this.data_atual = new Date(data.getTime());
-        this.entregaEncomenda(); //posso fazer isto?
     }
 
     private void entregaEncomenda(){
@@ -129,6 +124,12 @@ public class Vintage{
         StringBuilder sb = new StringBuilder();
         sb.append(encomenda.toString());
         return sb.toString();
+    }
+
+    public void avancarTempo(String date) throws ParseException{
+        Date newDate = Data.StringtoDate(date);
+        set_DataAtual(newDate);
+        this.entregaEncomenda();
     }
 
     //Q3

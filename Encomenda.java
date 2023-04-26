@@ -61,7 +61,7 @@ public class Encomenda{
 
     public Encomenda(List<Artigo> artigos,DimensaoEmbalagem dimensaoEmbalagem,double taxaGarantia,
     double custoExpedicao,String dataCriacao,String dataEntrega,Estado estado,
-    Utilizador vendedor,Utilizador comprador){
+    Utilizador vendedor,Utilizador comprador) throws ParseException{
         this.numeroEncomenda=contador++;
 
         this.artigos= new ArrayList<>();
@@ -81,14 +81,8 @@ public class Encomenda{
         }
 
         this.precoFinal=this.calcularPrecoFinal();
-
-        try{
-            this.dataCriacao=Data.StringtoDate(dataCriacao);
-            this.dataEntrega=Data.StringtoDate(dataEntrega);
-        }catch (ParseException e){
-            System.out.println(e.getMessage());
-        }
-        
+        this.dataCriacao=Data.StringtoDate(dataCriacao);
+        this.dataEntrega=Data.StringtoDate(dataEntrega);     
         this.estado=estado;
         this.vendedor=vendedor;
         this.comprador=comprador;

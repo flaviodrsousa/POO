@@ -21,17 +21,11 @@ public class Mala extends Artigo{
 
     public Mala(String cod_barras, boolean artigo_novo, String estado, int num_donos,
     String descricao, String marca,double preco_base,double estado_utilizacao,
-    Dimensao dimensao,String material,String data_colecao,boolean premium){
+    Dimensao dimensao,String material,String data_colecao,boolean premium) throws ParseException{
         super(cod_barras,artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao);
         this.dimensao=dimensao;
         this.material=material;
-
-        try{
-            this.data_colecao=Data.StringtoDate(data_colecao);
-        }catch(ParseException e){
-            System.out.println(e.getMessage());
-        }
-        
+        this.data_colecao=Data.StringtoDate(data_colecao);        
         this.premium=premium;
     }
 
