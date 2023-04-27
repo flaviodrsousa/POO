@@ -1,7 +1,5 @@
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Encomenda{
     public enum DimensaoEmbalagem{
@@ -13,7 +11,7 @@ public class Encomenda{
     }
 
     private int numeroEncomenda;
-    private List<Artigo> artigos;
+    private GestorArtigos gestorArtigos;
     private DimensaoEmbalagem dimensaoEmbalagem; 
     private double taxaGarantia; //preco pago no inicio, como uma garantia ao vendedor
     private double custoExpedicao;
@@ -31,7 +29,7 @@ public class Encomenda{
     //Construtores
     public Encomenda() {
         this.numeroEncomenda=contador++;
-        this.artigos = new ArrayList<>();
+        this.gestorArtigos = new GestorArtigos();
         this.dimensaoEmbalagem = DimensaoEmbalagem.pequeno;
         this.taxaGarantia = 0;
         this.custoExpedicao = 0;
@@ -45,29 +43,15 @@ public class Encomenda{
     }
 
     private double calcularPrecoFinal() {
-        int quantidadeNovos = 0;
-        int quantidadeUsados = 0;
-        double precototal = 0;
-        for (Artigo artigo : this.artigos) {
-            if (artigo.getArtigo_novo()) {
-                quantidadeNovos++;
-            }else {
-                quantidadeUsados++;
-            }
-            precototal += artigo.getPreco_base();
-        }
-        return ((precototal + (quantidadeNovos * 0.5) + (quantidadeUsados * 0.25)) + this.taxaGarantia + this.custoExpedicao);
+        return gestorArtigos.calcularPrecoFinalEncomenda(this);
     }
 
-    public Encomenda(List<Artigo> artigos,DimensaoEmbalagem dimensaoEmbalagem,double taxaGarantia,
+
+    public Encomenda(GestorArtigos gestorArtigos,DimensaoEmbalagem dimensaoEmbalagem,double taxaGarantia,
     double custoExpedicao,String dataCriacao,String dataEntrega,Estado estado,
     Utilizador vendedor,Utilizador comprador) throws ParseException{
         this.numeroEncomenda=contador++;
-
-        this.artigos= new ArrayList<>();
-        for (Artigo artigo:artigos){
-            this.artigos.add(artigo.clone());
-        }
+        this.gestorArtigos=gestorArtigos.clone();
 
         this.dimensaoEmbalagem=dimensaoEmbalagem;
         this.taxaGarantia=taxaGarantia;
@@ -91,7 +75,7 @@ public class Encomenda{
 
     public Encomenda(Encomenda umEncomenda){
         this.numeroEncomenda=umEncomenda.getNumeroEncomenda();
-        this.artigos=umEncomenda.getArtigos();
+        this.gestorArtigos=umEncomenda.getGestorArtigos();
         this.dimensaoEmbalagem=get_DimensaoEmbalagem();
         this.taxaGarantia=umEncomenda.getTaxaGarantia();
         this.custoExpedicao=umEncomenda.getCustoExpedicao();
@@ -109,12 +93,8 @@ public class Encomenda{
         return this.numeroEncomenda;
     }
 
-    public List<Artigo> getArtigos() {
-        List<Artigo> new_Artigos = new ArrayList<>();
-        for (Artigo artigo:this.artigos){
-            new_Artigos.add(artigo.clone());
-        }
-        return new_Artigos;
+    public GestorArtigos getGestorArtigos() {
+        return gestorArtigos.clone();
     }
 
     public DimensaoEmbalagem get_DimensaoEmbalagem() {
@@ -164,11 +144,8 @@ public class Encomenda{
         this.numeroEncomenda = numeroEncomenda;
     }
 
-    public void setArtigos(List<Artigo> artigos) {
-        this.artigos=new ArrayList<Artigo>();
-        for(Artigo artigo:artigos){
-            this.artigos.add(artigo.clone());
-        }
+    public void setGestorArtigos(GestorArtigos gestorArtigos) {
+        this.gestorArtigos = gestorArtigos.clone();
     }
 
     public void set_DimensaoEmbalagem(DimensaoEmbalagem dimensaoEmbalagem) {
@@ -224,7 +201,7 @@ public class Encomenda{
             return false;
         Encomenda encomenda = (Encomenda) o;
         return (encomenda.getNumeroEncomenda()==this.numeroEncomenda &&
-        encomenda.getArtigos().equals(this.artigos) &&
+        encomenda.getGestorArtigos().equals(this.gestorArtigos) &&
         encomenda.get_DimensaoEmbalagem()==this.dimensaoEmbalagem &&
         encomenda.getTaxaGarantia()==this.taxaGarantia &&
         encomenda.getCustoExpedicao()==this.custoExpedicao &&
@@ -243,9 +220,7 @@ public class Encomenda{
         StringBuilder sb = new StringBuilder();
         sb.append("........Encomenda.........\n");
         sb.append("Numero de Encomenda: "+this.getNumeroEncomenda()+'\n');
-        for (Artigo artigo:artigos){
-            sb.append(artigo.toString());
-        }
+        sb.append(gestorArtigos.toString());
         if(this.get_DimensaoEmbalagem() == DimensaoEmbalagem.pequeno){
             sb.append("DimensãoEmbalagem: Pequena\n");
         }else if(this.get_DimensaoEmbalagem()==DimensaoEmbalagem.medio){

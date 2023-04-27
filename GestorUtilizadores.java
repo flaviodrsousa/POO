@@ -67,12 +67,14 @@ public class GestorUtilizadores{
 
     //Outros métodos
     public void addUtilizador(Utilizador utilizador){
-        this.utilizadores.put(utilizador.getCodUtilizador(),utilizador.clone());
+        if(!this.utilizadores.containsKey(utilizador.getCodUtilizador())){
+            this.utilizadores.put(utilizador.getCodUtilizador(),utilizador.clone());
+        }
     }
 
     public void removeVendas(Utilizador utilizador){
-        this.utilizadores.remove(utilizador.getCodUtilizador());
+        if(this.utilizadores.containsKey(utilizador.getCodUtilizador())){
+            this.utilizadores.remove(utilizador.getCodUtilizador());
+        }
     }
-    
-
 }

@@ -68,11 +68,15 @@ public class GestorEncomendas{
 
     //Outros métodos
     public void addVendas(Encomenda encomenda){
-        this.vendas.put(encomenda.getNumeroEncomenda(),encomenda.clone());
+        if(!this.vendas.containsKey(encomenda.getNumeroEncomenda())){
+            this.vendas.put(encomenda.getNumeroEncomenda(),encomenda.clone());
+        }
     }
 
     public void removeVendas(Encomenda encomenda){
-        this.vendas.remove(encomenda.getNumeroEncomenda());
+        if(this.vendas.containsKey(encomenda.getNumeroEncomenda())){
+            this.vendas.remove(encomenda.getNumeroEncomenda());
+        } 
     }
 }
 

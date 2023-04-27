@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Utilizador{
     private String codUtilizador;
     private String email;
@@ -9,9 +6,9 @@ public class Utilizador{
     private int numFiscal;
     private Transportadora transportadora;
 
-    private List<Artigo> historicoCompras; //Historico de artigos comprados
-    private List<Artigo> historicoVendas; //Historico de artigos vendidos
-    private List<Artigo> aVenda; //Artigos ainda à venda.
+    private GestorArtigos historicoCompras; //Historico de artigos comprados
+    private GestorArtigos historicoVendas; //Historico de artigos vendidos
+    private GestorArtigos aVenda; //Artigos ainda à venda.
     
     //Construtores
     public Utilizador(){
@@ -21,41 +18,23 @@ public class Utilizador{
         this.morada="";
         this.numFiscal=0;
         this.transportadora=new Transportadora();
-        this.historicoCompras= new ArrayList<>();
-        this.historicoVendas= new ArrayList<>();
-        this.aVenda= new ArrayList<>();
+        this.historicoCompras= new GestorArtigos();
+        this.historicoVendas= new GestorArtigos();
+        this.aVenda= new GestorArtigos();
     }
 
     public Utilizador(String codUtilizador,String email,String nome,String morada,
-    int numFiscal,List<Artigo> historicoCompras,List<Artigo> historicoVendas,
-    List<Artigo> aVenda,Transportadora transportadora){
+    int numFiscal,GestorArtigos historicoCompras,GestorArtigos historicoVendas,
+    GestorArtigos aVenda,Transportadora transportadora){
         this.codUtilizador=codUtilizador;
         this.email=email;
         this.nome=nome;
         this.morada=morada;
         this.numFiscal=numFiscal;
+        this.historicoCompras=historicoCompras.clone();
+        this.historicoVendas=historicoVendas.clone();
+        this.aVenda=historicoVendas.clone();
         this.transportadora=transportadora.clone();
-
-        if (historicoCompras!=null){
-            this.historicoCompras= new ArrayList<>();
-            for (Artigo artigo:historicoCompras){
-                this.historicoCompras.add(artigo.clone());
-            }    
-        }else this.historicoCompras=new ArrayList<>();
-
-        if (historicoVendas!=null){
-            this.historicoVendas= new ArrayList<>();
-            for (Artigo artigo:historicoVendas){
-                this.historicoVendas.add(artigo.clone());
-            }
-        }else this.historicoVendas=new ArrayList<>();
-
-        if (aVenda!=null){
-            this.aVenda= new ArrayList<>();
-            for (Artigo artigo:aVenda){
-                this.aVenda.add(artigo.clone());
-            }
-        }else this.aVenda=new ArrayList<>();
     }
 
     public Utilizador(Utilizador umUtilizador){
@@ -91,28 +70,16 @@ public class Utilizador{
         return this.numFiscal;
     }
 
-    public List<Artigo> getHistoricoCompras() {
-        List<Artigo> new_Historico = new ArrayList<>();
-        for (Artigo artigo:this.historicoCompras){
-            new_Historico.add(artigo.clone());
-        }
-        return new_Historico;
+    public GestorArtigos getHistoricoCompras() {
+        return this.historicoCompras.clone();
     }
 
-    public List<Artigo> getHistoricoVendas() {
-        List<Artigo> new_Historico = new ArrayList<>();
-        for (Artigo artigo:this.historicoVendas){
-            new_Historico.add(artigo.clone());
-        }
-        return new_Historico;
+    public GestorArtigos getHistoricoVendas() {
+        return this.historicoVendas.clone();
     }
 
-    public List<Artigo> getaVenda() {
-        List<Artigo> new_aVenda = new ArrayList<>();
-        for (Artigo artigo:this.aVenda){
-            new_aVenda.add(artigo.clone());
-        }
-        return new_aVenda;
+    public GestorArtigos getaVenda() {
+        return this.aVenda.clone();
     }
 
     public Transportadora getTransportadora() {
@@ -140,25 +107,16 @@ public class Utilizador{
         this.numFiscal = numFiscal;
     }
 
-    public void setHistoricoCompras(List<Artigo> historicoCompras) {
-        this.historicoCompras=new ArrayList<Artigo>();
-        for(Artigo artigo:historicoCompras){
-            this.historicoCompras.add(artigo.clone());
-        }
+    public void setHistoricoCompras(GestorArtigos historicoCompras) {
+        this.historicoCompras=historicoCompras.clone();
     }
 
-    public void setHistoricoVendas(List<Artigo> hissetHistoricoV) {
-        this.historicoVendas=new ArrayList<Artigo>();
-        for(Artigo artigo:historicoVendas){
-            this.historicoVendas.add(artigo.clone());
-        }
+    public void setHistoricoVendas(GestorArtigos historicoVendas) {
+        this.historicoVendas=historicoVendas.clone();
     }
 
-    public void setaVenda(List<Artigo> aVenda) {
-        this.aVenda=new ArrayList<Artigo>();
-        for(Artigo artigo:aVenda){
-            this.aVenda.add(artigo.clone());
-        }
+    public void setaVenda(GestorArtigos aVenda) {
+        this.historicoVendas=aVenda.clone();
     }
 
     public void setTransportadora(Transportadora transportadora) {
@@ -207,17 +165,17 @@ public class Utilizador{
 
     //Publicar artigos à venda
     public void artigo_aVenda(Artigo artigo){
-        this.aVenda.add(artigo.clone());
+        this.aVenda.addArtigo(artigo.clone());
     }
 
     //Artigo vendido por um Vendedor
     public void artigo_Vendido(Artigo artigo){
-        this.aVenda.remove(artigo);
-        this.historicoVendas.add(artigo.clone());
+        this.aVenda.removeArtigo(artigo);
+        this.historicoVendas.addArtigo(artigo.clone());
     }
 
     //Artigo comprado por um Comprador
     public void artigo_Comprado(Artigo artigo){
-        this.historicoCompras.add(artigo.clone());
+        this.historicoCompras.addArtigo(artigo.clone());
     }
 }

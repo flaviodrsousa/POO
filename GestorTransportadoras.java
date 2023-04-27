@@ -65,11 +65,15 @@ public class GestorTransportadoras {
     }
 
     // Outros métodos
-    public void addTransportadora(Transportadora transportadora) {
-        this.transportadoras.put(transportadora.getNome(), transportadora.clone()); 
+    public void addTransportadora(Transportadora transportadora){
+        if(!this.transportadoras.containsKey(transportadora.getNome())){
+            this.transportadoras.put(transportadora.getNome(), transportadora.clone()); 
+        }   
     }
 
     public void removeTransportadora(Transportadora transportadora) {
-        this.transportadoras.remove(transportadora.getNome());
+        if(this.transportadoras.containsKey(transportadora.getNome())){
+            this.transportadoras.remove(transportadora.getNome());
+        }
     }
 }
