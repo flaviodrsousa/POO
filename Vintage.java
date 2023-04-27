@@ -1,14 +1,12 @@
 import java.awt.Color;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 public class Vintage{
     private GestorEncomendas gestorEncomendas;
     private GestorTransportadoras gestorTransportadoras;
     private GestorUtilizadores gestorUtilizadores;
+    private GestorArtigos gestorArtigos;
     private Date data_atual;
 
     //Construtores
@@ -18,24 +16,21 @@ public class Vintage{
         Artigo artigo1 = new Sapatilha("sap1a",true,"novo",1,"sapatilha vermelha num 45",
         "Nike",50.5,1,45,true,Color.RED,false,"10-05-2000");
         
-        List<Artigo> listArtigos = new ArrayList<>();
-        listArtigos.add(artigo1);
-
-        //adicionar ao gestor de artigos
+        this.gestorArtigos.addArtigo(artigo1);
 
         Transportadora transportadora = new Transportadora("Fedex",10,20,50);
 
         this.gestorTransportadoras.addTransportadora(transportadora);
 
         Utilizador utilizador1 = new Utilizador("u0001","u0001@gmail.com","Henrique Malheiro","Rua Braga Parque",
-        1000,listArtigos,null,null,transportadora);
+        1000,this.gestorArtigos,null,null,transportadora);
         Utilizador utilizador2 = new Utilizador("u0002","u0002@gmail.com","Carolina Melo","Rua de Baixo",
-        1005,null,listArtigos,null,transportadora);
+        1005,null,this.gestorArtigos,null,transportadora);
 
         this.gestorUtilizadores.addUtilizador(utilizador1);
         this.gestorUtilizadores.addUtilizador(utilizador2);
 
-        Encomenda encomenda = new Encomenda(listArtigos,Encomenda.DimensaoEmbalagem.pequeno,5,10,
+        Encomenda encomenda = new Encomenda(gestorArtigos,Encomenda.DimensaoEmbalagem.pequeno,5,10,
         "05-07-2002","10-07-2002",Encomenda.Estado.entregue,utilizador1,utilizador2);
 
         this.gestorEncomendas.addVendas(encomenda);
@@ -46,26 +41,19 @@ public class Vintage{
     }
 
     public Vintage(String data_atual,GestorEncomendas gestorEncomendas,GestorTransportadoras gestorTransportadoras, 
-    GestorUtilizadores gestorUtilizadores) throws ParseException{
+    GestorUtilizadores gestorUtilizadores,GestorArtigos gestorArtigos) throws ParseException{
         this.data_atual=Data.StringtoDate(data_atual);
-
-        for (Map.Entry<Integer,Encomenda> entry: gestorEncomendas.getVendas().entrySet()){
-            this.gestorEncomendas.addVendas(entry.getValue());
-        }
-
-        for (Map.Entry<String,Transportadora> entry: gestorTransportadoras.getTransportadoras().entrySet()){
-            this.gestorTransportadoras.addTransportadora(entry.getValue());
-        }
-
-        for (Map.Entry<String,Utilizador> entry: gestorUtilizadores.getUtilizadores().entrySet()){
-            this.gestorUtilizadores.addUtilizador(entry.getValue());
-        }
+        this.gestorEncomendas=gestorEncomendas.clone();
+        this.gestorTransportadoras=gestorTransportadoras.clone();
+        this.gestorUtilizadores=gestorUtilizadores.clone();
+        this.gestorArtigos=gestorArtigos.clone();
     }
 
     public Vintage(Vintage vintage) {
         this.gestorEncomendas = vintage.getGestorEncomendas();
         this.gestorTransportadoras=vintage.getGestorTransportadoras();
         this.gestorUtilizadores=vintage.getGestorUtilizadores();
+        this.gestorArtigos=vintage.getGestorArtigos();
         this.data_atual=vintage.get_DataAtual();
     }
 
@@ -87,6 +75,10 @@ public class Vintage{
         return gestorUtilizadores.clone();
     }
 
+    public GestorArtigos getGestorArtigos() {
+        return gestorArtigos.clone();
+    }
+
     //sets
     public void set_DataAtual(Date data) {
         this.data_atual = new Date(data.getTime());
@@ -102,6 +94,10 @@ public class Vintage{
 
     public void setGestorUtilizadores(GestorUtilizadores gestorUtilizadores) {
         this.gestorUtilizadores = gestorUtilizadores.clone();
+    }
+    
+    public void setGestorArtigos(GestorArtigos gestorArtigos) {
+        this.gestorArtigos = gestorArtigos.clone();
     }
     
     //clone
@@ -135,11 +131,7 @@ public class Vintage{
 
     //Outros métodos
     private void entregaEncomenda(){
-        for (Map.Entry<Integer,Encomenda> entry: this.gestorEncomendas.getVendas().entrySet()){
-            if (this.data_atual.compareTo(entry.getValue().get_DataEntrega())>0){
-                entry.getValue().setEstado(Encomenda.Estado.entregue);
-            }
-        }
+        gestorEncomendas.entregaEncomenda(this);
     }
 
     public void avancarTempo(String date) throws ParseException{
@@ -150,19 +142,11 @@ public class Vintage{
 
     //Q3
     public void encomendasVendedor(Utilizador utilizador){
-        for(Map.Entry<Integer,Encomenda> entry: this.gestorEncomendas.getVendas().entrySet()){
-            if (entry.getValue().getVendedor().equals(utilizador)){
-                System.out.println(entry.getValue().toString());
-            }
-        }
+        gestorEncomendas.encomendasVendedor(utilizador);
     }
 
     //Q5
     public double ganhosVintage(){
-        int ganhosTotais=0;
-        for(Map.Entry<Integer,Encomenda> entry: this.gestorEncomendas.getVendas().entrySet()){
-            ganhosTotais+=entry.getValue().get_PrecoFinal();
-        }
-        return ganhosTotais;
+        return gestorEncomendas.ganhosVintage();
     }
 }

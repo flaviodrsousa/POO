@@ -75,5 +75,31 @@ public class GestorEncomendas{
             this.vendas.remove(encomenda.getNumeroEncomenda());
         } 
     }
+
+    public void entregaEncomenda(Vintage vintage){
+        for (Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
+            if (vintage.get_DataAtual().compareTo(entry.getValue().get_DataEntrega())>0){
+                entry.getValue().setEstado(Encomenda.Estado.entregue);
+            }
+        }
+    }
+
+    //Q3
+    public void encomendasVendedor(Utilizador utilizador){
+        for(Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
+            if (entry.getValue().getVendedor().equals(utilizador)){
+                System.out.println(entry.getValue().toString());
+            }
+        }
+    }
+
+    //Q5
+    public double ganhosVintage(){
+        int ganhosTotais=0;
+        for(Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
+            ganhosTotais+=entry.getValue().get_PrecoFinal();
+        }
+        return ganhosTotais;
+    }
 }
 
