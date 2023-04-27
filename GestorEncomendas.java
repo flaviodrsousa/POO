@@ -38,12 +38,9 @@ public class GestorEncomendas{
 
     //clone
     public GestorEncomendas clone(){
-        GestorEncomendas novo = new GestorEncomendas();
-        novo.setVendas(this.vendas);
-        return novo;
+        return new GestorEncomendas(this);
     }
     
-
     //equals
     public boolean equals(Object o){
         if (this==o) 

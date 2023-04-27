@@ -270,7 +270,13 @@ public class Encomenda{
         return sb.toString();
     }
 
-    //métodos adicionais    
+    //métodos adicionais  
+    public String fatura(Encomenda encomenda){
+        StringBuilder sb = new StringBuilder();
+        sb.append(encomenda.toString());
+        return sb.toString();
+    }
+    
     public void entregar() {
         this.dataEntrega = new Date();
     }
