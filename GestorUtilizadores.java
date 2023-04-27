@@ -1,21 +1,21 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class GereUtilizador{
+public class GestorUtilizadores{
     private Map<String,Utilizador> utilizadores;
 
     //Contrutores
-    public GereUtilizador(){
+    public GestorUtilizadores(){
         this.utilizadores= new HashMap<>();
     }
-    public GereUtilizador(Map<String,Utilizador> novo) {
+    public GestorUtilizadores(Map<String,Utilizador> novo) {
         this.utilizadores = new HashMap<>();
         for (Map.Entry<String,Utilizador> entry: novo.entrySet()){
             this.utilizadores.put(entry.getKey(), entry.getValue().clone());
         }
     }
 
-    public GereUtilizador(GereUtilizador gereUtilizador) {
+    public GestorUtilizadores(GestorUtilizadores gereUtilizador) {
         this.utilizadores = gereUtilizador.getVendas();
     }
 
@@ -37,8 +37,8 @@ public class GereUtilizador{
     }
 
     //clone
-    public GereUtilizador clone(){
-        GereUtilizador novo = new GereUtilizador();
+    public GestorUtilizadores clone(){
+        GestorUtilizadores novo = new GestorUtilizadores();
         novo.setVendas(this.utilizadores);
         return novo;
     }
@@ -49,7 +49,7 @@ public class GereUtilizador{
             return true;
         if ((o==null) || (this.getClass() != o.getClass())) 
             return false;
-        GereUtilizador utilizador = (GereUtilizador) o;
+        GestorUtilizadores utilizador = (GestorUtilizadores) o;
         return (utilizador.getVendas().equals(this.utilizadores));
     }
 

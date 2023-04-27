@@ -1,21 +1,21 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class GereEncomendas{
+public class GestorEncomendas{
     private Map<Integer,Encomenda> vendas; //map das diversas encomendas vendidas (chave é numeroEncomenda).
 
-    public GereEncomendas(){
+    public GestorEncomendas(){
         this.vendas = new HashMap<>();
     }
 
-    public GereEncomendas(Map<Integer,Encomenda> vendas) {
+    public GestorEncomendas(Map<Integer,Encomenda> vendas) {
         this.vendas = new HashMap<>();
         for (Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
             this.vendas.put(entry.getKey(), entry.getValue().clone());
         }
     }
 
-    public GereEncomendas(GereEncomendas gereEncomendas) {
+    public GestorEncomendas(GestorEncomendas gereEncomendas) {
         this.vendas = gereEncomendas.getVendas();
     }
 
@@ -37,8 +37,8 @@ public class GereEncomendas{
     }
 
     //clone
-    public GereEncomendas clone(){
-        GereEncomendas novo = new GereEncomendas();
+    public GestorEncomendas clone(){
+        GestorEncomendas novo = new GestorEncomendas();
         novo.setVendas(this.vendas);
         return novo;
     }
@@ -50,7 +50,7 @@ public class GereEncomendas{
             return true;
         if ((o==null) || (this.getClass() != o.getClass())) 
             return false;
-        GereEncomendas vendas = (GereEncomendas) o;
+        GestorEncomendas vendas = (GestorEncomendas) o;
         return (vendas.getVendas().equals(this.vendas));
     }
 

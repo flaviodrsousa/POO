@@ -1,22 +1,22 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class GereTransportadoras {
+public class GestorTransportadoras {
     private Map<String, Transportadora> transportadoras;
 
     // Construtores
-    public GereTransportadoras() {
+    public GestorTransportadoras() {
         this.transportadoras = new HashMap<>();
     }
 
-    public GereTransportadoras(Map<String, Transportadora> novo) {
+    public GestorTransportadoras(Map<String, Transportadora> novo) {
         this.transportadoras = new HashMap<>();
         for (Map.Entry<String, Transportadora> entry : novo.entrySet()) {
             this.transportadoras.put(entry.getKey(), entry.getValue().clone());
         }
     }
 
-    public GereTransportadoras(GereTransportadoras gereGereTransportadoras) {
+    public GestorTransportadoras(GestorTransportadoras gereGereTransportadoras) {
         this.transportadoras = gereGereTransportadoras.getTransportadoras();
     }
 
@@ -38,8 +38,8 @@ public class GereTransportadoras {
     }
 
     // clone
-    public GereTransportadoras clone() {
-        return new GereTransportadoras(this);
+    public GestorTransportadoras clone() {
+        return new GestorTransportadoras(this);
     }
 
     // equals
@@ -48,7 +48,7 @@ public class GereTransportadoras {
             return true;
         if ((o == null) || (this.getClass() != o.getClass()))
             return false;
-        GereTransportadoras gt = (GereTransportadoras) o;
+        GestorTransportadoras gt = (GestorTransportadoras) o;
         return (gt.getTransportadoras().equals(this.transportadoras));
     }
 
