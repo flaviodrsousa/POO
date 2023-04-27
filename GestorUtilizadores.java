@@ -8,6 +8,7 @@ public class GestorUtilizadores{
     public GestorUtilizadores(){
         this.utilizadores= new HashMap<>();
     }
+
     public GestorUtilizadores(Map<String,Utilizador> novo) {
         this.utilizadores = new HashMap<>();
         for (Map.Entry<String,Utilizador> entry: novo.entrySet()){
@@ -16,11 +17,11 @@ public class GestorUtilizadores{
     }
 
     public GestorUtilizadores(GestorUtilizadores gereUtilizador) {
-        this.utilizadores = gereUtilizador.getVendas();
+        this.utilizadores = gereUtilizador.getUtilizadores();
     }
 
     //get
-    public Map<String, Utilizador> getVendas() {
+    public Map<String, Utilizador> getUtilizadores() {
         Map<String,Utilizador> novo = new HashMap<>();
         for(Map.Entry<String,Utilizador> entry: this.utilizadores.entrySet()){
             novo.put(entry.getKey(),entry.getValue().clone());
@@ -29,7 +30,7 @@ public class GestorUtilizadores{
     }
 
     //set
-    public void setVendas(Map<String,Utilizador> utilizadores) {
+    public void setUtilizadores(Map<String,Utilizador> utilizadores) {
         this.utilizadores=new HashMap<>();
         for(Map.Entry<String,Utilizador> entry: utilizadores.entrySet()){
             this.utilizadores.put(entry.getKey(),entry.getValue().clone());
@@ -38,9 +39,7 @@ public class GestorUtilizadores{
 
     //clone
     public GestorUtilizadores clone(){
-        GestorUtilizadores novo = new GestorUtilizadores();
-        novo.setVendas(this.utilizadores);
-        return novo;
+        return new GestorUtilizadores(this);
     }
 
     //equals
@@ -50,7 +49,7 @@ public class GestorUtilizadores{
         if ((o==null) || (this.getClass() != o.getClass())) 
             return false;
         GestorUtilizadores utilizador = (GestorUtilizadores) o;
-        return (utilizador.getVendas().equals(this.utilizadores));
+        return (utilizador.getUtilizadores().equals(this.utilizadores));
     }
 
     //toString

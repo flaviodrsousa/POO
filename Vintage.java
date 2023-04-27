@@ -2,13 +2,13 @@ import java.awt.Color;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Vintage{
-    private Map<Integer,Encomenda> vendas; //map das diversas encomendas vendidas (chave é numeroEncomenda).
-    
+    private GestorEncomendas gestorEncomendas;
+    private GestorTransportadoras gestorTransportadoras;
+    private GestorUtilizadores gestorUtilizadores;
     private Date data_atual;
 
     //Construtores
@@ -21,35 +21,51 @@ public class Vintage{
         List<Artigo> listArtigos = new ArrayList<>();
         listArtigos.add(artigo1);
 
+        //adicionar ao gestor de artigos
+
         Transportadora transportadora = new Transportadora("Fedex",10,20,50);
+
+        this.gestorTransportadoras.addTransportadora(transportadora);
 
         Utilizador utilizador1 = new Utilizador("u0001","u0001@gmail.com","Henrique Malheiro","Rua Braga Parque",
         1000,listArtigos,null,null,transportadora);
         Utilizador utilizador2 = new Utilizador("u0002","u0002@gmail.com","Carolina Melo","Rua de Baixo",
         1005,null,listArtigos,null,transportadora);
 
+        this.gestorUtilizadores.addUtilizador(utilizador1);
+        this.gestorUtilizadores.addUtilizador(utilizador2);
+
         Encomenda encomenda = new Encomenda(listArtigos,Encomenda.DimensaoEmbalagem.pequeno,5,10,
         "05-07-2002","10-07-2002",Encomenda.Estado.entregue,utilizador1,utilizador2);
 
-        this.vendas = new HashMap<>();
-        this.addVendas(encomenda);
+        this.gestorEncomendas.addVendas(encomenda);
     }
 
     public Vintage() throws ParseException{
         this.estadoInicial_Vintage();
     }
 
-    public Vintage(String data_atual,Map<Integer,Encomenda> vendas) throws ParseException{
+    public Vintage(String data_atual,GestorEncomendas gestorEncomendas,GestorTransportadoras gestorTransportadoras, 
+    GestorUtilizadores gestorUtilizadores) throws ParseException{
         this.data_atual=Data.StringtoDate(data_atual);
 
-        this.vendas = new HashMap<>();
-        for (Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
-            this.vendas.put(entry.getKey(), entry.getValue().clone());
+        for (Map.Entry<Integer,Encomenda> entry: gestorEncomendas.getVendas().entrySet()){
+            this.gestorEncomendas.addVendas(entry.getValue());
+        }
+
+        for (Map.Entry<String,Transportadora> entry: gestorTransportadoras.getTransportadoras().entrySet()){
+            this.gestorTransportadoras.addTransportadora(entry.getValue());
+        }
+
+        for (Map.Entry<String,Utilizador> entry: gestorUtilizadores.getUtilizadores().entrySet()){
+            this.gestorUtilizadores.addUtilizador(entry.getValue());
         }
     }
 
     public Vintage(Vintage vintage) {
-        this.vendas = vintage.getVendas();
+        this.gestorEncomendas = vintage.getGestorEncomendas();
+        this.gestorTransportadoras=vintage.getGestorTransportadoras();
+        this.gestorUtilizadores=vintage.getGestorUtilizadores();
         this.data_atual=vintage.get_DataAtual();
     }
 
@@ -59,12 +75,16 @@ public class Vintage{
         return newDate;
     }
 
-    public Map<Integer, Encomenda> getVendas() {
-        Map<Integer,Encomenda> novo = new HashMap<>();
-        for(Map.Entry<Integer,Encomenda> entry: this.vendas.entrySet()){
-            novo.put(entry.getKey(),entry.getValue().clone());
-        }
-        return novo;
+    public GestorEncomendas getGestorEncomendas() {
+        return gestorEncomendas.clone();
+    }
+
+    public GestorTransportadoras getGestorTransportadoras() {
+        return gestorTransportadoras.clone();
+    }
+
+    public GestorUtilizadores getGestorUtilizadores() {
+        return gestorUtilizadores.clone();
     }
 
     //sets
@@ -72,21 +92,18 @@ public class Vintage{
         this.data_atual = new Date(data.getTime());
     }
 
-    private void entregaEncomenda(){
-        for (Map.Entry<Integer,Encomenda> entry: this.vendas.entrySet()){
-            if (this.data_atual.compareTo(entry.getValue().get_DataEntrega())>0){
-                entry.getValue().setEstado(Encomenda.Estado.entregue);
-            }
-        }
+    public void setGestorEncomendas(GestorEncomendas gestorEncomendas) {
+        this.gestorEncomendas = gestorEncomendas.clone();
     }
 
-    public void setVendas(Map<Integer,Encomenda> vendas) {
-        this.vendas=new HashMap<>();
-        for(Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
-            this.vendas.put(entry.getKey(),entry.getValue().clone());
-        }
+    public void setGestorTransportadoras(GestorTransportadoras gestorTransportadoras) {
+        this.gestorTransportadoras = gestorTransportadoras.clone();
     }
 
+    public void setGestorUtilizadores(GestorUtilizadores gestorUtilizadores) {
+        this.gestorUtilizadores = gestorUtilizadores.clone();
+    }
+    
     //clone
     public Vintage clone(){
         return new Vintage(this);
@@ -99,32 +116,30 @@ public class Vintage{
         if ((o==null) || (this.getClass() != o.getClass())) 
             return false;
         Vintage vintage = (Vintage) o;
-        return (vintage.getVendas().equals(this.vendas) &&
+        return (vintage.gestorEncomendas.equals(this.gestorEncomendas) &&
+        vintage.gestorTransportadoras.equals(this.gestorTransportadoras) &&
+        vintage.gestorUtilizadores.equals(this.gestorUtilizadores) &&
         vintage.get_DataAtual().equals(this.data_atual));
     }
 
     //toString
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Encomendas Vendidas: ").append(vendas.toString());
+        sb.append("Encomendas Vendidas: ").append(gestorEncomendas.toString()+'\n');
+        sb.append("Transportadoras disponiveis: ").append(gestorTransportadoras.toString()+'\n');
+        sb.append("utilizadores registrados: ").append(gestorUtilizadores.toString());
         sb.append("Data atual: ").append(data_atual.toString());
 
         return sb.toString();
     }
 
     //Outros métodos
-    public void addVendas(Encomenda encomenda){
-        this.vendas.put(encomenda.getNumeroEncomenda(),encomenda.clone());
-    }
-
-    public void removeVendas(Encomenda encomenda){
-        this.vendas.remove(encomenda.getNumeroEncomenda());
-    }
-
-    public String fatura(Encomenda encomenda){
-        StringBuilder sb = new StringBuilder();
-        sb.append(encomenda.toString());
-        return sb.toString();
+    private void entregaEncomenda(){
+        for (Map.Entry<Integer,Encomenda> entry: this.gestorEncomendas.getVendas().entrySet()){
+            if (this.data_atual.compareTo(entry.getValue().get_DataEntrega())>0){
+                entry.getValue().setEstado(Encomenda.Estado.entregue);
+            }
+        }
     }
 
     public void avancarTempo(String date) throws ParseException{
@@ -135,7 +150,7 @@ public class Vintage{
 
     //Q3
     public void encomendasVendedor(Utilizador utilizador){
-        for(Map.Entry<Integer,Encomenda> entry: this.vendas.entrySet()){
+        for(Map.Entry<Integer,Encomenda> entry: this.gestorEncomendas.getVendas().entrySet()){
             if (entry.getValue().getVendedor().equals(utilizador)){
                 System.out.println(entry.getValue().toString());
             }
@@ -145,10 +160,9 @@ public class Vintage{
     //Q5
     public double ganhosVintage(){
         int ganhosTotais=0;
-        for(Map.Entry<Integer,Encomenda> entry: this.vendas.entrySet()){
+        for(Map.Entry<Integer,Encomenda> entry: this.gestorEncomendas.getVendas().entrySet()){
             ganhosTotais+=entry.getValue().get_PrecoFinal();
         }
-
         return ganhosTotais;
     }
 }

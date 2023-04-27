@@ -2,7 +2,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GestorTransportadoras {
-    private Map<String, Transportadora> transportadoras;
+    private Map<String, Transportadora> transportadoras; //nome e a chave
 
     // Construtores
     public GestorTransportadoras() {
