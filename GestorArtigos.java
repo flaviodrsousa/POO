@@ -9,6 +9,7 @@ public class GestorArtigos{
     public GestorArtigos(){
         this.artigos= new HashMap<>();
     }
+    
     public GestorArtigos(Map<String,Artigo> novo) {
         this.artigos = new HashMap<>();
         for (Map.Entry<String,Artigo> entry: novo.entrySet()){
@@ -65,10 +66,10 @@ public class GestorArtigos{
     }
 
     //Outros métodos
-    public void addArtigo(Artigo Artigo){
-        if(!this.artigos.containsKey(Artigo.getCod_barras())){
-            this.artigos.put(Artigo.getCod_barras(),Artigo.clone());
-        }
+    public void addArtigo(Artigo artigo){
+        if(!this.artigos.containsKey(artigo.getCod_barras())){
+            this.artigos.put(artigo.getCod_barras(),artigo.clone());
+        } 
     }
 
     public void removeArtigo(Artigo Artigo){

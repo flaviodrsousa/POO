@@ -86,9 +86,9 @@ public class GestorEncomendas{
     }
 
     //Q3
-    public void encomendasVendedor(Utilizador utilizador){
+    public void encomendasVendedor(String codUtilizador){
         for(Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
-            if (entry.getValue().getVendedor().equals(utilizador)){
+            if (entry.getValue().getVendedor().getCodUtilizador().equals(codUtilizador)){
                 System.out.println(entry.getValue().toString());
             }
         }

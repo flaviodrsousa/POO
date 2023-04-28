@@ -1,18 +1,14 @@
 import java.text.ParseException;
+import java.util.Scanner;
 
 public class Menu {
     private Controlador_Menu_Vintage controlador_Menu_Vintage;
-    private String Menu;
+    private Scanner input;
 
     //Contrutores
-    public Menu() throws ParseException{
-        this.controlador_Menu_Vintage= new Controlador_Menu_Vintage();
-        this.Menu=this.menu_String();
-    }
-
     public Menu(Controlador_Menu_Vintage controlador_Menu_Vintage){
         this.controlador_Menu_Vintage=controlador_Menu_Vintage; //Agregação
-        this.Menu=this.menu_String();
+        this.input = new Scanner(System.in);
     }
 
     //gets
@@ -20,27 +16,50 @@ public class Menu {
         return this.controlador_Menu_Vintage;
     }
 
-    public String getMenu() {
-        return this.Menu;
-    }
-
     //sets
     public void setControlador_Menu_Vintage(Controlador_Menu_Vintage controlador_Menu_Vintage) {
         this.controlador_Menu_Vintage = controlador_Menu_Vintage; //Agregação
     }
 
-    public void setMenu(String menu) {
-        this.Menu = menu;
-    }
-
-    //Menu
-    private String menu_String(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("--------Menu-------\n");
-        sb.append("Opcao1: \n");
-        sb.append("Opcao2: \n");
-        sb.append("Opcao3: ");
-
-        return sb.toString();
+    public void run() throws ParseException {
+        int opcao;
+        
+        do {
+            System.out.println("------ MENU ------");
+            System.out.println("1. Avançar no Tempo");
+            System.out.println("2. Encomendas de um Vendedor");
+            System.out.println("3. Ganhos do Vintage");
+            System.out.println("0. Sair");
+            System.out.println("Escolha uma opção: ");
+            
+            opcao = input.nextInt();
+            
+            switch (opcao) {
+                case 1:
+                    System.out.println("Data (yyyy-mm-dd) para onde pertende avancar: ");
+                    input.nextLine();
+                    String data = input.nextLine();
+                    controlador_Menu_Vintage.avancarTempo(data);
+                    break;
+                case 2:
+                    System.out.println("Código de utilizador do vendedor: ");
+                    input.nextLine();
+                    String codUtilizador = input.nextLine();
+                    controlador_Menu_Vintage.encomendasVendedor(codUtilizador);
+                    break;
+                case 3:
+                    controlador_Menu_Vintage.ganhosVintage();
+                    break;
+                case 0:
+                    System.out.println("Saindo do programa...");
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+                    break;
+            }
+            
+        } while (opcao != 0);
+        
+        input.close();
     }
 }
