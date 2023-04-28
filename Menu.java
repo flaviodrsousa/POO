@@ -29,6 +29,8 @@ public class Menu {
             System.out.println("1. Avançar no Tempo");
             System.out.println("2. Encomendas de um Vendedor");
             System.out.println("3. Ganhos do Vintage");
+            System.out.println("4. Vendedor que mais fatorou");
+            System.out.println("5. Transportadora com mais volume de encomendas");
             System.out.println("0. Sair");
             System.out.println("Escolha uma opção: ");
             
@@ -48,7 +50,13 @@ public class Menu {
                     controlador_Menu_Vintage.encomendasVendedor(codUtilizador);
                     break;
                 case 3:
-                    controlador_Menu_Vintage.ganhosVintage();
+                    System.out.println("Ganhos do sistema: "+controlador_Menu_Vintage.ganhosVintage());
+                    break;
+                case 4:
+                    System.out.println("Vendedor que mais fatorou: "+controlador_Menu_Vintage.vendedorMaisFatorou());
+                    break;
+                case 5:
+                    System.out.println("Transportadora mais usada: "+controlador_Menu_Vintage.TransportadoraMaiorVolumeFatoracao());
                     break;
                 case 0:
                     System.out.println("Saindo do programa...");

@@ -18,21 +18,20 @@ public class Vintage{
 
         GestorArtigos gestorArtigos_1= new GestorArtigos();
         gestorArtigos_1.addArtigo(artigo1);
-        GestorArtigos gestorArtigosVazio = new GestorArtigos();
 
         Transportadora transportadora = new Transportadora("Fedex",10,20,50);
 
         this.gestorTransportadoras.addTransportadora(transportadora);
 
         Utilizador utilizador1 = new Utilizador("u0001","u0001@gmail.com","Henrique Malheiro","Rua Braga Parque",
-        1000,gestorArtigos_1,gestorArtigosVazio,gestorArtigosVazio,transportadora);
+        1000,gestorArtigos_1,null,null,transportadora);
         Utilizador utilizador2 = new Utilizador("u0002","u0002@gmail.com","Carolina Melo","Rua de Baixo",
-        1005,gestorArtigosVazio,gestorArtigos_1,gestorArtigosVazio,transportadora);
+        1005,null,gestorArtigos_1,null,transportadora);
 
         this.gestorUtilizadores.addUtilizador(utilizador1);
         this.gestorUtilizadores.addUtilizador(utilizador2);
 
-        Encomenda encomenda = new Encomenda(gestorArtigos,Encomenda.DimensaoEmbalagem.pequeno,5,10,
+        Encomenda encomenda = new Encomenda(gestorArtigos_1,Encomenda.DimensaoEmbalagem.pequeno,5,10,
         "05-07-2002","10-07-2002",Encomenda.Estado.entregue,utilizador1,utilizador2);
 
         this.gestorEncomendas.addVendas(encomenda);
@@ -144,6 +143,16 @@ public class Vintage{
         Date newDate = Data.StringtoDate(date);
         set_DataAtual(newDate);
         this.entregaEncomenda();
+    }
+
+    //Q1
+    public String vendedorMaisFatorou(){
+        return gestorEncomendas.vendedorMaisFatorou();
+    }
+
+    //Q2
+    public String TransportadoraMaiorVolumeFatoracao(){
+        return gestorEncomendas.TransportadoraMaiorVolumeFatoracao();
     }
 
     //Q3

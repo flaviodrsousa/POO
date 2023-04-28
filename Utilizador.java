@@ -31,9 +31,23 @@ public class Utilizador{
         this.nome=nome;
         this.morada=morada;
         this.numFiscal=numFiscal;
-        this.historicoCompras=historicoCompras.clone();
-        this.historicoVendas=historicoVendas.clone();
-        this.aVenda=historicoVendas.clone();
+        try{
+            this.historicoCompras=historicoCompras.clone();
+        }catch(NullPointerException e){
+            this.historicoCompras=new GestorArtigos();
+        }
+
+        try{
+            this.historicoVendas=historicoVendas.clone();
+        }catch(NullPointerException e){
+            this.historicoVendas=new GestorArtigos();
+        }
+
+        try{
+            this.aVenda=historicoVendas.clone();
+        }catch (NullPointerException e){
+            this.aVenda=new GestorArtigos();
+        }
         this.transportadora=transportadora.clone();
     }
 

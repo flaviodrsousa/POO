@@ -1,4 +1,3 @@
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,7 +77,6 @@ public class GestorArtigos{
         }
     }
 
-
     public double calcularPrecoFinalEncomenda(Encomenda encomenda) {
         int quantidadeNovos = 0;
         int quantidadeUsados = 0;
@@ -90,15 +88,15 @@ public class GestorArtigos{
             }else {
                 quantidadeUsados++;
             }
-            precototal += entry.getValue().getPreco_base();
+            precototal += entry.getValue().getPreco_final();
         }
         return ((precototal + (quantidadeNovos * 0.5) + (quantidadeUsados * 0.25)) + encomenda.getTaxaGarantia() + encomenda.getCustoExpedicao());
     }
 
-    public double vendedorMaisFatorouContinuacao(){
+    public double ValorFaturado_Vendedor_Encomenda(){
         double valor=0;
         for(Map.Entry<String, Artigo> entry:this.getArtigo().entrySet()){
-            valor+=entry.getValue().getPreco_final();
+            valor+=entry.getValue().getPreco_base();
         }
         return valor;
     }

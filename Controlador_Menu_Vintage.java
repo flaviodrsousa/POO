@@ -23,6 +23,16 @@ public class Controlador_Menu_Vintage {
         vintage.avancarTempo(date);
     }
 
+    //Q1
+    public String vendedorMaisFatorou(){
+        return vintage.vendedorMaisFatorou();
+    }
+
+    //Q2
+    public String TransportadoraMaiorVolumeFatoracao(){
+        return vintage.TransportadoraMaiorVolumeFatoracao();
+    }
+
     //Q3
     public void encomendasVendedor(String codUtilizador){
         vintage.encomendasVendedor(codUtilizador);
