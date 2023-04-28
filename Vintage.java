@@ -15,17 +15,19 @@ public class Vintage{
 
         Artigo artigo1 = new Sapatilha("sap1a",true,"novo",1,"sapatilha vermelha num 45",
         "Nike",50.5,1,45,true,Color.RED,false,"10-05-2000");
-        
-        this.gestorArtigos.addArtigo(artigo1);
+
+        GestorArtigos gestorArtigos_1= new GestorArtigos();
+        gestorArtigos_1.addArtigo(artigo1);
+        GestorArtigos gestorArtigosVazio = new GestorArtigos();
 
         Transportadora transportadora = new Transportadora("Fedex",10,20,50);
 
         this.gestorTransportadoras.addTransportadora(transportadora);
 
         Utilizador utilizador1 = new Utilizador("u0001","u0001@gmail.com","Henrique Malheiro","Rua Braga Parque",
-        1000,this.gestorArtigos,null,null,transportadora);
+        1000,gestorArtigos_1,gestorArtigosVazio,gestorArtigosVazio,transportadora);
         Utilizador utilizador2 = new Utilizador("u0002","u0002@gmail.com","Carolina Melo","Rua de Baixo",
-        1005,null,this.gestorArtigos,null,transportadora);
+        1005,gestorArtigosVazio,gestorArtigos_1,gestorArtigosVazio,transportadora);
 
         this.gestorUtilizadores.addUtilizador(utilizador1);
         this.gestorUtilizadores.addUtilizador(utilizador2);
@@ -37,6 +39,10 @@ public class Vintage{
     }
 
     public Vintage() throws ParseException{
+        this.gestorEncomendas = new GestorEncomendas();
+        this.gestorTransportadoras= new GestorTransportadoras();
+        this.gestorUtilizadores= new GestorUtilizadores();
+        this.gestorArtigos = new GestorArtigos();
         this.estadoInicial_Vintage();
     }
 
@@ -141,8 +147,8 @@ public class Vintage{
     }
 
     //Q3
-    public void encomendasVendedor(Utilizador utilizador){
-        gestorEncomendas.encomendasVendedor(utilizador);
+    public void encomendasVendedor(String CodUtilizador){
+        gestorEncomendas.encomendasVendedor(CodUtilizador);
     }
 
     //Q5
