@@ -37,6 +37,7 @@ public class Menu {
             switch (opcao) {
                 case 1:
                     System.out.println("Data (yyyy-mm-dd) para onde pertende avancar: ");
+                    input.nextLine();
                     String data = input.nextLine();
                     controlador_Menu_Vintage.avancarTempo(data);
                     break;
