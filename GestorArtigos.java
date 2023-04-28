@@ -1,3 +1,4 @@
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,5 +92,13 @@ public class GestorArtigos{
             precototal += entry.getValue().getPreco_base();
         }
         return ((precototal + (quantidadeNovos * 0.5) + (quantidadeUsados * 0.25)) + encomenda.getTaxaGarantia() + encomenda.getCustoExpedicao());
+    }
+
+    public double vendedorMaisFatorouContinuacao(){
+        double valor=0;
+        for(Map.Entry<String, Artigo> entry:this.getArtigo().entrySet()){
+            valor+=entry.getValue().getPreco_final();
+        }
+        return valor;
     }
 }

@@ -1,3 +1,4 @@
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -100,6 +101,50 @@ public class GestorEncomendas{
             ganhosTotais+=entry.getValue().get_PrecoFinal();
         }
         return ganhosTotais;
+    }
+
+    //Q1
+    public String vendedorMaisFatorou(Date data){
+        Map<String, Double> vendedores = new HashMap<>();
+        for(Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
+            if((entry.getValue().get_DataCriacao()).compareTo(data)>0){
+                GestorArtigos gestorArtigos = entry.getValue().getGestorArtigos();
+                double soma=gestorArtigos.vendedorMaisFatorouContinuacao();
+                vendedores.put(entry.getValue().getVendedor().getCodUtilizador(),soma);
+            }
+        }
+        double maior=0;
+        String maiorVendedor="";
+        for(Map.Entry<String,Double> entry: vendedores.entrySet()){
+            if(entry.getValue()>maior){
+                maior=entry.getValue();
+                maiorVendedor=entry.getKey();
+            }
+        }
+        return maiorVendedor;   
+    }
+
+    //Q2
+    public String TransportadoraMaiorVolumeFatoracao(){
+        Map<String, Integer> transportadoras = new HashMap<>();
+        String transportadora="";
+        int volume=0;
+        for(Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
+            transportadora=entry.getValue().getTransportadora().getNome();
+            if(transportadora.contains(transportadora)){
+                volume=transportadoras.get(transportadora)+1;
+                transportadoras.put(transportadora,volume);
+            }else{
+                transportadoras.put(transportadora,1);
+            }
+        }
+        for(Map.Entry<String,Integer> entry: transportadoras.entrySet()){
+            if(entry.getValue()>volume){
+                volume=entry.getValue();
+                transportadora=entry.getKey();
+            }
+        }
+        return transportadora;
     }
 }
 
