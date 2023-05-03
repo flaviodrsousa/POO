@@ -1,8 +1,11 @@
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class GestorEncomendas implements Serializable{
     private Map<Integer,Encomenda> vendas; //map das diversas encomendas vendidas (chave é numeroEncomenda).
@@ -158,62 +161,57 @@ public class GestorEncomendas implements Serializable{
     }
 
     //Q4
-    public void topVendedoresCompradores(String dataInicial, String dataFinal, String top) {
+    public void topVendedoresCompradores(String dataInicial, String dataFinal, int top) throws ParseException {
+        ArrayList<Encomenda> encomendas = getEncomendasForPeriod(dataInicial, dataFinal); //lista so com as encomendas dentro desse periodo de tempo
 
-    int topi = Integer.parseInt(top);
+        Map<Utilizador, Double> vendedoresTotais = new HashMap<>();
+        Map<Utilizador, Double> compradoresTotais = new HashMap<>();
+        for (Encomenda encomenda : encomendas) {
+            Utilizador vendedor = encomenda.getVendedor();
+            Utilizador comprador = encomenda.getComprador();
+            Double preco_final = encomenda.get_PrecoFinal();
 
-    ArrayList<Encomenda> encomendas = getEncomendasForPeriod(dataInicial, dataFinal);
+            if (vendedoresTotais.containsKey(vendedor)) {
+                preco_final += vendedoresTotais.get(vendedor);
+            }
 
-    Map.Entry<Utilizador, Double> vendedoresTotais = new HashMap<>();
-    for (Map.Entry<Int, Encomenda> entry : vendas.entrySet()) {
-        Utilizador vendedor = entry.getValue().getVendedor();
-        Double preco_final = entry.getValue().get_PrecoFinal();
-        if (vendedoresTotais.containsKey(vendedor)) {
-            preco_final += vendedoresTotais.get(vendedor);
+            if (compradoresTotais.containsKey(comprador)) {
+                preco_final += compradoresTotais.get(comprador);
+            }
+            compradoresTotais.put(comprador, preco_final);
+            vendedoresTotais.put(vendedor, preco_final);
         }
-        vendedoresTotais.put(vendedor, preco_final);
-    }
 
-    List<Map.Entry<Utilizador, Double>> organizarVendedores = new ArrayList<>(vendedoresTotais.entrySet());
-    organizarVendedores.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+        List<Map.Entry<Utilizador,Double>> organizarVendedores = new ArrayList<>(vendedoresTotais.entrySet());
+        organizarVendedores.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
-    System.out.println("Maiores Vendedores:");
-    int count = 1;
-    for (Map.Entry<Utilizador, Double> entry : organizarVendedores) {
-        Utilizador vendedor_ = entry.getKey();
-        System.out.println(count + ". " + vendedor_.getNome());
-        count++;
-        if (count > topi) {
-            break;
+        System.out.println("Maiores Vendedores:");
+        int count = 1;
+        for (Map.Entry<Utilizador, Double> entry : organizarVendedores) {
+            Utilizador vendedor =  entry.getKey();
+            System.out.println(count + ". " + vendedor.getNome());
+            count++;
+            if (count > top) {
+                break;
+            }
         }
-    }
 
-    Map<Utilizador, Double> compradoresTotais = new HashMap<>();
-    for (Map.Entry<Int, Encomenda> entry : vendas.entrySet()) {
-        Utilizador comprador = entry.getValue().getComprador();
-        Double precofinal = entry.getValue().get_PrecoFinal();
-        if (compradoresTotais.containsKey(comprador)) {
-            precofinal += compradoresTotais.get(comprador);
-        }
-        compradoresTotais.put(comprador, precofinal);
-    }
+        List<Map.Entry<Utilizador, Double>> organizarCompradores = new ArrayList<>(compradoresTotais.entrySet());
+        organizarCompradores.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
-    List<Map.Entry<Utilizador, Double>> organizarCompradores = new ArrayList<>(compradoresTotais.entrySet());
-    organizarCompradores.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
-
-    System.out.println("\nMaiores Compradores:");
-    count = 1;
-    for (Map.Entry<Utilizador, Double> entry : organizarCompradores) {
-        Utilizador comprador_ = entry.getKey();
-        System.out.println(count + ". " + comprador_.getNome());
-        count++;
-        if (count > top) {
-            break;
+        System.out.println("\nMaiores Compradores:");
+        count = 1;
+        for (Map.Entry<Utilizador, Double> entry : organizarCompradores) {
+            Utilizador comprador = entry.getKey();
+            System.out.println(count + ". " + comprador.getNome());
+            count++;
+            if (count > top) {
+                break;
             }
         }
     }
 
-    private ArrayList<Encomenda> getEncomendasForPeriod(String dataInicio, String dataFim) {
+    private ArrayList<Encomenda> getEncomendasForPeriod(String dataInicio, String dataFim) throws ParseException {
         ArrayList<Encomenda> encomendasPeriodo = new ArrayList<>();
         Date dataInicioF = Data.StringtoDate(dataInicio);
         Date dataFimF = Data.StringtoDate(dataFim);
@@ -223,10 +221,8 @@ public class GestorEncomendas implements Serializable{
                 encomendasPeriodo.add(entry.getValue());
             }
         }
-
-    return encomendasPeriodo;
+        return encomendasPeriodo;
     }
-
 
     //Q5
     public double ganhosVintage(){

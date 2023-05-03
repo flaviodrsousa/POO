@@ -187,7 +187,7 @@ public class Vintage implements Serializable{
     }
 
     //Q4
-    public void topVendedoresCompradores(String datai, String dataf, String top){
+    public void topVendedoresCompradores(String datai, String dataf, int top) throws ParseException{
         gestorEncomendas.topVendedoresCompradores(datai, dataf, top);
     }
 

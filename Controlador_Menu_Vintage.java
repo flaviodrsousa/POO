@@ -1,7 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.*;
+import java.util.Date;
 
 public class Controlador_Menu_Vintage {
     private Vintage vintage;
@@ -53,7 +53,7 @@ public class Controlador_Menu_Vintage {
     }
 
     //Q4
-    public void topVendedoresCompradores(String dataInicial, String dataFinal, String top){
+    public void topVendedoresCompradores(String dataInicial, String dataFinal, int top) throws ParseException{
         vintage.topVendedoresCompradores(dataInicial, dataFinal, top);
     }
 
@@ -120,5 +120,15 @@ public class Controlador_Menu_Vintage {
     //getEncomenda
     public Encomenda getEncomenda(Integer numEncomenda) throws GetException{
         return vintage.getGestorEncomendas().getEncomenda(numEncomenda);
+    }
+
+    //getData_atual
+    public Date getData_atual(){
+        return vintage.get_DataAtual();
+    }
+
+    //toString Transportadoras
+    public String toString_Transportadoras(){
+        return vintage.getGestorTransportadoras().getTransportadoras().toString();
     }
 }
