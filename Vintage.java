@@ -7,14 +7,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.text.ParseException;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Vintage implements Serializable{
     private GestorEncomendas gestorEncomendas;
     private GestorTransportadoras gestorTransportadoras;
     private GestorUtilizadores gestorUtilizadores;
     private GestorArtigos gestorArtigos;
-    private Date data_atual;
+    private LocalDate data_atual;
 
     //Carrega estado
     public static Vintage carregaEstado(String nomeFicheiro) throws FileNotFoundException,IOException,
@@ -37,7 +37,7 @@ public class Vintage implements Serializable{
 
     //Construtores
     private void estadoInicial_Vintage() throws ParseException, AddException{
-        this.data_atual = new Date();
+        this.data_atual = LocalDate.now();
 
         Artigo artigo1 = new Sapatilha("sap1a",true,"novo",1,"sapatilha vermelha num 45",
         "Nike",50.5,1,45,true,Color.RED,false,"10-05-2000");
@@ -89,9 +89,9 @@ public class Vintage implements Serializable{
     }
 
     //gets
-    public Date get_DataAtual() {
-        Date newDate = new Date(this.data_atual.getTime());
-        return newDate;
+    public LocalDate get_DataAtual() {
+        return LocalDate.of(data_atual.getYear(),
+        data_atual.getMonth(),data_atual.getDayOfMonth());
     }
 
     public GestorEncomendas getGestorEncomendas() {
@@ -111,8 +111,9 @@ public class Vintage implements Serializable{
     }
 
     //sets
-    public void set_DataAtual(Date data) {
-        this.data_atual = new Date(data.getTime());
+    public void set_DataAtual(LocalDate data) {
+        this.data_atual = LocalDate.of(data.getYear(),
+        data.getMonth(),data.getDayOfMonth());
     }
 
     public void setGestorEncomendas(GestorEncomendas gestorEncomendas) {
@@ -166,7 +167,7 @@ public class Vintage implements Serializable{
     }
 
     public void avancarTempo(String date) throws ParseException{
-        Date newDate = Data.StringtoDate(date);
+        LocalDate newDate = Data.StringtoDate(date);
         set_DataAtual(newDate);
         this.entregaEncomenda();
     }

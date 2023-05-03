@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.text.ParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -32,10 +33,10 @@ public class Menu {
             System.out.println("3. Ganhos do Vintage");
             System.out.println("4. Vendedor que mais fatorou");
             System.out.println("5. Transportadora com mais volume de encomendas");
-            System.out.println("6. Adicionar utilizador");
+            System.out.println("6. Adicionar Utilizador");
             System.out.println("7. Verificar Data do sistema");
             System.out.println("8. Adicionar Transportadora");
-            System.out.println("9. Adicionar Mala");
+            System.out.println("9. Adicionar Artigo");
             System.out.println("10. Verificar melhores compradores e Vendedores num determinado periodo");
             System.out.println("0. Sair");
             System.out.println("Escolha uma opção: ");
@@ -160,6 +161,7 @@ public class Menu {
                         artigo_novo = input.nextBoolean();
                     }catch(InputMismatchException e){
                         System.out.println("Deve inserir true/false!!");
+                        input.nextLine();
                         break;
                     }
                     input.nextLine();
@@ -171,6 +173,8 @@ public class Menu {
                         num_donos = input.nextInt();
                     }catch(InputMismatchException e){
                         System.out.println("Numero de donos é um numero");
+                        input.nextLine();
+                        break;
                     }
                     System.out.println("Descreva o produto: ");
                     input.nextLine();
@@ -183,6 +187,7 @@ public class Menu {
                         preco_base = input.nextDouble();
                     } catch (InputMismatchException e) {
                         System.out.println("Precos sao numeros!!");
+                        input.nextLine();
                         break;
                     }
                     System.out.println("Estado de utilizacao (0-1): ");
@@ -191,40 +196,134 @@ public class Menu {
                         estado_utilizacao = input.nextDouble();
                     } catch (InputMismatchException e) {
                         System.out.println("Estado de utilizacao varia entre 0 e 1 (sendo 0 muito usado e 1 novo)!!");
+                        input.nextLine();
                         break;
                     }
-                    System.out.println("Dimensao (pequeno/medio/grande): ");
-                    Mala.Dimensao dimensao;
-                    try {
-                        dimensao = Mala.Dimensao.valueOf(input.next().toUpperCase());
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Dimensao tem que ser pequeno/medio/grande!!");
-                        break;
-                    }
-                    System.out.println("Material: ");
-                    String material = input.nextLine();
-                    System.out.println("Data colecao (dd-MM-yyyy): ");
-                    String dataColecao = input.next();
-                    System.out.println("Premium? (true/false): ");
-                    boolean premium;
-                    try {
-                        premium = input.nextBoolean();
-                    } catch (InputMismatchException e) {
-                        System.out.println("Premium é (true/false)!!");
-                        break;
-                    }
-                    Artigo Mala = null;
-                    try {
-                        Mala = new Mala(cod_barras, artigo_novo, estado, num_donos, descricao, marca,
+                    System.out.println("Escolha o tipo de artigo (1->mala/2->sapatilha/3->t-shirt): ");
+                    try{
+                        int opcaoArtigo = input.nextInt();
+                        if (opcaoArtigo==1){
+                            System.out.println("Dimensao (pequeno/medio/grande): ");
+                            input.nextLine();
+                            Mala.Dimensao dimensao;
+                            try {
+                                dimensao = Mala.Dimensao.valueOf(input.next().toUpperCase());
+                                input.nextLine();
+                            } catch (IllegalArgumentException e) {
+                                System.out.println("Dimensao tem que ser pequeno/medio/grande!!");
+                                break;
+                            }
+                            System.out.println("Material: ");
+                            String material = input.nextLine();
+                            System.out.println("Data colecao (dd-MM-yyyy): ");
+                            String dataColecao = input.nextLine();
+                            System.out.println("Premium? (true/false): ");
+                            boolean premium;
+                            try {
+                                premium = input.nextBoolean();
+                            } catch (InputMismatchException e) {
+                                System.out.println("Premium é (true/false)!!");
+                                input.nextLine();
+                                break;
+                            }
+                            Artigo Mala = null;
+                            try {
+                                Mala = new Mala(cod_barras, artigo_novo, estado, num_donos, descricao, marca,
                                 preco_base, estado_utilizacao, dimensao, material, dataColecao, premium);
-                    } catch (ParseException e) { // datacolecao pode ter erro de parse
-                        System.out.println("Data no fomato errado (dd-MM-yyyy)!!");
-                    }
-                    try {
-                        controlador_Menu_Vintage.addArtigo(Mala);
-                    } catch (AddException e) {
-                        System.out.println(e.getMessage());
-                        break;
+                                controlador_Menu_Vintage.addArtigo(Mala);
+                            }catch(ParseException e){ // datacolecao pode ter erro de parse
+                                System.out.println("Data no fomato errado (dd-MM-yyyy)!!");
+                                break;
+                            }catch(AddException e){
+                                System.out.println(e.getMessage());
+                                break;
+                            }
+                        }else if (opcaoArtigo ==2){
+                            System.out.println("Tamanho: ");
+                            int tamanho=0;
+                            try{
+                                tamanho=input.nextInt();
+                            }catch(InputMismatchException e){
+                                System.out.println("Tamanho é um número!!");
+                                input.nextLine();
+                                break;
+                            }
+                            System.out.println("Tem atacadores? (true/false) ");
+                            boolean atacadores=false;
+                            try{
+                                atacadores=input.nextBoolean();
+                            }catch(InputMismatchException e){
+                                System.out.println("Tem que escolher true/false!!");
+                                input.nextLine();
+                                break;
+                            }
+                            System.out.println("Escolha uma cor (valor RGB): ");
+                            Color cor=Color.BLACK;
+                            try{
+                                cor = new Color(input.nextInt());
+                                System.out.println(cor.toString());
+                                input.nextLine();
+                            }catch(InputMismatchException e){
+                                System.out.println("A cor é o seu valor em RGB!!");
+                                input.nextLine();
+                                break;
+                            }
+                            System.out.println("Data de lançamento: ");
+                            String data_lancamento = input.nextLine();
+                            System.out.println("Premium? (true/false): ");
+                            boolean premium=false;
+                            try{
+                                premium = input.nextBoolean();
+                            }catch(InputMismatchException e){
+                                System.out.println("Premium é (true/false)!!");
+                                input.nextLine();
+                                break;
+                            }
+                            try{
+                                Artigo sapatilha = new Sapatilha(cod_barras, artigo_novo, estado, num_donos, descricao, 
+                                marca, preco_base, estado_utilizacao, tamanho, atacadores, cor, premium, data_lancamento);
+                                controlador_Menu_Vintage.addArtigo(sapatilha);
+                                System.out.println(sapatilha.toString());
+                            }catch (ParseException e){
+                                System.out.println("Data de lancamento tem que estar no formato (dd-MM-yyyy)!!");
+                                break;
+                            } catch (AddException e) {
+                                System.out.println(e.getMessage());
+                                break;
+                            }
+                            break;
+                        }else if (opcaoArtigo ==3){
+                            System.out.println("Tamanho: (s/m/l/xl)");
+                            input.nextLine();
+                            Tshirt.Tamanho tamanho;
+                            try{
+                                tamanho = Tshirt.Tamanho.valueOf(input.next().toUpperCase());
+                            }catch(IllegalArgumentException e){
+                                System.out.println("Tamanho tem que ser (s/m/l/xl)!!");
+                                break;
+                            }
+                            System.out.println("Padrao (liso/riscas/palmeiras): ");
+                            Tshirt.Padrao padrao;
+                            try{
+                                padrao = Tshirt.Padrao.valueOf(input.next().toUpperCase());
+                            }catch(IllegalArgumentException e){
+                                System.out.println("Padrao tem que ser (liso,riscas,palmeiras)!!");
+                                break;
+                            }
+                            Artigo tshirt = new Tshirt(cod_barras, artigo_novo, estado, num_donos, descricao,
+                            marca, preco_base, estado_utilizacao, tamanho, padrao);
+                            System.out.println(tshirt.toString());
+                            try{
+                                controlador_Menu_Vintage.addArtigo(tshirt);
+                            }catch (AddException e){
+                                System.out.println(e.getMessage());
+                                break;
+                            }
+                            break;
+                        }
+                    }catch(InputMismatchException e){
+                        System.out.println("Tem que escolher entre 1,2 ou 3!!!");
+                        input.nextLine();
                     }
                 case 10:
                     System.out.println("Data Inicial do Periodo (dd-MM-yyyy):  ");
@@ -238,6 +337,7 @@ public class Menu {
                         top = input.nextInt();
                     }catch(InputMismatchException e){
                         System.out.println("A quantidade de utilizadores é um numero!!");
+                        input.nextLine();
                     }
                     try{
                         controlador_Menu_Vintage.topVendedoresCompradores(datai, dataf, top);

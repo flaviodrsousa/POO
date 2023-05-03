@@ -1,15 +1,13 @@
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Data implements Serializable{
-    private static DateFormat dataFormato = new SimpleDateFormat("dd-MM-yyyy");
+    private static DateTimeFormatter dataFormato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     
-    public static Date StringtoDate(String dateString) throws ParseException{
-        Date date = new Date();
-        date= dataFormato.parse(dateString);
+    public static LocalDate StringtoDate(String dateString) throws ParseException{
+        LocalDate date = LocalDate.parse(dateString,dataFormato);
 
         return date;
     }

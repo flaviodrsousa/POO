@@ -1,5 +1,6 @@
 import java.text.ParseException;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Mala extends Artigo{
     enum Dimensao{
@@ -8,14 +9,14 @@ public class Mala extends Artigo{
 
     private Dimensao dimensao;
     private String material;
-    private Date data_colecao;
+    private LocalDate data_colecao;
     private boolean premium;
 
     public Mala(){
         super();
         this.dimensao=Dimensao.PEQUENO;
         this.material="";
-        this.data_colecao=new Date();
+        this.data_colecao=LocalDate.now();
         this.premium=false;
     }
 
@@ -46,9 +47,9 @@ public class Mala extends Artigo{
         return this.material;
     }
 
-    public Date getData_colecao(){
-        Date new_Date = new Date(this.data_colecao.getTime());
-        return new_Date;
+    public LocalDate getData_colecao(){
+        return LocalDate.of(data_colecao.getYear(),
+        data_colecao.getMonth(),data_colecao.getDayOfMonth());
     }
 
     public boolean getPremium(){
@@ -64,8 +65,9 @@ public class Mala extends Artigo{
         this.material = material;
     }
 
-    public void setData_colecao(Date data_colecao){
-        this.data_colecao = new Date(data_colecao.getTime());
+    public void setData_colecao(LocalDate data_colecao){
+        this.data_colecao = LocalDate.of(data_colecao.getYear(),
+        data_colecao.getMonth(),data_colecao.getDayOfMonth());;
     }
     
     public void setPremium(boolean premium){
@@ -112,9 +114,8 @@ public class Mala extends Artigo{
 
     public double desconto(){
         if(this.getPremium()){
-            Date dataAtual = new Date();
-            long diffInMilliseconds = Math.abs(dataAtual.getTime() - this.getData_colecao().getTime());
-            long diffInYears = diffInMilliseconds / (1000 * 60 * 60 * 24 * 365);
+            LocalDate dataAtual = LocalDate.now();
+            long diffInYears = ChronoUnit.YEARS.between(dataAtual, data_colecao);
             return this.getPreco_base()*0.1*diffInYears;
         }else{
             Dimensao dim=this.getDimensao();

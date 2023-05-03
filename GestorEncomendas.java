@@ -1,9 +1,9 @@
 import java.io.Serializable;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -213,10 +213,10 @@ public class GestorEncomendas implements Serializable{
 
     private ArrayList<Encomenda> getEncomendasForPeriod(String dataInicio, String dataFim) throws ParseException {
         ArrayList<Encomenda> encomendasPeriodo = new ArrayList<>();
-        Date dataInicioF = Data.StringtoDate(dataInicio);
-        Date dataFimF = Data.StringtoDate(dataFim);
+        LocalDate dataInicioF = Data.StringtoDate(dataInicio);
+        LocalDate dataFimF = Data.StringtoDate(dataFim);
         for (Map.Entry<Integer, Encomenda> entry: vendas.entrySet()) {
-            Date dataCriacao = entry.getValue().get_DataCriacao();
+            LocalDate dataCriacao = entry.getValue().get_DataCriacao();
             if (dataCriacao.compareTo(dataInicioF) >= 0 && dataCriacao.compareTo(dataFimF) <= 0) {
                 encomendasPeriodo.add(entry.getValue());
             }

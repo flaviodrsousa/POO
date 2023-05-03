@@ -4,7 +4,7 @@ public class Tshirt extends Artigo{
     }
 
     public enum Padrao{
-        LISO,RICAS,PALMEIRAS
+        LISO,RISCAS,PALMEIRAS
     }
 
     private Tamanho tamanho;
@@ -85,7 +85,7 @@ public class Tshirt extends Artigo{
         Padrao padrao=this.getPadrao();
         if(padrao==Padrao.LISO){
             sb.append("Padrao: Liso"+"\n");
-        }else if(padrao==Padrao.RICAS){
+        }else if(padrao==Padrao.RISCAS){
             sb.append("Padrao: Riscas"+"\n");
         }else{
             sb.append("Tamanho: Palmeiras"+"\n");

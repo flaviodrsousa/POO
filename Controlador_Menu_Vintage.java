@@ -1,7 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Controlador_Menu_Vintage {
     private Vintage vintage;
@@ -123,7 +123,7 @@ public class Controlador_Menu_Vintage {
     }
 
     //getData_atual
-    public Date getData_atual(){
+    public LocalDate getData_atual(){
         return vintage.get_DataAtual();
     }
 

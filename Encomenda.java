@@ -1,6 +1,7 @@
 import java.io.Serializable;
 import java.text.ParseException;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Encomenda implements Serializable{
     public enum DimensaoEmbalagem{
@@ -17,8 +18,8 @@ public class Encomenda implements Serializable{
     private double taxaGarantia; //preco pago no inicio, como uma garantia ao vendedor
     private double custoExpedicao;
     private double precoFinal;
-    private Date dataCriacao;
-    private Date dataEntrega;
+    private LocalDate dataCriacao;
+    private LocalDate dataEntrega;
     private Estado estado;
     private Utilizador vendedor;
     private Utilizador comprador;
@@ -35,7 +36,7 @@ public class Encomenda implements Serializable{
         this.taxaGarantia = 0;
         this.custoExpedicao = 0;
         this.precoFinal = 0;
-        this.dataCriacao = new Date();
+        this.dataCriacao = LocalDate.now();
         this.dataEntrega = null;
         this.estado=null;
         this.vendedor=null;
@@ -114,14 +115,14 @@ public class Encomenda implements Serializable{
         return this.precoFinal;
     }
 
-    public Date get_DataCriacao() {
-        Date newDate = new Date(this.dataCriacao.getTime());
-        return newDate;
+    public LocalDate get_DataCriacao() { 
+        return LocalDate.of(dataCriacao.getYear(),
+        dataCriacao.getMonth(),dataCriacao.getDayOfMonth());
     }
 
-    public Date get_DataEntrega() {
-        Date newDate = new Date(this.dataEntrega.getTime());
-        return newDate;
+    public LocalDate get_DataEntrega() {
+        return LocalDate.of(dataEntrega.getYear(),
+        dataEntrega.getMonth(),dataEntrega.getDayOfMonth());
     }
 
     public Estado getEstado() {
@@ -165,12 +166,14 @@ public class Encomenda implements Serializable{
         this.precoFinal = precoFinal;
     }
 
-    public void set_DataCriacao(Date dataCriacao) {
-        this.dataCriacao = new Date(dataCriacao.getTime());
+    public void set_DataCriacao(LocalDate dataCriacao) {
+        this.dataCriacao = LocalDate.of(dataCriacao.getYear(),
+        dataCriacao.getMonth(),dataCriacao.getDayOfMonth());
     }
 
-    public void set_DataEntrega(Date dataEntrega) {
-        this.dataEntrega = new Date(dataEntrega.getTime());
+    public void set_DataEntrega(LocalDate dataEntrega) {
+        this.dataEntrega = LocalDate.of(dataEntrega.getYear(),
+        dataEntrega.getMonth(),dataEntrega.getDayOfMonth());
     }
 
     public void setEstado(Estado estado) {
@@ -254,10 +257,10 @@ public class Encomenda implements Serializable{
     }
     
     public void entregar() {
-        this.dataEntrega = new Date();
+        this.dataEntrega = LocalDate.now();
     }
 
-    public Estado atualizarEstado(Date data) { //recebe a data atual do sistema e atualiza se
+    public Estado atualizarEstado(LocalDate data) { //recebe a data atual do sistema e atualiza se
         if(data.compareTo(this.get_DataEntrega()) > 0) {
             return(this.estado = Estado.entregue);
         }else{
@@ -267,9 +270,8 @@ public class Encomenda implements Serializable{
     
     public boolean isDentroDoPrazoDevolucao() {
         if (this.getEstado()==Estado.entregue) {
-            long diferencaMilissegundos = this.dataEntrega.getTime() - this.dataCriacao.getTime();
-            long diferencaHoras = diferencaMilissegundos / (60 * 60 * 1000);
-            return diferencaHoras < 48;
+            long diferencaDias = ChronoUnit.DAYS.between(this.dataCriacao,this.dataEntrega);
+            return diferencaDias <= 2;
         }else {
             return false;
         }

@@ -1,20 +1,21 @@
-import java.util.Date;
 import java.awt.Color;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Sapatilha extends Artigo{
     private int tamanho;
     private boolean atacadores;
     private Color cor;//Usar tuplo para RGB
-    private Date data_lancamento; //Passada como argumento em String "dd-MM-yyyy"
+    private LocalDate data_lancamento; //Passada como argumento em String "dd-MM-yyyy"
     private boolean premium;
 
     public Sapatilha(){
         super();
         this.tamanho=0;
         this.atacadores=false;
-        this.cor=new Color(0,0,0);
-        this.data_lancamento= new Date();
+        this.cor=Color.BLACK;
+        this.data_lancamento= LocalDate.now();
         this.premium=false;
     }
     
@@ -51,9 +52,9 @@ public class Sapatilha extends Artigo{
         return this.cor;
     }
 
-    public Date getData_lancamento(){
-        Date new_Date = new Date(this.data_lancamento.getTime());
-        return new_Date;
+    public LocalDate getData_lancamento(){
+        return LocalDate.of(data_lancamento.getYear(),
+        data_lancamento.getMonth(),data_lancamento.getDayOfMonth());
     }
     
     public boolean getPremium(){
@@ -73,8 +74,9 @@ public class Sapatilha extends Artigo{
         this.cor = cor;
     }
 
-    public void setData_lancamento(Date data_lancamento) {
-        this.data_lancamento = new Date(data_lancamento.getTime());
+    public void setData_lancamento(LocalDate data_lancamento) {
+        this.data_lancamento = LocalDate.of(data_lancamento.getYear(),
+        data_lancamento.getMonth(),data_lancamento.getDayOfMonth());;
     }
 
     public void serPremium(boolean premium){
@@ -105,7 +107,7 @@ public class Sapatilha extends Artigo{
         sb.append(super.toString());
         sb.append("Tamanho: "+this.getTamanho()+"\n");
         sb.append("Atacadores: " + (this.getAtacadores() ? "Sim" : "Não") + "\n");
-        sb.append("Cor: ("+cor.getRed() + "," + cor.getGreen() + "," + cor.getBlue()+")\n");
+        sb.append("Cor:"+ this.cor.toString()+"\n");
         sb.append("Data de lancamento: "+this.getData_lancamento()+"\n");
         sb.append("Premium: " + (this.getPremium() ? "Sim" : "Não") + "\n");
        
@@ -114,9 +116,8 @@ public class Sapatilha extends Artigo{
 
     public double desconto(){
         if(this.getPremium()){
-            Date dataAtual = new Date();
-            long diffInMilliseconds = Math.abs(dataAtual.getTime() - this.getData_lancamento().getTime());
-            long diffInYears = diffInMilliseconds / (1000 * 60 * 60 * 24 * 365);
+            LocalDate dataAtual = LocalDate.now();
+            long diffInYears = ChronoUnit.YEARS.between(dataAtual, data_lancamento);
             return this.getPreco_base()*0.1*diffInYears;
         }else{
             if(super.getArtigo_novo()){
