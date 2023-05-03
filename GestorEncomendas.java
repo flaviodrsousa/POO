@@ -147,7 +147,7 @@ public class GestorEncomendas implements Serializable{
     }
 
     //Q3
-    public void encomendasVendedor(String codUtilizador){
+    public void encomendasVendedor(String codUtilizador) throws GetException{
         for(Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
             if (entry.getValue().getVendedor().getCodUtilizador().equals(codUtilizador)){
                 System.out.println(entry.getValue().toString());

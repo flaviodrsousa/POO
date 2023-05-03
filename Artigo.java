@@ -3,12 +3,14 @@ import java.io.Serializable;
 public abstract class Artigo implements Serializable{
     private String cod_barras;
     private boolean artigo_novo; //true=novo;false=velho;
-    private String estado; //descricao do quanto usado esta
+    private String estado; //quanto usado esta
     private int num_donos;
     private String descricao;
     private String marca;
     private double preco_base;
     private double estado_utilizacao; //valor de 0 a 1
+
+    //calculados
     private double desconto;
     private double preco_final;
 

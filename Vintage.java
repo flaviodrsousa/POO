@@ -182,7 +182,7 @@ public class Vintage implements Serializable{
     }
 
     //Q3
-    public void encomendasVendedor(String CodUtilizador){
+    public void encomendasVendedor(String CodUtilizador) throws GetException{
         gestorEncomendas.encomendasVendedor(CodUtilizador);
     }
 
