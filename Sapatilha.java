@@ -1,5 +1,5 @@
 import java.awt.Color;
-import java.text.ParseException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -21,7 +21,7 @@ public class Sapatilha extends Artigo{
     
     public Sapatilha(String cod_barras, boolean artigo_novo, String estado, int num_donos,
     String descricao, String marca,double preco_base,double estado_utilizacao,int tamanho,boolean atacadores,Color cor,
-    boolean premium,String data_colecao) throws ParseException{
+    boolean premium,String data_colecao) throws DateTimeException{
         super(cod_barras,artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao);
         this.tamanho=tamanho;
         this.atacadores=atacadores;

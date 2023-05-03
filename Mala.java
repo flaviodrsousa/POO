@@ -1,4 +1,4 @@
-import java.text.ParseException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -22,7 +22,7 @@ public class Mala extends Artigo{
 
     public Mala(String cod_barras, boolean artigo_novo, String estado, int num_donos,
     String descricao, String marca,double preco_base,double estado_utilizacao,
-    Dimensao dimensao,String material,String data_colecao,boolean premium) throws ParseException{
+    Dimensao dimensao,String material,String data_colecao,boolean premium) throws DateTimeException{
         super(cod_barras,artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao);
         this.dimensao=dimensao;
         this.material=material;

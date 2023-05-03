@@ -1,5 +1,5 @@
 import java.io.Serializable;
-import java.text.ParseException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -51,7 +51,7 @@ public class Encomenda implements Serializable{
 
     public Encomenda(GestorArtigos gestorArtigos,DimensaoEmbalagem dimensaoEmbalagem,double taxaGarantia,
     double custoExpedicao,String dataCriacao,String dataEntrega,Estado estado,
-    Utilizador vendedor,Utilizador comprador) throws ParseException{
+    Utilizador vendedor,Utilizador comprador) throws DateTimeException{
         this.numeroEncomenda=contador++;
         this.gestorArtigos=gestorArtigos.clone();
 

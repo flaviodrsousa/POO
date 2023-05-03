@@ -1,5 +1,5 @@
 import java.awt.Color;
-import java.text.ParseException;
+import java.time.DateTimeException;
 
 public class MainEma{
     public static void main(String[] args){
@@ -14,7 +14,7 @@ public class MainEma{
             1, "Sapatilha de corrida", "Nike", 100.0,
             0.9,Mala.Dimensao.PEQUENO,"Couro","2022-12-23",true);
             System.out.println(art5);
-        }catch(ParseException e){
+        }catch(DateTimeException e){
             System.out.println(e.getMessage());
         }
 

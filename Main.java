@@ -1,6 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.ParseException;
+import java.time.DateTimeException;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,7 +21,7 @@ public class Main {
             System.out.println(e.getMessage());
 /*         }catch (ClassNotFoundException e){
             System.out.println(e.getMessage()); */
-        }catch (ParseException e){
+        }catch (DateTimeException e){
             System.out.println(e.getMessage());
         } catch (AddException e) {
             System.out.println(e.getMessage());

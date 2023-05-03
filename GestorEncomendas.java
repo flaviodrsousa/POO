@@ -1,5 +1,5 @@
 import java.io.Serializable;
-import java.text.ParseException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -161,7 +161,7 @@ public class GestorEncomendas implements Serializable{
     }
 
     //Q4
-    public void topVendedoresCompradores(String dataInicial, String dataFinal, int top) throws ParseException {
+    public void topVendedoresCompradores(String dataInicial, String dataFinal, int top) throws DateTimeException {
         ArrayList<Encomenda> encomendas = getEncomendasForPeriod(dataInicial, dataFinal); //lista so com as encomendas dentro desse periodo de tempo
 
         Map<Utilizador, Double> vendedoresTotais = new HashMap<>();
@@ -211,7 +211,7 @@ public class GestorEncomendas implements Serializable{
         }
     }
 
-    private ArrayList<Encomenda> getEncomendasForPeriod(String dataInicio, String dataFim) throws ParseException {
+    private ArrayList<Encomenda> getEncomendasForPeriod(String dataInicio, String dataFim) throws DateTimeException {
         ArrayList<Encomenda> encomendasPeriodo = new ArrayList<>();
         LocalDate dataInicioF = Data.StringtoDate(dataInicio);
         LocalDate dataFimF = Data.StringtoDate(dataFim);

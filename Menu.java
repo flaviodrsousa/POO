@@ -1,5 +1,5 @@
 import java.awt.Color;
-import java.text.ParseException;
+import java.time.DateTimeException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -23,7 +23,7 @@ public class Menu {
         this.controlador_Menu_Vintage = controlador_Menu_Vintage; // Agregação
     }
 
-    public void run() throws ParseException {
+    public void run() throws DateTimeException {
         int opcao;
 
         do {
@@ -57,7 +57,7 @@ public class Menu {
                     try {
                         controlador_Menu_Vintage.avancarTempo(data);
                         break;
-                    } catch (ParseException e) {
+                    } catch (DateTimeException e) {
                         System.out.println("A data é no formato (dd-MM-yyyy)!");
                         break;
                     }
@@ -226,12 +226,12 @@ public class Menu {
                                 input.nextLine();
                                 break;
                             }
-                            Artigo Mala = null;
+                            Mala mala = null;
                             try {
-                                Mala = new Mala(cod_barras, artigo_novo, estado, num_donos, descricao, marca,
+                                mala = new Mala(cod_barras, artigo_novo, estado, num_donos, descricao, marca,
                                 preco_base, estado_utilizacao, dimensao, material, dataColecao, premium);
-                                controlador_Menu_Vintage.addArtigo(Mala);
-                            }catch(ParseException e){ // datacolecao pode ter erro de parse
+                                controlador_Menu_Vintage.addArtigo(mala);
+                            }catch(DateTimeException e){ // datacolecao pode ter erro de parse
                                 System.out.println("Data no fomato errado (dd-MM-yyyy)!!");
                                 break;
                             }catch(AddException e){
@@ -261,14 +261,13 @@ public class Menu {
                             Color cor=Color.BLACK;
                             try{
                                 cor = new Color(input.nextInt());
-                                System.out.println(cor.toString());
                                 input.nextLine();
                             }catch(InputMismatchException e){
                                 System.out.println("A cor é o seu valor em RGB!!");
                                 input.nextLine();
                                 break;
                             }
-                            System.out.println("Data de lançamento: ");
+                            System.out.println("Data de lançamento (dd-MM-yyyy): ");
                             String data_lancamento = input.nextLine();
                             System.out.println("Premium? (true/false): ");
                             boolean premium=false;
@@ -280,11 +279,10 @@ public class Menu {
                                 break;
                             }
                             try{
-                                Artigo sapatilha = new Sapatilha(cod_barras, artigo_novo, estado, num_donos, descricao, 
+                                Sapatilha sapatilha = new Sapatilha(cod_barras, artigo_novo, estado, num_donos, descricao, 
                                 marca, preco_base, estado_utilizacao, tamanho, atacadores, cor, premium, data_lancamento);
                                 controlador_Menu_Vintage.addArtigo(sapatilha);
-                                System.out.println(sapatilha.toString());
-                            }catch (ParseException e){
+                            }catch (DateTimeException e){
                                 System.out.println("Data de lancamento tem que estar no formato (dd-MM-yyyy)!!");
                                 break;
                             } catch (AddException e) {
@@ -310,7 +308,7 @@ public class Menu {
                                 System.out.println("Padrao tem que ser (liso,riscas,palmeiras)!!");
                                 break;
                             }
-                            Artigo tshirt = new Tshirt(cod_barras, artigo_novo, estado, num_donos, descricao,
+                            Tshirt tshirt = new Tshirt(cod_barras, artigo_novo, estado, num_donos, descricao,
                             marca, preco_base, estado_utilizacao, tamanho, padrao);
                             System.out.println(tshirt.toString());
                             try{
@@ -341,7 +339,7 @@ public class Menu {
                     }
                     try{
                         controlador_Menu_Vintage.topVendedoresCompradores(datai, dataf, top);
-                    }catch(ParseException e){
+                    }catch(DateTimeException e){
                         System.out.println("Datas sao no formato (dd-MM-yyyy)!!");
                     }
                     break;

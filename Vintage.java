@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.text.ParseException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 public class Vintage implements Serializable{
@@ -36,7 +36,7 @@ public class Vintage implements Serializable{
     }
 
     //Construtores
-    private void estadoInicial_Vintage() throws ParseException, AddException{
+    private void estadoInicial_Vintage() throws DateTimeException, AddException{
         this.data_atual = LocalDate.now();
 
         Artigo artigo1 = new Sapatilha("sap1a",true,"novo",1,"sapatilha vermelha num 45",
@@ -63,7 +63,7 @@ public class Vintage implements Serializable{
         this.gestorEncomendas.addEncomenda(encomenda);
     }
 
-    public Vintage() throws ParseException, AddException{
+    public Vintage() throws DateTimeException, AddException{
         this.gestorEncomendas = new GestorEncomendas();
         this.gestorTransportadoras= new GestorTransportadoras();
         this.gestorUtilizadores= new GestorUtilizadores();
@@ -72,7 +72,7 @@ public class Vintage implements Serializable{
     }
 
     public Vintage(String data_atual,GestorEncomendas gestorEncomendas,GestorTransportadoras gestorTransportadoras, 
-    GestorUtilizadores gestorUtilizadores,GestorArtigos gestorArtigos) throws ParseException{
+    GestorUtilizadores gestorUtilizadores,GestorArtigos gestorArtigos) throws DateTimeException{
         this.data_atual=Data.StringtoDate(data_atual);
         this.gestorEncomendas=gestorEncomendas.clone();
         this.gestorTransportadoras=gestorTransportadoras.clone();
@@ -166,7 +166,7 @@ public class Vintage implements Serializable{
         gestorEncomendas.entregaEncomenda(this);
     }
 
-    public void avancarTempo(String date) throws ParseException{
+    public void avancarTempo(String date) throws DateTimeException{
         LocalDate newDate = Data.StringtoDate(date);
         set_DataAtual(newDate);
         this.entregaEncomenda();
@@ -188,7 +188,7 @@ public class Vintage implements Serializable{
     }
 
     //Q4
-    public void topVendedoresCompradores(String datai, String dataf, int top) throws ParseException{
+    public void topVendedoresCompradores(String datai, String dataf, int top) throws DateTimeException{
         gestorEncomendas.topVendedoresCompradores(datai, dataf, top);
     }
 

@@ -1,6 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.ParseException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 public class Controlador_Menu_Vintage {
@@ -33,7 +33,7 @@ public class Controlador_Menu_Vintage {
     }
 
     //Outros métodos
-    public void avancarTempo(String date) throws ParseException{
+    public void avancarTempo(String date) throws DateTimeException{
         vintage.avancarTempo(date);
     }
 
@@ -53,7 +53,7 @@ public class Controlador_Menu_Vintage {
     }
 
     //Q4
-    public void topVendedoresCompradores(String dataInicial, String dataFinal, int top) throws ParseException{
+    public void topVendedoresCompradores(String dataInicial, String dataFinal, int top) throws DateTimeException{
         vintage.topVendedoresCompradores(dataInicial, dataFinal, top);
     }
 
