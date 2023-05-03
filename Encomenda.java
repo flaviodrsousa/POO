@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Date;
 
-public class Encomenda{
+public class Encomenda implements Serializable{
     public enum DimensaoEmbalagem{
         pequeno,medio,grande
     }

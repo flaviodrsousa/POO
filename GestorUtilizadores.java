@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GestorUtilizadores{
+public class GestorUtilizadores implements Serializable{
     private Map<String,Utilizador> utilizadores;
 
     //Contrutores
@@ -65,16 +66,26 @@ public class GestorUtilizadores{
     }
 
     //Outros métodos
-    public void addUtilizador(Utilizador utilizador){
-        if(!this.utilizadores.containsKey(utilizador.getCodUtilizador())){
-            this.utilizadores.put(utilizador.getCodUtilizador(),utilizador.clone());
+    public void addUtilizador(Utilizador utilizador) throws AddException{
+        Utilizador previousValue = utilizadores.putIfAbsent(utilizador.getCodUtilizador(),utilizador.clone());
+        if (previousValue != null) { //se a chave já existir no map
+            throw new AddException("Já existe no sistema um utilizador com esse código de Utilizador!");
         }
     }
 
-    public void removeVendas(Utilizador utilizador){
-        if(this.utilizadores.containsKey(utilizador.getCodUtilizador())){
-            this.utilizadores.remove(utilizador.getCodUtilizador());
+    public void removeUtilizador(Utilizador utilizador) throws RemoveException{
+        Utilizador utilizadorRemovido = this.utilizadores.remove(utilizador.getCodUtilizador());
+        if (utilizadorRemovido == null){
+            throw new RemoveException("Não existe um utilizador com esse codigo de Utilizador!");
         }
+    }
+
+    public Utilizador getUtilizador(String codUtilizador) throws GetException{
+        Utilizador utilizador = utilizadores.get(codUtilizador);
+        if (utilizador == null){
+            throw new GetException("Não existe um utilizador com esse codigo de Utilizador!");
+        }
+        return utilizador;
     }
 
 }

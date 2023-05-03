@@ -1,4 +1,5 @@
 import java.text.ParseException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
@@ -22,7 +23,7 @@ public class Menu {
     }
 
     public void run() throws ParseException {
-        int opcao;
+        int opcao=-1;
         
         do {
             System.out.println("------ MENU ------");
@@ -31,10 +32,15 @@ public class Menu {
             System.out.println("3. Ganhos do Vintage");
             System.out.println("4. Vendedor que mais fatorou");
             System.out.println("5. Transportadora com mais volume de encomendas");
+            System.out.println("6. Adicionar utilizador");
             System.out.println("0. Sair");
             System.out.println("Escolha uma opção: ");
             
-            opcao = input.nextInt();
+            try{
+                opcao = input.nextInt();
+            }catch(InputMismatchException e){
+                input.nextLine();
+            }
             
             switch (opcao) {
                 case 1:
@@ -58,6 +64,41 @@ public class Menu {
                 case 5:
                     System.out.println("Transportadora mais usada: "+controlador_Menu_Vintage.TransportadoraMaiorVolumeFatoracao());
                     break;
+                case 6:
+                    System.out.println("Codigo de utilizador: ");
+                    input.nextLine();
+                    codUtilizador=input.nextLine();
+                    System.out.println("Email: ");
+                    String email= input.nextLine();
+                    System.out.println("Nome: ");
+                    String nome = input.nextLine();
+                    System.out.println("Morada: ");
+                    String morada = input.nextLine();
+                    System.out.println("NumFiscal: ");
+                    try{
+                        int numFiscal = input.nextInt();
+                        System.out.println("Escolha uma das transportadoras (nome): ");
+                        System.out.println(controlador_Menu_Vintage.getVintage().getGestorTransportadoras().getTransportadoras().toString());
+                        input.nextLine();
+                        System.out.println("Nome Transportadora:");
+                        String nomeTransportadora = input.nextLine();
+                        try{
+                            Transportadora transportadora = controlador_Menu_Vintage.getTransportadora(nomeTransportadora);
+                            Utilizador utilizador = new Utilizador(codUtilizador, email, nome, morada, 
+                            numFiscal, null, null, null, transportadora);
+                            controlador_Menu_Vintage.addUtilizador(utilizador);
+                            break;
+                        }catch (GetException e){
+                            System.out.println(e.getMessage());
+                            break;
+                        }catch (AddException e){
+                            System.out.println(e.getMessage());
+                        }
+                    }catch(InputMismatchException e){
+                        System.out.println("O numFiscal é um numero!!");
+                        input.nextLine();
+                        break;
+                    }
                 case 0:
                     System.out.println("Saindo do programa...");
                     break;

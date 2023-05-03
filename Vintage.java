@@ -1,16 +1,42 @@
 import java.awt.Color;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Date;
 
-public class Vintage{
+public class Vintage implements Serializable{
     private GestorEncomendas gestorEncomendas;
     private GestorTransportadoras gestorTransportadoras;
     private GestorUtilizadores gestorUtilizadores;
     private GestorArtigos gestorArtigos;
     private Date data_atual;
 
+    //Carrega estado
+    public static Vintage carregaEstado(String nomeFicheiro) throws FileNotFoundException,IOException,
+    ClassNotFoundException{
+        FileInputStream fis = new FileInputStream(nomeFicheiro);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        Vintage v = (Vintage) ois.readObject();
+        ois.close();
+        return v;
+    }
+
+    //Guardar estado
+    public void guardaEstado(String nomeFicheiro) throws FileNotFoundException,IOException{
+        FileOutputStream fos = new FileOutputStream(nomeFicheiro);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(this);
+        oos.flush();
+        oos.close();
+    }
+
     //Construtores
-    private void estadoInicial_Vintage() throws ParseException{
+    private void estadoInicial_Vintage() throws ParseException, AddException{
         this.data_atual = new Date();
 
         Artigo artigo1 = new Sapatilha("sap1a",true,"novo",1,"sapatilha vermelha num 45",
@@ -34,10 +60,10 @@ public class Vintage{
         Encomenda encomenda = new Encomenda(gestorArtigos_1,Encomenda.DimensaoEmbalagem.pequeno,5,10,
         "05-07-2002","10-07-2002",Encomenda.Estado.entregue,utilizador1,utilizador2);
 
-        this.gestorEncomendas.addVendas(encomenda);
+        this.gestorEncomendas.addEncomenda(encomenda);
     }
 
-    public Vintage() throws ParseException{
+    public Vintage() throws ParseException, AddException{
         this.gestorEncomendas = new GestorEncomendas();
         this.gestorTransportadoras= new GestorTransportadoras();
         this.gestorUtilizadores= new GestorUtilizadores();

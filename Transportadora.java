@@ -1,4 +1,6 @@
-public class Transportadora {
+import java.io.Serializable;
+
+public class Transportadora implements Serializable{
     private String nome;
     private int precoExpPequena; //1 artigo
     private int precoExpMedia; //2 a 5 artigos

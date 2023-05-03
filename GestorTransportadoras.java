@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GestorTransportadoras {
+public class GestorTransportadoras implements Serializable{
     private Map<String, Transportadora> transportadoras; //nome e a chave
 
     // Construtores
@@ -65,16 +66,26 @@ public class GestorTransportadoras {
     }
 
     // Outros métodos
-    public void addTransportadora(Transportadora transportadora){
-        if(!this.transportadoras.containsKey(transportadora.getNome())){
-            this.transportadoras.put(transportadora.getNome(), transportadora.clone()); 
-        }   
+    public void addTransportadora(Transportadora transportadora) throws AddException{
+        Transportadora previousValue = transportadoras.putIfAbsent(transportadora.getNome(),transportadora.clone());
+        if (previousValue != null) { //se a chave já existir no map
+            throw new AddException("Já existe no sistema uma Transportadora com esse nome!");
+        }  
     }
 
-    public void removeTransportadora(Transportadora transportadora) {
-        if(this.transportadoras.containsKey(transportadora.getNome())){
-            this.transportadoras.remove(transportadora.getNome());
+    public void removeTransportadora(Transportadora transportadora) throws RemoveException{
+        Transportadora transportadoraRemovida = transportadoras.remove(transportadora.getNome());
+        if (transportadoraRemovida == null){
+            throw new RemoveException("Não existe uma Transportadora com esse nome!");
         }
+    }
+
+    public Transportadora getTransportadora(String nome) throws GetException{
+        Transportadora transportadora = transportadoras.get(nome);
+        if (transportadora == null){
+            throw new GetException("Não existe uma Transportadora com esse nome!");
+        }
+        return transportadora;
     }
 
 }

@@ -1,4 +1,6 @@
-public class Utilizador{
+import java.io.Serializable;
+
+public class Utilizador implements Serializable{
     private String codUtilizador;
     private String email;
     private String nome;
@@ -178,18 +180,18 @@ public class Utilizador{
     }
 
     //Publicar artigos à venda
-    public void artigo_aVenda(Artigo artigo){
+    public void artigo_aVenda(Artigo artigo) throws AddException{
         this.aVenda.addArtigo(artigo.clone());
     }
 
     //Artigo vendido por um Vendedor
-    public void artigo_Vendido(Artigo artigo){
+    public void artigo_Vendido(Artigo artigo) throws AddException, RemoveException{
         this.aVenda.removeArtigo(artigo);
         this.historicoVendas.addArtigo(artigo.clone());
     }
 
     //Artigo comprado por um Comprador
-    public void artigo_Comprado(Artigo artigo){
+    public void artigo_Comprado(Artigo artigo) throws AddException{
         this.historicoCompras.addArtigo(artigo.clone());
     }
 }

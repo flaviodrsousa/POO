@@ -1,11 +1,6 @@
 # POO
 
-Perguntar ao professor sobre o setDate_atual do vintage!!!
-
-Perguntar tambem se podemos usar agregação no Controlador e no Menu.
-
-Controlador e Menu sao com agregacao!!!!!! 
-Controlador chama os metodos do vintage, para no menu so chamar os metodos do controlador, que por sua vez chama os do vintage.
+Perguntar sobre o try catch que da null no carrega estado do ficheiro .dat (no main)
 
 :::::::EMA::::::
 

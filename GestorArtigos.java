@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GestorArtigos{
+public class GestorArtigos implements Serializable{
     private Map<String,Artigo> artigos;
 
     //Contrutores
@@ -65,16 +66,26 @@ public class GestorArtigos{
     }
 
     //Outros métodos
-    public void addArtigo(Artigo artigo){
-        if(!this.artigos.containsKey(artigo.getCod_barras())){
-            this.artigos.put(artigo.getCod_barras(),artigo.clone());
-        } 
+    public void addArtigo(Artigo artigo) throws AddException{
+        Artigo previousValue = artigos.putIfAbsent(artigo.getCod_barras(),artigo.clone());
+        if (previousValue != null) { //se a chave já existir no map
+            throw new AddException("Já existe no sistema um artigo com esse código de barras!");
+        }
     }
 
-    public void removeArtigo(Artigo Artigo){
-        if(this.artigos.containsKey(Artigo.getCod_barras())){
-            this.artigos.remove(Artigo.getCod_barras());
+    public void removeArtigo(Artigo artigo) throws RemoveException{
+        Artigo artigoRemovido = this.artigos.remove(artigo.getCod_barras());
+        if (artigoRemovido == null){
+            throw new RemoveException("Não existe um artigo com esse codigo de barras");
         }
+    }
+
+    public Artigo getArtigo(String cod_barras) throws GetException{
+        Artigo artigo = this.artigos.get(cod_barras);
+        if (artigo == null){
+            throw new GetException("Não existe um artigo com esse codigo de barras");
+        }
+        return artigo;
     }
 
     public double calcularPrecoFinalEncomenda(Encomenda encomenda) {

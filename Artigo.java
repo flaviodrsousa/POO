@@ -1,4 +1,6 @@
-public abstract class Artigo{
+import java.io.Serializable;
+
+public abstract class Artigo implements Serializable{
     private String cod_barras;
     private boolean artigo_novo; //true=novo;false=velho;
     private String estado; //descricao do quanto usado esta

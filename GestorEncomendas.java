@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GestorEncomendas{
+public class GestorEncomendas implements Serializable{
     private Map<Integer,Encomenda> vendas; //map das diversas encomendas vendidas (chave é numeroEncomenda).
 
     public GestorEncomendas(){
@@ -64,16 +65,26 @@ public class GestorEncomendas{
     }
 
     //Outros métodos
-    public void addVendas(Encomenda encomenda){
-        if(!this.vendas.containsKey(encomenda.getNumeroEncomenda())){
-            this.vendas.put(encomenda.getNumeroEncomenda(),encomenda.clone());
+    public void addEncomenda(Encomenda encomenda) throws AddException{
+        Encomenda previousValue = vendas.putIfAbsent(encomenda.getNumeroEncomenda(),encomenda.clone());
+        if (previousValue != null) { //se a chave já existir no map
+            throw new AddException("Já existe no sistema uma Encomenda com esse Numero de Encomenda");
         }
     }
 
-    public void removeVendas(Encomenda encomenda){
-        if(this.vendas.containsKey(encomenda.getNumeroEncomenda())){
-            this.vendas.remove(encomenda.getNumeroEncomenda());
-        } 
+    public void removeEncomenda(Encomenda encomenda) throws RemoveException{
+        Encomenda encomandaRemovida = this.vendas.remove(encomenda.getNumeroEncomenda());
+        if (encomandaRemovida == null){
+            throw new RemoveException("Não existe uma Encomenda com esse Numero de Encomenda!");
+        }
+    }
+
+    public Encomenda getEncomenda(Integer numEncomenda) throws GetException{
+        Encomenda encomenda = this.vendas.get(numEncomenda);
+        if (encomenda == null){
+            throw new GetException("Não existe uma Encomenda com esse Numero de Encomenda!");
+        }
+        return encomenda;
     }
 
     public void entregaEncomenda(Vintage vintage){
