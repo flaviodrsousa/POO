@@ -1,6 +1,8 @@
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Date;
+import java.util.ArrayList;
 
 public class GestorEncomendas implements Serializable{
     private Map<Integer,Encomenda> vendas; //map das diversas encomendas vendidas (chave é numeroEncomenda).
@@ -147,13 +149,84 @@ public class GestorEncomendas implements Serializable{
     }
 
     //Q3
-    public void encomendasVendedor(String codUtilizador) throws GetException{
+    public void encomendasVendedor(String codUtilizador){
         for(Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
             if (entry.getValue().getVendedor().getCodUtilizador().equals(codUtilizador)){
                 System.out.println(entry.getValue().toString());
             }
         }
     }
+
+    //Q4
+    public void topVendedoresCompradores(String dataInicial, String dataFinal, String top) {
+
+    int topi = Integer.parseInt(top);
+
+    ArrayList<Encomenda> encomendas = getEncomendasForPeriod(dataInicial, dataFinal);
+
+    Map.Entry<Utilizador, Double> vendedoresTotais = new HashMap<>();
+    for (Map.Entry<Int, Encomenda> entry : vendas.entrySet()) {
+        Utilizador vendedor = entry.getValue().getVendedor();
+        Double preco_final = entry.getValue().get_PrecoFinal();
+        if (vendedoresTotais.containsKey(vendedor)) {
+            preco_final += vendedoresTotais.get(vendedor);
+        }
+        vendedoresTotais.put(vendedor, preco_final);
+    }
+
+    List<Map.Entry<Utilizador, Double>> organizarVendedores = new ArrayList<>(vendedoresTotais.entrySet());
+    organizarVendedores.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+    System.out.println("Maiores Vendedores:");
+    int count = 1;
+    for (Map.Entry<Utilizador, Double> entry : organizarVendedores) {
+        Utilizador vendedor_ = entry.getKey();
+        System.out.println(count + ". " + vendedor_.getNome());
+        count++;
+        if (count > topi) {
+            break;
+        }
+    }
+
+    Map<Utilizador, Double> compradoresTotais = new HashMap<>();
+    for (Map.Entry<Int, Encomenda> entry : vendas.entrySet()) {
+        Utilizador comprador = entry.getValue().getComprador();
+        Double precofinal = entry.getValue().get_PrecoFinal();
+        if (compradoresTotais.containsKey(comprador)) {
+            precofinal += compradoresTotais.get(comprador);
+        }
+        compradoresTotais.put(comprador, precofinal);
+    }
+
+    List<Map.Entry<Utilizador, Double>> organizarCompradores = new ArrayList<>(compradoresTotais.entrySet());
+    organizarCompradores.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+    System.out.println("\nMaiores Compradores:");
+    count = 1;
+    for (Map.Entry<Utilizador, Double> entry : organizarCompradores) {
+        Utilizador comprador_ = entry.getKey();
+        System.out.println(count + ". " + comprador_.getNome());
+        count++;
+        if (count > top) {
+            break;
+            }
+        }
+    }
+
+    private ArrayList<Encomenda> getEncomendasForPeriod(String dataInicio, String dataFim) {
+        ArrayList<Encomenda> encomendasPeriodo = new ArrayList<>();
+        Date dataInicioF = Data.StringtoDate(dataInicio);
+        Date dataFimF = Data.StringtoDate(dataFim);
+        for (Map.Entry<Integer, Encomenda> entry: vendas.entrySet()) {
+            Date dataCriacao = entry.getValue().get_DataCriacao();
+            if (dataCriacao.compareTo(dataInicioF) >= 0 && dataCriacao.compareTo(dataFimF) <= 0) {
+                encomendasPeriodo.add(entry.getValue());
+            }
+        }
+
+    return encomendasPeriodo;
+    }
+
 
     //Q5
     public double ganhosVintage(){
