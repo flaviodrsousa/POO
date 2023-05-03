@@ -65,12 +65,12 @@ public class Menu {
                     input.nextLine();
                     String codUtilizador = input.nextLine();
                     try {
-                        Utilizador utilizador = controlador_Menu_Vintage.getUtilizador(codUtilizador); // forcar a
-                                                                                                       // verificar se
-                                                                                                       // existe um
-                                                                                                       // utilizador com
-                                                                                                       // esse
-                                                                                                       // codUtilizador
+                        Utilizador utilizador = controlador_Menu_Vintage.getUtilizador(codUtilizador);  /*forcar a
+                                                                                                        verificar se
+                                                                                                        existe um
+                                                                                                        utilizador com
+                                                                                                        esse
+                                                                                                        codUtilizador */
                         controlador_Menu_Vintage.encomendasVendedor(utilizador.getCodUtilizador());
                         break;
                     } catch (GetException e) {
@@ -98,30 +98,30 @@ public class Menu {
                     System.out.println("Morada: ");
                     String morada = input.nextLine();
                     System.out.println("NumFiscal: ");
+                    int numFiscal =0;
                     try {
-                        int numFiscal = input.nextInt();
+                        numFiscal = input.nextInt();
+                    }catch(InputMismatchException e){
+                        System.out.println("O numFiscal é um numero!!");
+                        input.nextLine();
+                        break;
+                    }
+                    try {
                         System.out.println("Escolha uma das transportadoras (nome): ");
                         System.out.println(controlador_Menu_Vintage.toString_Transportadoras());
                         input.nextLine();
                         System.out.println("Nome Transportadora:");
                         String nomeTransportadora = input.nextLine();
-                        try {
-                            Transportadora transportadora = controlador_Menu_Vintage
-                                    .getTransportadora(nomeTransportadora);
-                            Utilizador utilizador = new Utilizador(codUtilizador, email, nome, morada,
-                                    numFiscal, null, null, null, transportadora);
-                            controlador_Menu_Vintage.addUtilizador(utilizador);
-                            break;
-                        } catch (GetException e) {
-                            System.out.println(e.getMessage());
-                            break;
-                        } catch (AddException e) {
-                            System.out.println(e.getMessage());
-                            break;
-                        }
-                    } catch (InputMismatchException e) {
-                        System.out.println("O numFiscal é um numero!!");
-                        input.nextLine();
+                        Transportadora transportadora = controlador_Menu_Vintage.getTransportadora(nomeTransportadora);
+                        Utilizador utilizador = new Utilizador(codUtilizador, email, nome, morada,
+                        numFiscal, null, null, null, transportadora);
+                        controlador_Menu_Vintage.addUtilizador(utilizador);
+                        break;
+                    }catch(GetException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }catch(AddException e){
+                        System.out.println(e.getMessage());
                         break;
                     }
                 case 7:
@@ -132,7 +132,7 @@ public class Menu {
                     input.nextLine();
                     nome = input.nextLine();
                     System.out.println("Preço Encomenda pequena: ");
-                    try {
+                    try{
                         int precoExpPequena = input.nextInt();
                         System.out.println("Preço Encomenda media: ");
                         int precoExpMedia = input.nextInt();
@@ -142,11 +142,11 @@ public class Menu {
                                 precoExpGrande);
                         controlador_Menu_Vintage.addTransportadora(transportadora);
                         break;
-                    } catch (InputMismatchException e) {
+                    }catch(InputMismatchException e){
                         System.out.println("Os Preços são números!!");
                         input.nextLine();
                         break;
-                    } catch (AddException e) {
+                    }catch(AddException e){
                         System.out.println(e.getMessage());
                         break;
                     }
@@ -156,9 +156,9 @@ public class Menu {
                     String cod_barras = input.nextLine();
                     System.out.println("O artigo é novo (true/false)? ");
                     boolean artigo_novo;
-                    try {
+                    try{
                         artigo_novo = input.nextBoolean();
-                    } catch (InputMismatchException e) {
+                    }catch(InputMismatchException e){
                         System.out.println("Deve inserir true/false!!");
                         break;
                     }
@@ -167,9 +167,9 @@ public class Menu {
                     String estado = input.nextLine();
                     System.out.println("Número de donos do artigo: ");
                     int num_donos = 0;
-                    try {
+                    try{
                         num_donos = input.nextInt();
-                    } catch (InputMismatchException e) {
+                    }catch(InputMismatchException e){
                         System.out.println("Numero de donos é um numero");
                     }
                     System.out.println("Descreva o produto: ");
