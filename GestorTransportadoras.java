@@ -59,7 +59,7 @@ public class GestorTransportadoras implements Serializable{
         sb.append("Transportadoras registadas: ").append(transportadoras.size()).append("\n");
 
         for (Map.Entry<String, Transportadora> entry : transportadoras.entrySet()) {
-            sb.append(entry.getValue().toString()).append("\n");
+            sb.append(entry.getKey().toString()).append("\n");
         }
 
         return sb.toString();

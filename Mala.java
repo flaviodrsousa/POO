@@ -32,10 +32,10 @@ public class Mala extends Artigo{
 
     public Mala(Mala novo){
         super(novo);
-        this.dimensao=this.getDimensao();
-        this.material=this.getMaterial();
-        this.data_colecao=this.getData_colecao();
-        this.premium=this.getPremium();
+        this.dimensao=novo.getDimensao();
+        this.material=novo.getMaterial();
+        this.data_colecao=novo.getData_colecao();
+        this.premium=novo.getPremium();
     }
 
     //gets

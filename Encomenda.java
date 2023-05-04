@@ -49,8 +49,8 @@ public class Encomenda implements Serializable{
     }
 
 
-    public Encomenda(GestorArtigos gestorArtigos,DimensaoEmbalagem dimensaoEmbalagem,double taxaGarantia,
-    double custoExpedicao,String dataCriacao,String dataEntrega,Estado estado,
+    public Encomenda(GestorArtigos gestorArtigos,DimensaoEmbalagem dimensaoEmbalagem,
+    double taxaGarantia,String dataCriacao,String dataEntrega,Estado estado,
     Utilizador vendedor,Utilizador comprador) throws DateTimeException{
         this.numeroEncomenda=contador++;
         this.gestorArtigos=gestorArtigos.clone();
@@ -68,7 +68,9 @@ public class Encomenda implements Serializable{
 
         this.precoFinal=this.calcularPrecoFinal();
         this.dataCriacao=Data.StringtoDate(dataCriacao);
-        this.dataEntrega=Data.StringtoDate(dataEntrega);     
+        if (estado.equals(Estado.entregue)){
+            this.dataEntrega=Data.StringtoDate(dataEntrega);     
+        }else this.dataEntrega=LocalDate.MIN; //valor default caso ainda nao tenha sido entregue
         this.estado=estado;
         this.vendedor=vendedor;
         this.comprador=comprador;

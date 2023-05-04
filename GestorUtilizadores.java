@@ -59,7 +59,7 @@ public class GestorUtilizadores implements Serializable{
         sb.append("Utilizadores registados: ").append(utilizadores.size()).append("\n");
     
         for(Map.Entry<String,Utilizador> entry: utilizadores.entrySet()){
-            sb.append(entry.getValue().toString()).append("\n");
+            sb.append(entry.getKey().toString()).append("\n");
         }
     
         return sb.toString();

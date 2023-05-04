@@ -63,7 +63,7 @@ public class GestorEncomendas implements Serializable{
         sb.append("Encomendas Vendidas: ").append(vendas.toString());
 
         for(Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
-            sb.append(entry.getValue().clone().toString());
+            sb.append(entry.getKey().toString());
         }
 
         return sb.toString();

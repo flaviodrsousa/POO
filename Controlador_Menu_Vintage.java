@@ -129,6 +129,21 @@ public class Controlador_Menu_Vintage {
 
     //toString Transportadoras
     public String toString_Transportadoras(){
-        return vintage.getGestorTransportadoras().getTransportadoras().toString();
+        return vintage.getGestorTransportadoras().toString();
+    }
+
+    //toString Artigos
+    public String toString_Artigos(){
+        return vintage.getGestorArtigos().toString();
+    }
+
+    //toString Utilizadores
+    public String toString_Utilizadores(){
+        return vintage.getGestorUtilizadores().toString();
+    }
+
+    //numArtigosVintage
+    public int numArtigos_Vintage(){
+        return vintage.getGestorArtigos().getArtigos().size();
     }
 }

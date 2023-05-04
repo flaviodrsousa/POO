@@ -38,6 +38,7 @@ public class Menu {
             System.out.println("8. Adicionar Transportadora");
             System.out.println("9. Adicionar Artigo");
             System.out.println("10. Verificar melhores compradores e Vendedores num determinado periodo");
+            System.out.println("11. Adicionar Encomenda");
             System.out.println("0. Sair");
             System.out.println("Escolha uma opção: ");
 
@@ -49,7 +50,7 @@ public class Menu {
                 input.nextLine();
             }
 
-            switch (opcao) {
+            switchFlag : switch (opcao) { //switchFlag permite parar diretamente o switch com um break
                 case 1:
                     System.out.println("Data (dd-MM-yyyy) para onde pertende avancar: ");
                     input.nextLine();
@@ -231,6 +232,7 @@ public class Menu {
                                 mala = new Mala(cod_barras, artigo_novo, estado, num_donos, descricao, marca,
                                 preco_base, estado_utilizacao, dimensao, material, dataColecao, premium);
                                 controlador_Menu_Vintage.addArtigo(mala);
+                                break;
                             }catch(DateTimeException e){ // datacolecao pode ter erro de parse
                                 System.out.println("Data no fomato errado (dd-MM-yyyy)!!");
                                 break;
@@ -336,11 +338,99 @@ public class Menu {
                     }catch(InputMismatchException e){
                         System.out.println("A quantidade de utilizadores é um numero!!");
                         input.nextLine();
+                        break;
                     }
                     try{
                         controlador_Menu_Vintage.topVendedoresCompradores(datai, dataf, top);
                     }catch(DateTimeException e){
                         System.out.println("Datas sao no formato (dd-MM-yyyy)!!");
+                        break;
+                    }
+                    break;
+                case 11:
+                    GestorArtigos gestorArtigos = new GestorArtigos();
+                    System.out.println("Numero de artigos na encomenda");
+                    input.nextLine();
+                    int numArtigos=0;
+                    try{
+                        numArtigos = input.nextInt();
+                        if (numArtigos>controlador_Menu_Vintage.numArtigos_Vintage()){
+                            System.out.println("Nao existem tantos artigos no sistema");
+                            break;
+                        }
+                        input.nextLine();
+                    }catch(InputMismatchException e){
+                        System.out.println("Numero de artigos é um numero");
+                        input.nextLine();
+                        break;
+                    }
+                    System.out.println(controlador_Menu_Vintage.toString_Artigos());
+                    for(int i=0;i<numArtigos;i++){
+                        System.out.println("Escolha um artigo (codigo de Barras):");
+                        String cod_Barras = input.nextLine();
+                        Artigo artigo=null;
+                        try {
+                            artigo= controlador_Menu_Vintage.getArtigo(cod_Barras);
+                            gestorArtigos.addArtigo(artigo);
+                        }catch(GetException e){
+                            System.out.println(e.getMessage());
+                            break switchFlag; //parar o switch diretamente
+                        }catch(AddException e){
+                            System.out.println(e.getMessage());
+                            break switchFlag;
+                        }
+                    }
+                    Encomenda.DimensaoEmbalagem dimensaoEmbalagem = Encomenda.DimensaoEmbalagem.pequeno;
+                    if (numArtigos>3) dimensaoEmbalagem = Encomenda.DimensaoEmbalagem.medio;
+                    else if (numArtigos >7) dimensaoEmbalagem = Encomenda.DimensaoEmbalagem.grande;
+                    System.out.println("Taxa de garantia (numerico): ");
+                    double taxaGarantia;
+                    try{
+                        taxaGarantia=input.nextDouble();
+                        input.nextLine();
+                    }catch(InputMismatchException e){
+                        System.out.println("Taxa de garantia é um numero!!");
+                        input.nextLine();
+                        break;
+                    }
+                    System.out.println("Data de criação da Encomenda:");
+                    String dataCriacao= input.nextLine();
+                    System.out.println("Qual o estado da Encomenda? (pendente/paga/expedida/entregue):");
+                    Encomenda.Estado estadoEncomenda;
+                    String dataEntrega=null;
+                    try {
+                        estadoEncomenda = Encomenda.Estado.valueOf(input.next().toLowerCase());
+                        if (estadoEncomenda.equals(Encomenda.Estado.entregue)){
+                            System.out.println("Data de entrega da encomenda (dd-MM-yyyy):");
+                            input.nextLine();
+                            dataEntrega=input.nextLine();
+                        }
+                    }catch (IllegalArgumentException e){
+                        System.out.println("Dimensao tem que ser pequeno/medio/grande!!");
+                        input.nextLine();
+                        break;
+                    }
+                    System.out.println("\n"+controlador_Menu_Vintage.toString_Utilizadores());
+                    System.out.println("Escolha um vendedor (codigo de Utilizador):");
+                    String codVendedor = input.nextLine();
+                    System.out.println("Escolha um comprador (codigo de Utilizador):");
+                    String codComprador = input.nextLine();
+                    Utilizador vendedor,comprador=null;
+                    try {
+                        vendedor= controlador_Menu_Vintage.getUtilizador(codVendedor);
+                        comprador=controlador_Menu_Vintage.getUtilizador(codComprador);
+                        Encomenda encomenda = new Encomenda(gestorArtigos, dimensaoEmbalagem, taxaGarantia, dataCriacao, 
+                        dataEntrega, estadoEncomenda, vendedor, comprador);
+                        controlador_Menu_Vintage.addEncomenda(encomenda);
+                    }catch(GetException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    } catch (AddException e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                    catch(DateTimeException e){
+                        System.out.println("Data tem que estar no formato (dd-MM-yyyy)!!!");
                     }
                     break;
                 case 0:

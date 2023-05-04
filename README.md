@@ -1,4 +1,3 @@
 # POO
 
-Perguntar sobre o try catch que da null no carrega estado do ficheiro .dat (no main)
-nullpointerexception nas datas recebidas como input no menu(funciona na mala mas nao na sapatilha) !!!
+Perguntar sobre o try catch que da null quando o .dat esta vazio no carrega estado do ficheiro .dat (no main)

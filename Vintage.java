@@ -42,7 +42,9 @@ public class Vintage implements Serializable{
         Artigo artigo1 = new Sapatilha("sap1a",true,"novo",1,"sapatilha vermelha num 45",
         "Nike",50.5,1,45,true,Color.RED,false,"10-05-2000");
 
-        GestorArtigos gestorArtigos_1= new GestorArtigos();
+        this.gestorArtigos.addArtigo(artigo1); //ficar no historico do Vintage
+
+        GestorArtigos gestorArtigos_1 = new GestorArtigos(); //gestor de artigos da encomenda entre o u0001 e o u0002
         gestorArtigos_1.addArtigo(artigo1);
 
         Transportadora transportadora = new Transportadora("Fedex",10,20,50);
@@ -57,7 +59,7 @@ public class Vintage implements Serializable{
         this.gestorUtilizadores.addUtilizador(utilizador1);
         this.gestorUtilizadores.addUtilizador(utilizador2);
 
-        Encomenda encomenda = new Encomenda(gestorArtigos_1,Encomenda.DimensaoEmbalagem.pequeno,5,10,
+        Encomenda encomenda = new Encomenda(gestorArtigos_1,Encomenda.DimensaoEmbalagem.pequeno,5,
         "05-07-2002","10-07-2002",Encomenda.Estado.entregue,utilizador1,utilizador2);
 
         this.gestorEncomendas.addEncomenda(encomenda);

@@ -18,11 +18,11 @@ public class GestorArtigos implements Serializable{
     }
 
     public GestorArtigos(GestorArtigos gereArtigo) {
-        this.artigos = gereArtigo.getArtigo();
+        this.artigos = gereArtigo.getArtigos();
     }
 
     //get
-    public Map<String, Artigo> getArtigo() {
+    public Map<String, Artigo> getArtigos() {
         Map<String,Artigo> novo = new HashMap<>();
         for(Map.Entry<String,Artigo> entry: this.artigos.entrySet()){
             novo.put(entry.getKey(),entry.getValue().clone());
@@ -50,7 +50,7 @@ public class GestorArtigos implements Serializable{
         if ((o==null) || (this.getClass() != o.getClass())) 
             return false;
         GestorArtigos artigo = (GestorArtigos) o;
-        return (artigo.getArtigo().equals(this.artigos));
+        return (artigo.getArtigos().equals(this.artigos));
     }
 
     //toString
@@ -59,7 +59,7 @@ public class GestorArtigos implements Serializable{
         sb.append("Artigos registados: ").append(artigos.size()).append("\n");
     
         for(Map.Entry<String,Artigo> entry: artigos.entrySet()){
-            sb.append(entry.getValue().toString()).append("\n");
+            sb.append(entry.getKey().toString()).append("\n");
         }
     
         return sb.toString();
@@ -93,7 +93,7 @@ public class GestorArtigos implements Serializable{
         int quantidadeUsados = 0;
         double precototal = 0;
         GestorArtigos gestorArtigos=encomenda.getGestorArtigos();
-        for (Map.Entry<String, Artigo> entry:gestorArtigos.getArtigo().entrySet()) {
+        for (Map.Entry<String, Artigo> entry:gestorArtigos.getArtigos().entrySet()) {
             if (entry.getValue().getArtigo_novo()) {
                 quantidadeNovos++;
             }else {
@@ -106,7 +106,7 @@ public class GestorArtigos implements Serializable{
 
     public double ValorFaturado_Vendedor_Encomenda(){
         double valor=0;
-        for(Map.Entry<String, Artigo> entry:this.getArtigo().entrySet()){
+        for(Map.Entry<String, Artigo> entry:this.getArtigos().entrySet()){
             valor+=entry.getValue().getPreco_base();
         }
         return valor;
