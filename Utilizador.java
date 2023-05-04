@@ -33,23 +33,9 @@ public class Utilizador implements Serializable{
         this.nome=nome;
         this.morada=morada;
         this.numFiscal=numFiscal;
-        try{
-            this.historicoCompras=historicoCompras.clone();
-        }catch(NullPointerException e){
-            this.historicoCompras=new GestorArtigos();
-        }
-
-        try{
-            this.historicoVendas=historicoVendas.clone();
-        }catch(NullPointerException e){
-            this.historicoVendas=new GestorArtigos();
-        }
-
-        try{
-            this.aVenda=historicoVendas.clone();
-        }catch (NullPointerException e){
-            this.aVenda=new GestorArtigos();
-        }
+        this.historicoCompras=historicoCompras.clone();
+        this.historicoVendas=historicoVendas.clone();
+        this.aVenda=new GestorArtigos();
         this.transportadora=transportadora.clone();
     }
 

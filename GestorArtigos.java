@@ -56,7 +56,7 @@ public class GestorArtigos implements Serializable{
     //toString
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Artigos registados: ").append(artigos.size()).append("\n");
+        sb.append(artigos.size()).append("\n");
     
         for(Map.Entry<String,Artigo> entry: artigos.entrySet()){
             sb.append(entry.getKey().toString()).append("\n");
@@ -104,9 +104,9 @@ public class GestorArtigos implements Serializable{
         return ((precototal + (quantidadeNovos * 0.5) + (quantidadeUsados * 0.25)) + encomenda.getTaxaGarantia() + encomenda.getCustoExpedicao());
     }
 
-    public double ValorFaturado_Vendedor_Encomenda(){
+    public double ValorFaturado_Encomenda(){
         double valor=0;
-        for(Map.Entry<String, Artigo> entry:this.getArtigos().entrySet()){
+        for(Map.Entry<String, Artigo> entry:this.artigos.entrySet()){
             valor+=entry.getValue().getPreco_base();
         }
         return valor;

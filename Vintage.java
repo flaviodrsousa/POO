@@ -40,30 +40,91 @@ public class Vintage implements Serializable{
     private void estadoInicial_Vintage() throws DateTimeException, AddException{
         this.data_atual = LocalDate.now();
 
-        Artigo artigo1 = new Sapatilha("sap1a",true,"novo",1,"sapatilha vermelha num 45",
+        Artigo sap1a = new Sapatilha("sap1a",true,"novo",1,"sapatilha vermelha Numero 45",
         "Nike",50.5,1,45,true,Color.RED,false,"10-05-2000");
+        Artigo sap1b = new Sapatilha("sap1b",false,"pouco usado",3,"Sapatilha preta numero 39","reebok",50.7,0.6,39,
+        false,Color.BLACK,true,"10-10-2020");
+        Artigo tshirt_1a = new Tshirt("Tshirt_1a",true,"novo",1,"Tshirt branca tamamho L","Adidas",25,
+        1,Tshirt.Tamanho.L,Tshirt.Padrao.LISO);
+        Artigo tshirt_1b = new Tshirt("Tshirt_1b",false,"bastante usado",5,"Tshirt vermelha às riscas tamanho M",
+        "Pull&Bear",33,0.7,Tshirt.Tamanho.M,Tshirt.Padrao.RISCAS); 
+        Artigo mala1a = new Mala("mala1a",false,"pouco usada",2,"mala amarela grande","Zara",35,
+        0.8,Mala.Dimensao.GRANDE,"tecido","10-08-2021",false);
+        Artigo mala1b = new Mala("mala1b",true,"novo",1,"mala preta pequena","Prada",500,1,Mala.Dimensao.PEQUENO,"pele",
+        "10-05-2000",true);
 
-        this.gestorArtigos.addArtigo(artigo1); //ficar no historico do Vintage
+        this.gestorArtigos.addArtigo(sap1a); //ficar no historico do Vintage
+        this.gestorArtigos.addArtigo(sap1b);
+        this.gestorArtigos.addArtigo(tshirt_1a);
+        this.gestorArtigos.addArtigo(tshirt_1b);
+        this.gestorArtigos.addArtigo(mala1a);
+        this.gestorArtigos.addArtigo(mala1b);
 
-        GestorArtigos gestorArtigos_1 = new GestorArtigos(); //gestor de artigos da encomenda entre o u0001 e o u0002
-        gestorArtigos_1.addArtigo(artigo1);
+        Transportadora fedex = new Transportadora("Fedex",10,20,50);
+        Transportadora DPD = new Transportadora("DPD",20,25,40);
+        Transportadora DHL = new Transportadora("DHL",10,50,100);
+        Transportadora Amazon_Logistics = new Transportadora("Amazon Logistics",30,70,120);
 
-        Transportadora transportadora = new Transportadora("Fedex",10,20,50);
+        this.gestorTransportadoras.addTransportadora(fedex);
+        this.gestorTransportadoras.addTransportadora(DPD);
+        this.gestorTransportadoras.addTransportadora(DHL);
+        this.gestorTransportadoras.addTransportadora(Amazon_Logistics);
 
-        this.gestorTransportadoras.addTransportadora(transportadora);
+        GestorArtigos historicoCompras_u0001 = new GestorArtigos();
+        historicoCompras_u0001.addArtigo(sap1a);
+        GestorArtigos historicoVendas_u0001 = new GestorArtigos();
+        historicoVendas_u0001.addArtigo(tshirt_1b);
+        GestorArtigos aVenda_u0001 = new GestorArtigos();
+        aVenda_u0001.addArtigo(mala1a);
 
-        Utilizador utilizador1 = new Utilizador("u0001","u0001@gmail.com","Henrique Malheiro","Rua Braga Parque",
-        1000,gestorArtigos_1,null,null,transportadora);
-        Utilizador utilizador2 = new Utilizador("u0002","u0002@gmail.com","Carolina Melo","Rua de Baixo",
-        1005,null,gestorArtigos_1,null,transportadora);
+        Utilizador u0001 = new Utilizador("u0001","u0001@gmail.com","Henrique Malheiro","Rua Braga Parque",
+        967865421,historicoCompras_u0001,historicoVendas_u0001,aVenda_u0001,fedex);
+        
 
-        this.gestorUtilizadores.addUtilizador(utilizador1);
-        this.gestorUtilizadores.addUtilizador(utilizador2);
+        GestorArtigos historicoCompras_u0002 = new GestorArtigos();
+        GestorArtigos historicoVendas_u0002 = new GestorArtigos();
+        historicoVendas_u0002.addArtigo(sap1a);
+        historicoVendas_u0002.addArtigo(tshirt_1a);
+        GestorArtigos aVenda_u0002 = new GestorArtigos();
+        aVenda_u0002.addArtigo(sap1b);
 
-        Encomenda encomenda = new Encomenda(gestorArtigos_1,Encomenda.DimensaoEmbalagem.pequeno,5,
-        "05-07-2002","10-07-2002",Encomenda.Estado.entregue,utilizador1,utilizador2);
+        Utilizador u0002 = new Utilizador("u0002","u0002@gmail.com","Carolina Melo","Rua de Baixo",
+        973417390,historicoCompras_u0002,historicoVendas_u0002,aVenda_u0002,DPD);
 
-        this.gestorEncomendas.addEncomenda(encomenda);
+        GestorArtigos historicoCompras_u0003 = new GestorArtigos();
+        historicoCompras_u0003.addArtigo(tshirt_1a);
+        historicoCompras_u0003.addArtigo(tshirt_1b);
+        GestorArtigos historicoVendas_u0003 = new GestorArtigos();
+        GestorArtigos aVenda_u0003 = new GestorArtigos();
+        aVenda_u0003.addArtigo(mala1b);
+
+        Utilizador u0003 = new Utilizador("u0003","u0003@gmail.com","Inês Rodrigues","Rua de Cima",
+        628183821,historicoCompras_u0003,historicoVendas_u0003,aVenda_u0003,Amazon_Logistics);
+
+        this.gestorUtilizadores.addUtilizador(u0001);
+        this.gestorUtilizadores.addUtilizador(u0002);
+        this.gestorUtilizadores.addUtilizador(u0003);
+
+        GestorArtigos artigos_Encomenda1 = new GestorArtigos();
+        artigos_Encomenda1.addArtigo(sap1a);
+        GestorUtilizadores vendedores_Encomenda1 = new GestorUtilizadores();
+        vendedores_Encomenda1.addUtilizador(u0002);
+
+        Encomenda encomenda1 = new Encomenda(artigos_Encomenda1,Encomenda.DimensaoEmbalagem.pequeno,5,
+        "05-07-2002","10-07-2002",Encomenda.Estado.entregue,vendedores_Encomenda1,u0001);
+
+        GestorArtigos artigos_Encomenda2 = new GestorArtigos();
+        artigos_Encomenda2.addArtigo(tshirt_1a);
+        artigos_Encomenda2.addArtigo(tshirt_1b);
+        GestorUtilizadores vendedores_Encomenda2 = new GestorUtilizadores();
+        vendedores_Encomenda2.addUtilizador(u0001);
+        vendedores_Encomenda2.addUtilizador(u0002);
+
+        Encomenda encomenda2 = new Encomenda(artigos_Encomenda2,Encomenda.DimensaoEmbalagem.medio,20,
+        "04-03-2023","10-10-2023",Encomenda.Estado.expedida,vendedores_Encomenda1,u0001);
+
+        this.gestorEncomendas.addEncomenda(encomenda1);
+        this.gestorEncomendas.addEncomenda(encomenda2);
     }
 
     public Vintage() throws DateTimeException, AddException{
@@ -98,19 +159,19 @@ public class Vintage implements Serializable{
     }
 
     public GestorEncomendas getGestorEncomendas() {
-        return gestorEncomendas; //Agregacao
+        return gestorEncomendas.clone(); 
     }
 
     public GestorTransportadoras getGestorTransportadoras() {
-        return gestorTransportadoras; //Agregacao
+        return gestorTransportadoras.clone(); 
     }
 
     public GestorUtilizadores getGestorUtilizadores() {
-        return gestorUtilizadores; //Agregacao
+        return gestorUtilizadores.clone(); 
     }
 
     public GestorArtigos getGestorArtigos() {
-        return gestorArtigos; //Agregacao
+        return gestorArtigos.clone(); 
     }
 
     //sets
@@ -156,10 +217,11 @@ public class Vintage implements Serializable{
     //toString
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("\nArtigos Registados: ").append(gestorArtigos.toString()+'\n');
         sb.append("Encomendas Vendidas: ").append(gestorEncomendas.toString()+'\n');
         sb.append("Transportadoras disponiveis: ").append(gestorTransportadoras.toString()+'\n');
         sb.append("utilizadores registrados: ").append(gestorUtilizadores.toString());
-        sb.append("Data atual: ").append(data_atual.toString());
+        sb.append("\nData atual: ").append(data_atual.toString());
 
         return sb.toString();
     }

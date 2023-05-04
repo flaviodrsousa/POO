@@ -1,7 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.util.List;
 
 public class Controlador_Menu_Vintage {
@@ -63,88 +62,13 @@ public class Controlador_Menu_Vintage {
         return vintage.ganhosVintage();
     }
 
-    //addArtigo
-    public void addArtigo(Artigo artigo) throws AddException{
-        vintage.getGestorArtigos().addArtigo(artigo);
+    //ToString_Vintage
+    public String toString_Vintage(){
+        return vintage.toString();
     }
 
-    //addUtilizador
-    public void addUtilizador(Utilizador utilizador) throws AddException{
-        vintage.getGestorUtilizadores().addUtilizador(utilizador);
-    }
-
-    //addTransportadora
-    public void addTransportadora(Transportadora transportadora) throws AddException{
-        vintage.getGestorTransportadoras().addTransportadora(transportadora);
-    }
-
-    //addEncomenda
-    public void addEncomenda(Encomenda encomenda) throws AddException{
-        vintage.getGestorEncomendas().addEncomenda(encomenda);
-    }
-
-    //removeArtigo
-    public void removeArtigo(String codBarras) throws RemoveException{
-        vintage.getGestorArtigos().removeArtigo(codBarras);
-    }
-
-    //removeUtilizador
-    public void removeUtilizador(String codUtilizador) throws RemoveException{
-        vintage.getGestorUtilizadores().removeUtilizador(codUtilizador);
-    }
-
-    //removeTransportadora
-    public void removeTransportadora(String nome) throws RemoveException{
-        vintage.getGestorTransportadoras().removeTransportadora(nome);
-    }
-
-    //removeEncomenda
-    public void removeEncomenda(Integer numEncomenda) throws RemoveException{
-        vintage.getGestorEncomendas().removeEncomenda(numEncomenda);
-    }
-
-    //getArtigo
-    public Artigo getArtigo(String codBarras) throws GetException{
-        return vintage.getGestorArtigos().getArtigo(codBarras);
-    }    
-
-    //getUtilizador
-    public Utilizador getUtilizador(String codUtilizador) throws GetException{
-        return vintage.getGestorUtilizadores().getUtilizador(codUtilizador);
-    }
-
-    //getTransportadora
-    public Transportadora getTransportadora(String nomeTransportadora) throws GetException{
-        return vintage.getGestorTransportadoras().getTransportadora(nomeTransportadora);
-    }
-
-    //getEncomenda
-    public Encomenda getEncomenda(Integer numEncomenda) throws GetException{
-        return vintage.getGestorEncomendas().getEncomenda(numEncomenda);
-    }
-
-    //getData_atual
-    public LocalDate getData_atual(){
-        return vintage.get_DataAtual();
-    }
-
-    //toString Transportadoras
-    public String toString_Transportadoras(){
-        return vintage.getGestorTransportadoras().toString();
-    }
-
-    //toString Artigos
-    public String toString_Artigos(){
-        return vintage.getGestorArtigos().toString();
-    }
-
-    //toString Utilizadores
-    public String toString_Utilizadores(){
-        return vintage.getGestorUtilizadores().toString();
-    }
-
-    //numArtigosVintage
-    public int numArtigos_Vintage(){
-        return vintage.getGestorArtigos().getArtigos().size();
+    //exists_Utilizador
+    public boolean exists_Utilizador(String codUtilizador){
+        return vintage.getGestorUtilizadores().getUtilizadores().containsKey(codUtilizador);
     }
 }

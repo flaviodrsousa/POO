@@ -21,7 +21,7 @@ public class Encomenda implements Serializable{
     private LocalDate dataCriacao;
     private LocalDate dataEntrega;
     private Estado estado;
-    private Utilizador vendedor;
+    private GestorUtilizadores vendedores; //uma encomenda pode ter diversos vendedores
     private Utilizador comprador;
     private Transportadora transportadora;
 
@@ -39,7 +39,7 @@ public class Encomenda implements Serializable{
         this.dataCriacao = LocalDate.now();
         this.dataEntrega = null;
         this.estado=null;
-        this.vendedor=null;
+        this.vendedores=new GestorUtilizadores();
         this.comprador=null;
         this.transportadora=null;
     }
@@ -51,7 +51,7 @@ public class Encomenda implements Serializable{
 
     public Encomenda(GestorArtigos gestorArtigos,DimensaoEmbalagem dimensaoEmbalagem,
     double taxaGarantia,String dataCriacao,String dataEntrega,Estado estado,
-    Utilizador vendedor,Utilizador comprador) throws DateTimeException{
+    GestorUtilizadores vendedores,Utilizador comprador) throws DateTimeException{
         this.numeroEncomenda=contador++;
         this.gestorArtigos=gestorArtigos.clone();
 
@@ -59,22 +59,20 @@ public class Encomenda implements Serializable{
         this.taxaGarantia=taxaGarantia;
 
         if(dimensaoEmbalagem==DimensaoEmbalagem.pequeno){
-            this.custoExpedicao=vendedor.getTransportadora().getPrecoExpPequena();
+            this.custoExpedicao=comprador.getTransportadora().getPrecoExpPequena();
         }else if (dimensaoEmbalagem==DimensaoEmbalagem.medio){
-            this.custoExpedicao=vendedor.getTransportadora().getPrecoExpMedia();
+            this.custoExpedicao=comprador.getTransportadora().getPrecoExpMedia();
         }else{
-            this.custoExpedicao=vendedor.getTransportadora().getPrecoExpGrande();
+            this.custoExpedicao=comprador.getTransportadora().getPrecoExpGrande();
         }
 
         this.precoFinal=this.calcularPrecoFinal();
         this.dataCriacao=Data.StringtoDate(dataCriacao);
-        if (estado.equals(Estado.entregue)){
-            this.dataEntrega=Data.StringtoDate(dataEntrega);     
-        }else this.dataEntrega=LocalDate.MIN; //valor default caso ainda nao tenha sido entregue
+        this.dataEntrega=Data.StringtoDate(dataEntrega);     
         this.estado=estado;
-        this.vendedor=vendedor;
+        this.vendedores=vendedores;
         this.comprador=comprador;
-        this.transportadora=vendedor.getTransportadora(); //transportadora é definida por defeito pelo vendedor
+        this.transportadora=comprador.getTransportadora(); //transportadora é definida por defeito pelo vendedor
     }
 
     public Encomenda(Encomenda umEncomenda){
@@ -87,7 +85,7 @@ public class Encomenda implements Serializable{
         this.dataCriacao=umEncomenda.get_DataCriacao();
         this.dataEntrega=umEncomenda.get_DataEntrega();
         this.estado=umEncomenda.getEstado();
-        this.vendedor=umEncomenda.getVendedor();
+        this.vendedores=umEncomenda.getVendedores();
         this.comprador=umEncomenda.getComprador();
         this.transportadora=umEncomenda.getTransportadora();
     }
@@ -131,8 +129,8 @@ public class Encomenda implements Serializable{
         return this.estado;
     }
 
-    public Utilizador getVendedor() {
-        return this.vendedor.clone();
+    public GestorUtilizadores getVendedores() {
+        return this.vendedores.clone();
     }
 
     public Utilizador getComprador() {
@@ -182,8 +180,8 @@ public class Encomenda implements Serializable{
         this.estado = estado;
     }
 
-    public void setVendedor(Utilizador vendedor) {
-        this.vendedor = vendedor;
+    public void setVendedores(GestorUtilizadores vendedores) {
+        this.vendedores = vendedores;
     }
 
     public void setComprador(Utilizador comprador) {
@@ -215,7 +213,7 @@ public class Encomenda implements Serializable{
         encomenda.get_DataCriacao().equals(this.dataCriacao) &&
         encomenda.get_DataEntrega().equals(this.dataEntrega) &&
         encomenda.getEstado()==this.estado &&
-        encomenda.getVendedor().equals(this.vendedor) &&
+        encomenda.getVendedores().equals(this.vendedores) &&
         encomenda.getComprador().equals(this.comprador) &&
         encomenda.getTransportadora().equals(this.transportadora));
     }
@@ -226,7 +224,7 @@ public class Encomenda implements Serializable{
         StringBuilder sb = new StringBuilder();
         sb.append("........Encomenda.........\n");
         sb.append("Numero de Encomenda: "+this.getNumeroEncomenda()+'\n');
-        sb.append(gestorArtigos.toString());
+        sb.append("Artigos na Encomenda: ").append(gestorArtigos.toString());
         if(this.get_DimensaoEmbalagem() == DimensaoEmbalagem.pequeno){
             sb.append("DimensãoEmbalagem: Pequena\n");
         }else if(this.get_DimensaoEmbalagem()==DimensaoEmbalagem.medio){
@@ -234,7 +232,7 @@ public class Encomenda implements Serializable{
         }else{
             sb.append("DimensãoEmbalagem: Grande\n");
         }
-        sb.append("Vendedor: \n"+this.getVendedor().toString()+"\n");
+        sb.append("Vendedores: "+this.getVendedores().toString()+"\n");
         sb.append("Comprador: \n"+this.getComprador().toString()+"\n");
         sb.append("Transportadora utilizada: \n"+this.getTransportadora().toString()+"\n");
         sb.append("DataCriação: "+this.get_DataCriacao()+"\n");

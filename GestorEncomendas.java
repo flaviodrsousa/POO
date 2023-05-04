@@ -60,10 +60,10 @@ public class GestorEncomendas implements Serializable{
     //toString
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Encomendas Vendidas: ").append(vendas.toString());
+        sb.append(vendas.size()).append('\n');
 
-        for(Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
-            sb.append(entry.getKey().toString());
+        for(Map.Entry<Integer,Encomenda> entry: this.vendas.entrySet()){
+            sb.append("Numero de encomenda: ").append(entry.getKey()).append('\n');
         }
 
         return sb.toString();
@@ -105,17 +105,20 @@ public class GestorEncomendas implements Serializable{
 
     //Q1
     public String vendedorMaisFatorou(){
-        Map<String, Double> vendedores = new HashMap<>();
+        Map<String, Double> vendedores = new HashMap<>(); //associa a cada utilizador o seu lucro
         for(Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
             if(!(entry.getValue().getEstado().equals(Encomenda.Estado.pendente))){
-                String codUtilizadorVendedor = entry.getValue().getVendedor().getCodUtilizador();
                 GestorArtigos gestorArtigos = entry.getValue().getGestorArtigos();
-                double valorEncomenda=gestorArtigos.ValorFaturado_Vendedor_Encomenda();
-                if(!(vendedores.containsKey(codUtilizadorVendedor))){
-                    vendedores.put(codUtilizadorVendedor,valorEncomenda);
-                }else{
-                    double valorExistente = vendedores.get(codUtilizadorVendedor);
-                    vendedores.replace(codUtilizadorVendedor, valorEncomenda+valorExistente);
+                GestorUtilizadores gestor_vendedores = entry.getValue().getVendedores();
+                for (Map.Entry<String,Utilizador> Entry : gestor_vendedores.getUtilizadores().entrySet()){
+                    String codUtilizadorVendedor= Entry.getValue().getCodUtilizador();
+                    double valorEncomenda=gestorArtigos.ValorFaturado_Encomenda();
+                    if(!(vendedores.containsKey(codUtilizadorVendedor))){
+                        vendedores.put(codUtilizadorVendedor,valorEncomenda);
+                    }else{
+                        double valorExistente = vendedores.get(codUtilizadorVendedor);
+                        vendedores.replace(codUtilizadorVendedor, valorEncomenda+valorExistente);
+                    }
                 }
             }
         }
@@ -157,8 +160,10 @@ public class GestorEncomendas implements Serializable{
     //Q3
     public void encomendasVendedor(String codUtilizador){
         for(Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
-            if (entry.getValue().getVendedor().getCodUtilizador().equals(codUtilizador)){
-                System.out.println(entry.getValue().toString());
+            for (Map.Entry<String,Utilizador> Entry:entry.getValue().getVendedores().getUtilizadores().entrySet()){  
+                if (Entry.getValue().getCodUtilizador().equals(codUtilizador)){
+                    System.out.println(entry.getValue().toString());
+                }
             }
         }
     }
@@ -170,19 +175,24 @@ public class GestorEncomendas implements Serializable{
         Map<Utilizador, Double> vendedoresTotais = new HashMap<>();
         Map<Utilizador, Double> compradoresTotais = new HashMap<>();
         for (Encomenda encomenda : encomendas) {
-            Utilizador vendedor = encomenda.getVendedor();
-            Utilizador comprador = encomenda.getComprador();
-            Double preco_final = encomenda.get_PrecoFinal();
-
-            if (vendedoresTotais.containsKey(vendedor)) {
-                preco_final += vendedoresTotais.get(vendedor);
+            for(Map.Entry<String,Utilizador> entry : encomenda.getVendedores().getUtilizadores().entrySet()){
+                Utilizador vendedor=entry.getValue();
+                Utilizador comprador = encomenda.getComprador();
+                Double preco_final = encomenda.get_PrecoFinal();
+    
+                compradoresTotais.put(comprador, preco_final);
+                vendedoresTotais.put(vendedor, preco_final);
+    
+                if (vendedoresTotais.containsKey(vendedor)) {
+                    Double preco_existente = vendedoresTotais.get(vendedor);
+                    vendedoresTotais.replace(vendedor, preco_final+preco_existente);
+                }
+    
+                if (compradoresTotais.containsKey(comprador)) {
+                    Double preco_existente = compradoresTotais.get(comprador);
+                    compradoresTotais.replace(comprador, preco_final+preco_existente);
+                }
             }
-
-            if (compradoresTotais.containsKey(comprador)) {
-                preco_final += compradoresTotais.get(comprador);
-            }
-            compradoresTotais.put(comprador, preco_final);
-            vendedoresTotais.put(vendedor, preco_final);
         }
 
         List<Map.Entry<Utilizador,Double>> organizarVendedores = new ArrayList<>(vendedoresTotais.entrySet());
