@@ -98,7 +98,7 @@ public class Encomenda implements Serializable{
     }
 
     public GestorArtigos getGestorArtigos() {
-        return gestorArtigos.clone();
+        return gestorArtigos; //Agregação
     }
 
     public DimensaoEmbalagem get_DimensaoEmbalagem() {
@@ -252,9 +252,10 @@ public class Encomenda implements Serializable{
     }
 
     //métodos adicionais  
-    public String fatura(Encomenda encomenda){
+    public String fatura(){
         StringBuilder sb = new StringBuilder();
-        sb.append(encomenda.toString());
+        sb.append("--FATURA--\n");
+        sb.append(this.toString());
         return sb.toString();
     }
     

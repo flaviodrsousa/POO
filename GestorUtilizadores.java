@@ -73,8 +73,8 @@ public class GestorUtilizadores implements Serializable{
         }
     }
 
-    public void removeUtilizador(Utilizador utilizador) throws RemoveException{
-        Utilizador utilizadorRemovido = this.utilizadores.remove(utilizador.getCodUtilizador());
+    public void removeUtilizador(String codUtilizador) throws RemoveException{
+        Utilizador utilizadorRemovido = this.utilizadores.remove(codUtilizador);
         if (utilizadorRemovido == null){
             throw new RemoveException("Não existe um utilizador com esse codigo de Utilizador!");
         }

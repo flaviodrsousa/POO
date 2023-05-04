@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.time.DateTimeException;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -39,6 +40,7 @@ public class Menu {
             System.out.println("9. Adicionar Artigo");
             System.out.println("10. Verificar melhores compradores e Vendedores num determinado periodo");
             System.out.println("11. Adicionar Encomenda");
+            System.out.println("12. Remover Utilizador");
             System.out.println("0. Sair");
             System.out.println("Escolha uma opção: ");
 
@@ -56,12 +58,15 @@ public class Menu {
                     input.nextLine();
                     String data = input.nextLine();
                     try {
-                        controlador_Menu_Vintage.avancarTempo(data);
-                        break;
+                        List<Encomenda> encomendas = controlador_Menu_Vintage.avancarTempo(data);
+                        for (Encomenda encomenda:encomendas){
+                            encomenda.fatura();
+                        }
                     } catch (DateTimeException e) {
                         System.out.println("A data é no formato (dd-MM-yyyy)!");
                         break;
                     }
+                    break;
                 case 2:
                     System.out.println("Código de utilizador do vendedor: ");
                     input.nextLine();
@@ -331,7 +336,7 @@ public class Menu {
                     String datai = input.nextLine();
                     System.out.println("Data Final do Periodo (dd-MM-yyyy):  ");
                     String dataf = input.nextLine();
-                    System.out.println("Quantos utilizadores? ");
+                    System.out.println("Quantos vendedores/compradores? ");
                     int top=0;
                     try{
                         top = input.nextInt();
@@ -425,12 +430,24 @@ public class Menu {
                     }catch(GetException e){
                         System.out.println(e.getMessage());
                         break;
-                    } catch (AddException e) {
+                    }catch (AddException e) {
                         System.out.println(e.getMessage());
                         break;
-                    }
-                    catch(DateTimeException e){
+                    }catch(DateTimeException e){
                         System.out.println("Data tem que estar no formato (dd-MM-yyyy)!!!");
+                        break;
+                    }
+                    break;
+                case 12:
+                    System.out.println(controlador_Menu_Vintage.toString_Utilizadores());
+                    System.out.println("Utilizador a ser Removido (codigo de Utilizador):");
+                    input.nextLine();
+                    codUtilizador = input.nextLine();
+                    try{
+                        controlador_Menu_Vintage.removeUtilizador(codUtilizador);
+                    }catch (RemoveException e){
+                        System.out.println(e.getMessage());
+                        break;
                     }
                     break;
                 case 0:

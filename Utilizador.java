@@ -186,7 +186,7 @@ public class Utilizador implements Serializable{
 
     //Artigo vendido por um Vendedor
     public void artigo_Vendido(Artigo artigo) throws AddException, RemoveException{
-        this.aVenda.removeArtigo(artigo);
+        this.aVenda.removeArtigo(artigo.getCod_barras());
         this.historicoVendas.addArtigo(artigo.clone());
     }
 

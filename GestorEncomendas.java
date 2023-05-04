@@ -77,8 +77,8 @@ public class GestorEncomendas implements Serializable{
         }
     }
 
-    public void removeEncomenda(Encomenda encomenda) throws RemoveException{
-        Encomenda encomandaRemovida = this.vendas.remove(encomenda.getNumeroEncomenda());
+    public void removeEncomenda(Integer numEncomenda) throws RemoveException{
+        Encomenda encomandaRemovida = this.vendas.remove(numEncomenda);
         if (encomandaRemovida == null){
             throw new RemoveException("Não existe uma Encomenda com esse Numero de Encomenda!");
         }
@@ -92,12 +92,15 @@ public class GestorEncomendas implements Serializable{
         return encomenda;
     }
 
-    public void entregaEncomenda(Vintage vintage){
+    public List<Encomenda> entregaEncomenda(Vintage vintage){
+        List<Encomenda> encomendasEntregues = new ArrayList<>();
         for (Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
             if (vintage.get_DataAtual().compareTo(entry.getValue().get_DataEntrega())>0){
                 entry.getValue().setEstado(Encomenda.Estado.entregue);
+                encomendasEntregues.add(entry.getValue());
             }
         }
+        return encomendasEntregues;
     }
 
     //Q1

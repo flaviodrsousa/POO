@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Vintage implements Serializable{
     private GestorEncomendas gestorEncomendas;
@@ -97,19 +98,19 @@ public class Vintage implements Serializable{
     }
 
     public GestorEncomendas getGestorEncomendas() {
-        return gestorEncomendas.clone();
+        return gestorEncomendas; //Agregacao
     }
 
     public GestorTransportadoras getGestorTransportadoras() {
-        return gestorTransportadoras.clone();
+        return gestorTransportadoras; //Agregacao
     }
 
     public GestorUtilizadores getGestorUtilizadores() {
-        return gestorUtilizadores.clone();
+        return gestorUtilizadores; //Agregacao
     }
 
     public GestorArtigos getGestorArtigos() {
-        return gestorArtigos.clone();
+        return gestorArtigos; //Agregacao
     }
 
     //sets
@@ -164,14 +165,14 @@ public class Vintage implements Serializable{
     }
 
     //Outros métodos
-    private void entregaEncomenda(){
-        gestorEncomendas.entregaEncomenda(this);
+    private List<Encomenda> entregaEncomenda(){
+        return gestorEncomendas.entregaEncomenda(this);
     }
 
-    public void avancarTempo(String date) throws DateTimeException{
+    public List<Encomenda> avancarTempo(String date) throws DateTimeException{
         LocalDate newDate = Data.StringtoDate(date);
         set_DataAtual(newDate);
-        this.entregaEncomenda();
+        return this.entregaEncomenda();
     }
 
     //Q1

@@ -73,8 +73,8 @@ public class GestorTransportadoras implements Serializable{
         }  
     }
 
-    public void removeTransportadora(Transportadora transportadora) throws RemoveException{
-        Transportadora transportadoraRemovida = transportadoras.remove(transportadora.getNome());
+    public void removeTransportadora(String nome) throws RemoveException{
+        Transportadora transportadoraRemovida = transportadoras.remove(nome);
         if (transportadoraRemovida == null){
             throw new RemoveException("Não existe uma Transportadora com esse nome!");
         }

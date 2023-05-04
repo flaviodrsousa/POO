@@ -73,8 +73,8 @@ public class GestorArtigos implements Serializable{
         }
     }
 
-    public void removeArtigo(Artigo artigo) throws RemoveException{
-        Artigo artigoRemovido = this.artigos.remove(artigo.getCod_barras());
+    public void removeArtigo(String codBarras) throws RemoveException{
+        Artigo artigoRemovido = this.artigos.remove(codBarras);
         if (artigoRemovido == null){
             throw new RemoveException("Não existe um artigo com esse codigo de barras");
         }

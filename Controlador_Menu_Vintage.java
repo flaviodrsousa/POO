@@ -2,6 +2,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Controlador_Menu_Vintage {
     private Vintage vintage;
@@ -33,8 +34,8 @@ public class Controlador_Menu_Vintage {
     }
 
     //Outros métodos
-    public void avancarTempo(String date) throws DateTimeException{
-        vintage.avancarTempo(date);
+    public List<Encomenda> avancarTempo(String date) throws DateTimeException{ //retorna uma lista de encomendas entregues no periodo
+        return vintage.avancarTempo(date);
     }
 
     //Q1
@@ -83,23 +84,23 @@ public class Controlador_Menu_Vintage {
     }
 
     //removeArtigo
-    public void removeArtigo(Artigo artigo) throws RemoveException{
-        vintage.getGestorArtigos().removeArtigo(artigo);
+    public void removeArtigo(String codBarras) throws RemoveException{
+        vintage.getGestorArtigos().removeArtigo(codBarras);
     }
 
     //removeUtilizador
-    public void removeUtilizador(Utilizador utilizador) throws RemoveException{
-        vintage.getGestorUtilizadores().removeUtilizador(utilizador);
+    public void removeUtilizador(String codUtilizador) throws RemoveException{
+        vintage.getGestorUtilizadores().removeUtilizador(codUtilizador);
     }
 
     //removeTransportadora
-    public void removeTransportadora(Transportadora transportadora) throws RemoveException{
-        vintage.getGestorTransportadoras().removeTransportadora(transportadora);
+    public void removeTransportadora(String nome) throws RemoveException{
+        vintage.getGestorTransportadoras().removeTransportadora(nome);
     }
 
     //removeEncomenda
-    public void removeEncomenda(Encomenda encomenda) throws RemoveException{
-        vintage.getGestorEncomendas().removeEncomenda(encomenda);
+    public void removeEncomenda(Integer numEncomenda) throws RemoveException{
+        vintage.getGestorEncomendas().removeEncomenda(numEncomenda);
     }
 
     //getArtigo
