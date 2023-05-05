@@ -2,7 +2,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.DateTimeException;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -62,8 +61,13 @@ public class Menu {
         int opcao;
 
         do{
-            System.out.println("1. Adicionar Utilizador");
-            System.out.println("2. Adicionar Transportadora");
+            System.out.println("1. Avançar no Tempo");
+            System.out.println("2. Adicionar Utilizador");
+            System.out.println("3. Adicionar Transportadora");
+            System.out.println("4. Ganhos do Sistema");
+            System.out.println("5. Vendedor que mais fatorou");
+            System.out.println("6. Transportadora com mais volume de encomendas");
+            System.out.println("7. Melhores compradores e vendedores num determinado periodo de tempo");
             System.out.println("0. Sair");
 
             opcao=-1;
@@ -76,71 +80,15 @@ public class Menu {
 
             switch(opcao){
                 case 1:
-
-                case 2:
-
-                case 0:
-                    System.out.println("Saindo do programa...");
-                    break;
-                default:
-                    System.out.println("Opção inválida. Tente novamente.");
-                    break;
-            }
-
-        }while(opcao!=0);
-    }
-
-    public void runUtilizador() throws DateTimeException {
-        int opcao;
-
-        System.out.println("\n------------LOGIN-----------");
-        System.out.println("Código de utilizador:");
-        String codUtilizadorLogin = input.nextLine();
-        if(!controlador_Menu_Vintage.exists_Utilizador(codUtilizadorLogin)){
-            System.out.println("Utilizador não existe!!");
-            this.runUtilizador();
-        }
-
-        do {
-            System.out.println("\n------ MENU ------");
-            System.out.println("1. Verificar Estado do sistema");
-            System.out.println("2. Avançar no Tempo");
-            System.out.println("3. Encomendas realizadas (pelo utilizador atual)");
-            System.out.println("4. Ganhos do Sistema");
-            System.out.println("5. Vendedor que mais fatorou");
-            System.out.println("6. Transportadora com mais volume de encomendas");
-            System.out.println("7. Melhores compradores e vendedores num determinado periodo de tempo");
-            System.out.println("0. Sair");
-            System.out.println("Escolha uma opção: ");
-
-            opcao = -1;
-
-            try {
-                opcao = input.nextInt();
-            } catch (InputMismatchException e) {
-                input.nextLine();
-            }
-
-            switch (opcao) { 
-                case 1:
-                    System.out.println(controlador_Menu_Vintage.toString_Vintage());
-                    break;
-                case 2:
                     System.out.println("Data (dd-MM-yyyy) para onde pertende avancar: ");
                     input.nextLine();
                     String data = input.nextLine();
                     try {
-                        List<Encomenda> encomendas = controlador_Menu_Vintage.avancarTempo(data);
-                        for (Encomenda encomenda:encomendas){
-                            encomenda.fatura();
-                        }
+                        controlador_Menu_Vintage.avancarTempo(data);
                     } catch (DateTimeException e) {
                         System.out.println("A data é no formato (dd-MM-yyyy)!");
                         break;
                     }
-                    break;
-                case 3:
-                    controlador_Menu_Vintage.encomendasVendedor(codUtilizadorLogin);
                     break;
                 case 4:
                     System.out.println("Ganhos do sistema: " + controlador_Menu_Vintage.ganhosVintage());
@@ -172,6 +120,50 @@ public class Menu {
                         System.out.println("Datas sao no formato (dd-MM-yyyy)!!");
                         break;
                     }
+                    break;
+                case 0:
+                    System.out.println("Saindo do programa...");
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+                    break;
+            }
+
+        }while(opcao!=0);
+    }
+
+    public void runUtilizador() throws DateTimeException {
+        int opcao;
+
+        System.out.println("\n------------LOGIN-----------");
+        System.out.println("Código de utilizador:");
+        String codUtilizadorLogin = input.nextLine();
+        if(!controlador_Menu_Vintage.exists_Utilizador(codUtilizadorLogin)){
+            System.out.println("Utilizador não existe!!");
+            this.runUtilizador();
+        }
+
+        do {
+            System.out.println("\n------ MENU ------");
+            System.out.println("1. Verificar Estado do sistema");
+            System.out.println("2. Meu registo de encomendas");
+            System.out.println("0. Sair");
+            System.out.println("Escolha uma opção: ");
+
+            opcao = -1;
+
+            try {
+                opcao = input.nextInt();
+            } catch (InputMismatchException e) {
+                input.nextLine();
+            }
+
+            switch (opcao) { 
+                case 1:
+                    System.out.println(controlador_Menu_Vintage.toString_Vintage());
+                    break;
+                case 2:
+                    controlador_Menu_Vintage.encomendasVendedor(codUtilizadorLogin);
                     break;
                 case 0:
                     System.out.println("Saindo do programa...");
