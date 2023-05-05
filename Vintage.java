@@ -402,4 +402,19 @@ public class Vintage implements Serializable{
     public void addUtilizador(Utilizador utilizador) throws AddException{
         gestorUtilizadores.addUtilizador(utilizador);
     }
+
+    //removeUtilizador
+    public void removeUtilizador(String codUtilizador) throws RemoveException{
+        gestorUtilizadores.removeUtilizador(codUtilizador);
+    }
+
+    //addTransportadora
+    public void addTransportadora(Transportadora transportadora) throws AddException{
+        gestorTransportadoras.addTransportadora(transportadora);
+    }
+
+    //removeTransportadora
+    public void removeTransportadora(String codTransportadora) throws RemoveException{
+        gestorTransportadoras.removeTransportadora(codTransportadora);
+    }
 }

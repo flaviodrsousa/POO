@@ -82,6 +82,21 @@ public class Controlador_Menu_Vintage {
         vintage.addUtilizador(utilizador);
     }
 
+    //removeUtilizador
+    public void removeUtilizador(String codUtilizador) throws RemoveException{
+        vintage.removeUtilizador(codUtilizador);
+    }
+
+    //addTransportadora
+    public void addTransportadora(Transportadora transportadora) throws AddException{
+        vintage.addTransportadora(transportadora);
+    }
+
+    //removerTransportadora
+    public void removeTransportadora(String nome) throws RemoveException{
+        vintage.removeTransportadora(nome);
+    }
+
     //exists_Utilizador
     public boolean exists_Utilizador(String codUtilizador){
         return vintage.getGestorUtilizadores().getUtilizadores().containsKey(codUtilizador);

@@ -86,8 +86,8 @@ public class Menu {
                     System.out.println(controlador_Menu_Vintage.toString_Vintage());
                     break;
                 case 2:
-                    System.out.println("Data (dd-MM-yyyy) para onde pertende avancar: ");
                     input.nextLine();
+                    System.out.println("Data (dd-MM-yyyy) para onde pertende avancar: ");
                     String data = input.nextLine();
                     try {
                         controlador_Menu_Vintage.avancarTempo(data);
@@ -98,7 +98,7 @@ public class Menu {
                     break;
                 case 3:
                     input.nextLine();
-                    System.out.println("Codigo de utilizador: ");
+                    System.out.println("\nCodigo de utilizador: ");
                     String codUtilizador = input.nextLine();
                     System.out.println("Email: ");
                     String email = input.nextLine();
@@ -136,6 +136,49 @@ public class Menu {
                         System.out.println(e.getMessage());
                         break;
                     }
+                case 4:
+                    input.nextLine();
+                    System.out.println("\nNome: ");
+                    nome = input.nextLine();
+                    System.out.println("Preço Encomenda pequena: ");
+                    try{
+                        int precoExpPequena = input.nextInt();
+                        System.out.println("Preço Encomenda media: ");
+                        int precoExpMedia = input.nextInt();
+                        System.out.println("preço Encomenda Grande: ");
+                        int precoExpGrande = input.nextInt();
+                        Transportadora transportadora = new Transportadora(nome, precoExpPequena,
+                        precoExpMedia,precoExpGrande);
+                        controlador_Menu_Vintage.addTransportadora(transportadora);
+                        break;
+                    }catch(InputMismatchException e){
+                        System.out.println("Os Preços são números!!");
+                        input.nextLine();
+                        break;
+                    }catch(AddException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                case 5:
+                    input.nextLine();
+                    System.out.println("\nCódigo do utilizador a remover: ");
+                    codUtilizador = input.nextLine();
+                    try {
+                        controlador_Menu_Vintage.removeUtilizador(codUtilizador);
+                    }catch (RemoveException e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 6:
+                    input.nextLine();
+                    System.out.println("\nNome da Transportadora a remover: ");
+                    String nomeTransportadora = input.nextLine();
+                    try {
+                        controlador_Menu_Vintage.removeTransportadora(nomeTransportadora);
+                    }catch (RemoveException e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
                 case 7:
                     System.out.println("Ganhos do sistema: " + controlador_Menu_Vintage.ganhosVintage());
                     break;
