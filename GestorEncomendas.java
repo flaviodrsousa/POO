@@ -89,7 +89,7 @@ public class GestorEncomendas implements Serializable{
         if (encomenda == null){
             throw new GetException("Não existe uma Encomenda com esse Numero de Encomenda!");
         }
-        return encomenda;
+        return encomenda.clone();
     }
 
     public List<Encomenda> entregaEncomenda(Vintage vintage){

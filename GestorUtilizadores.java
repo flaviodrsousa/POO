@@ -85,7 +85,7 @@ public class GestorUtilizadores implements Serializable{
         if (utilizador == null){
             throw new GetException("Não existe um utilizador com esse codigo de Utilizador!");
         }
-        return utilizador;
+        return utilizador.clone();
     }
 
 }

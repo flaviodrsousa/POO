@@ -62,9 +62,24 @@ public class Controlador_Menu_Vintage {
         return vintage.ganhosVintage();
     }
 
-    //ToString_Vintage
+    //toString_Vintage
     public String toString_Vintage(){
         return vintage.toString();
+    }
+
+    //toString_Transportadoras
+    public String toString_Transportadoras(){
+        return vintage.getGestorTransportadoras().toString();
+    }
+
+    //getTransportadora
+    public Transportadora getTransportadora(String nome) throws GetException{
+        return vintage.getGestorTransportadoras().getTransportadora(nome);
+    }
+
+    //addUtilizador
+    public void addUtilizador(Utilizador utilizador) throws AddException{
+        vintage.addUtilizador(utilizador);
     }
 
     //exists_Utilizador

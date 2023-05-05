@@ -35,7 +35,7 @@ public class Utilizador implements Serializable{
         this.numFiscal=numFiscal;
         this.historicoCompras=historicoCompras.clone();
         this.historicoVendas=historicoVendas.clone();
-        this.aVenda=new GestorArtigos();
+        this.aVenda=aVenda.clone();
         this.transportadora=transportadora.clone();
     }
 

@@ -13,6 +13,11 @@ public class Menu {
         this.controlador_Menu_Vintage = controlador_Menu_Vintage; // Agregação
     }
 
+    //fecha scanner
+    private void closeScanner(Scanner scanner){
+        scanner.close();
+    } 
+
     public static Vintage carregaDefault_Changed() throws FileNotFoundException, ClassNotFoundException, IOException, 
     DateTimeException, AddException, RemoveException, VintageException{
 
@@ -55,13 +60,17 @@ public class Menu {
         int opcao;
 
         do{
-            System.out.println("1. Avançar no Tempo");
-            System.out.println("2. Adicionar Utilizador");
-            System.out.println("3. Adicionar Transportadora");
-            System.out.println("4. Ganhos do Sistema");
-            System.out.println("5. Vendedor que mais fatorou");
-            System.out.println("6. Transportadora com mais volume de encomendas");
-            System.out.println("7. Melhores compradores e vendedores num determinado periodo de tempo");
+            System.out.println("\n------ MENU ------");
+            System.out.println("1. Verificar Estado do sistema");
+            System.out.println("2. Avançar no Tempo");
+            System.out.println("3. Adicionar Utilizador");
+            System.out.println("4. Adicionar Transportadora");
+            System.out.println("5. Remover Utilizador");
+            System.out.println("6. Remover Transportadora");
+            System.out.println("7. Ganhos do Sistema");
+            System.out.println("8. Vendedor que mais fatorou");
+            System.out.println("9. Transportadora com mais volume de encomendas");
+            System.out.println("10. Melhores compradores e vendedores num determinado periodo de tempo");
             System.out.println("0. Sair");
 
             opcao=-1;
@@ -74,6 +83,9 @@ public class Menu {
 
             switch(opcao){
                 case 1:
+                    System.out.println(controlador_Menu_Vintage.toString_Vintage());
+                    break;
+                case 2:
                     System.out.println("Data (dd-MM-yyyy) para onde pertende avancar: ");
                     input.nextLine();
                     String data = input.nextLine();
@@ -84,16 +96,56 @@ public class Menu {
                         break;
                     }
                     break;
-                case 4:
+                case 3:
+                    input.nextLine();
+                    System.out.println("Codigo de utilizador: ");
+                    String codUtilizador = input.nextLine();
+                    System.out.println("Email: ");
+                    String email = input.nextLine();
+                    System.out.println("Nome: ");
+                    String nome = input.nextLine();
+                    System.out.println("Morada: ");
+                    String morada = input.nextLine();
+                    System.out.println("NumFiscal: ");
+                    int numFiscal =0;
+                    try {
+                        numFiscal = input.nextInt();
+                    }catch(InputMismatchException e){
+                        System.out.println("O numFiscal é um numero!!");
+                        input.nextLine();
+                        break;
+                    }
+                    try {
+                        System.out.println("\nEscolha uma das transportadoras (nome): \n"+"Nº de Transportadoras: "
+                        +controlador_Menu_Vintage.toString_Transportadoras());
+                        System.out.println();
+                        input.nextLine();
+                        System.out.println("Nome Transportadora:");
+                        String nomeTransportadora = input.nextLine();
+                        Transportadora transportadora = controlador_Menu_Vintage.getTransportadora(nomeTransportadora);
+
+                        Utilizador utilizador = new Utilizador(codUtilizador, email, nome, morada,
+                        numFiscal, new GestorArtigos(), new GestorArtigos(), new GestorArtigos(), transportadora);
+
+                        controlador_Menu_Vintage.addUtilizador(utilizador);
+                        break;
+                    }catch(GetException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }catch(AddException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                case 7:
                     System.out.println("Ganhos do sistema: " + controlador_Menu_Vintage.ganhosVintage());
                     break;
-                case 5:
+                case 8:
                     System.out.println("Vendedor que mais fatorou: " + controlador_Menu_Vintage.vendedorMaisFatorou());
                     break;
-                case 6:
+                case 9:
                     System.out.println("Transportadora mais usada: "+ controlador_Menu_Vintage.TransportadoraMaiorVolumeFatoracao());
                     break;
-                case 7:
+                case 10:
                     System.out.println("Data Inicial do Periodo (dd-MM-yyyy):  ");
                     input.nextLine();
                     String datai = input.nextLine();
@@ -124,6 +176,8 @@ public class Menu {
             }
 
         }while(opcao!=0);
+
+        closeScanner(input);
     }
 
     private void runUtilizador() throws DateTimeException {
@@ -139,8 +193,7 @@ public class Menu {
 
         do {
             System.out.println("\n------ MENU ------");
-            System.out.println("1. Verificar Estado do sistema");
-            System.out.println("2. Meu registo de encomendas");
+            System.out.println("1. Meu registo de encomendas");
             System.out.println("0. Sair");
             System.out.println("Escolha uma opção: ");
 
@@ -154,9 +207,6 @@ public class Menu {
 
             switch (opcao) { 
                 case 1:
-                    System.out.println(controlador_Menu_Vintage.toString_Vintage());
-                    break;
-                case 2:
                     controlador_Menu_Vintage.encomendasVendedor(codUtilizadorLogin);
                     break;
                 case 0:
@@ -169,6 +219,6 @@ public class Menu {
 
         } while (opcao != 0);
 
-        input.close();
+        closeScanner(input);
     }
 }

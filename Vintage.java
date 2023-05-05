@@ -355,8 +355,8 @@ public class Vintage implements Serializable{
         StringBuilder sb = new StringBuilder();
         sb.append("\nArtigos Registados: ").append(gestorArtigos.toString()+'\n');
         sb.append("Encomendas Vendidas: ").append(gestorEncomendas.toString()+'\n');
-        sb.append("Transportadoras disponiveis: ").append(gestorTransportadoras.toString()+'\n');
-        sb.append("utilizadores registrados: ").append(gestorUtilizadores.toString());
+        sb.append("Transportadoras registadas: ").append(gestorTransportadoras.toString()+'\n');
+        sb.append("Utilizadores registrados: ").append(gestorUtilizadores.toString());
         sb.append("\nData atual: ").append(data_atual.toString());
 
         return sb.toString();
@@ -396,5 +396,10 @@ public class Vintage implements Serializable{
     //Q5
     public double ganhosVintage(){
         return gestorEncomendas.ganhosVintage();
+    }
+
+    //addUtilizador
+    public void addUtilizador(Utilizador utilizador) throws AddException{
+        gestorUtilizadores.addUtilizador(utilizador);
     }
 }

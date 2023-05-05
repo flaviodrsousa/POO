@@ -85,7 +85,7 @@ public class GestorArtigos implements Serializable{
         if (artigo == null){
             throw new GetException("Não existe um artigo com esse codigo de barras");
         }
-        return artigo;
+        return artigo.clone();
     }
 
     public double calcularPrecoFinalEncomenda(Encomenda encomenda) {

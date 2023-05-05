@@ -85,7 +85,7 @@ public class GestorTransportadoras implements Serializable{
         if (transportadora == null){
             throw new GetException("Não existe uma Transportadora com esse nome!");
         }
-        return transportadora;
+        return transportadora.clone();
     }
 
 }
