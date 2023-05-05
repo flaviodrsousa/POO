@@ -6,58 +6,52 @@ import java.util.Scanner;
 
 public class Menu {
     private Controlador_Menu_Vintage controlador_Menu_Vintage;
-    private Scanner input;
+    private static Scanner input = new Scanner(System.in);
 
     // Contrutores
     public Menu(Controlador_Menu_Vintage controlador_Menu_Vintage) {
         this.controlador_Menu_Vintage = controlador_Menu_Vintage; // Agregação
-        this.input = new Scanner(System.in);
     }
 
     public static Vintage carregaDefault_Changed() throws FileNotFoundException, ClassNotFoundException, IOException, 
     DateTimeException, AddException, RemoveException, VintageException{
-        Scanner input = new Scanner(System.in);
 
         System.out.println("\n------Carregar Sistema-----");
-        System.out.println("Digite (1-> Sistema_Default)/(2->Sistema_Changed): ");
+        System.out.println("Estado do Sistema (1-> Por Defeito)/(2-> Alterado): ");
 
         int default_changed=0;
         try{
             default_changed=input.nextInt();
         }catch (InputMismatchException e){
-            System.out.println("Selecione 1 ou 2");
+            input.nextLine();
         }
-
-        input.close();
 
         if (default_changed==1) return Controlador_Menu_Vintage.carregaEstado("EstadoVintage_default.dat");
         else if (default_changed==2) return Controlador_Menu_Vintage.carregaEstado("EstadoVintage_changed.dat");
-        else throw new VintageException("Escolha 1 ou 2!!!");
+        else throw new VintageException("Selecione 1 ou 2!!!");
     }
 
-    public static void run_AdminOrUser(Controlador_Menu_Vintage controlador_Menu_Vintage){
-        Menu menu = new Menu(controlador_Menu_Vintage);
-
+    public void run_AdminOrUser(){
         System.out.println("\n------Vintage-----");
-        System.out.println("Digite (1-> Admin)/(2->User): ");
+        System.out.println("Modo de navegação (1-> Admin)/(2->User): ");
 
         int admin_user=0;
         try{
-            admin_user=menu.input.nextInt(); 
-            menu.input.nextLine();
+            admin_user=input.nextInt();
+            input.nextLine(); 
         }catch (InputMismatchException e){
-            System.out.println("Escolha 1 ou 2");
+            System.out.println("Escolha 1 ou 2!!!");
         }
 
-        if(admin_user==1) menu.runAdmin();
-        else if (admin_user==2) menu.runUtilizador();
+        if(admin_user==1) this.runAdmin();
+        else if (admin_user==2) this.runUtilizador();
         else {
-            System.out.println("Escolha 1 ou 2");
-            Menu.run_AdminOrUser(controlador_Menu_Vintage);
+            System.out.println("Escolha 1 ou 2!!!");
+            this.run_AdminOrUser();
         }
     }
 
-    public void runAdmin(){
+    private void runAdmin(){
         int opcao;
 
         do{
@@ -132,7 +126,7 @@ public class Menu {
         }while(opcao!=0);
     }
 
-    public void runUtilizador() throws DateTimeException {
+    private void runUtilizador() throws DateTimeException {
         int opcao;
 
         System.out.println("\n------------LOGIN-----------");

@@ -7,7 +7,8 @@ public class Main {
         try{
             Vintage vintage = Menu.carregaDefault_Changed();
             Controlador_Menu_Vintage controlador_Menu_Vintage = new Controlador_Menu_Vintage(vintage);
-            Menu.run_AdminOrUser(controlador_Menu_Vintage);
+            Menu menu = new Menu(controlador_Menu_Vintage);
+            menu.run_AdminOrUser();
             vintage.guardaEstado("EstadoVintage_changed.dat");
         }catch (FileNotFoundException e){
             System.out.println(e.getMessage());
@@ -23,6 +24,7 @@ public class Main {
             System.out.println(e.getMessage());
         }catch (VintageException e){
             System.out.println(e.getMessage());
+            Main.main(args);
         }
     }
 }

@@ -229,18 +229,18 @@ public class Encomenda implements Serializable{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("........Encomenda.........\n");
+        sb.append("\n........Encomenda.........\n");
         sb.append("Numero de Encomenda: "+this.getNumeroEncomenda()+'\n');
-        sb.append("Artigos na Encomenda: ").append(gestorArtigos.toString());
+        sb.append("\nArtigos na Encomenda: ").append(gestorArtigos.toString());
         if(this.get_DimensaoEmbalagem() == DimensaoEmbalagem.pequeno){
-            sb.append("DimensãoEmbalagem: Pequena\n");
+            sb.append("\nDimensãoEmbalagem: Pequena\n");
         }else if(this.get_DimensaoEmbalagem()==DimensaoEmbalagem.medio){
-            sb.append("DimensãoEmbalagem: Média\n");
+            sb.append("\nDimensãoEmbalagem: Média\n");
         }else{
-            sb.append("DimensãoEmbalagem: Grande\n");
+            sb.append("\nDimensãoEmbalagem: Grande\n");
         }
-        sb.append("Vendedores: "+this.getVendedores().toString()+"\n");
-        sb.append("Comprador: "+this.getComprador().getCodUtilizador()+"\n");
+        sb.append("\nVendedores: "+this.getVendedores().toString());
+        sb.append("\nComprador: "+this.getComprador().getCodUtilizador()+"\n");
         sb.append("Transportadora utilizada: "+this.getTransportadora().getNome()+"\n");
         sb.append("DataCriação: "+this.get_DataCriacao()+"\n");
         sb.append("DataEntrega: "+this.get_DataEntrega()+"\n");
