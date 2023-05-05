@@ -171,57 +171,63 @@ public class GestorEncomendas implements Serializable{
     //Q4
     public void topVendedoresCompradores(String dataInicial, String dataFinal, int top) throws DateTimeException {
         ArrayList<Encomenda> encomendas = getEncomendasForPeriod(dataInicial, dataFinal); //lista so com as encomendas dentro desse periodo de tempo
+        if(encomendas.isEmpty()) {
+            System.out.println("Não existem encomendas realizadas nesse periodo!!");
+            return;
+        }
 
-        Map<Utilizador, Double> vendedoresTotais = new HashMap<>();
-        Map<Utilizador, Double> compradoresTotais = new HashMap<>();
+        Map<String, Double> vendedoresTotais = new HashMap<>();
+        Map<String, Double> compradoresTotais = new HashMap<>();
         for (Encomenda encomenda : encomendas) {
             for(Map.Entry<String,Utilizador> entry : encomenda.getVendedores().getUtilizadores().entrySet()){
-                Utilizador vendedor=entry.getValue();
-                Utilizador comprador = encomenda.getComprador();
+                String codVendedor=entry.getValue().getCodUtilizador();
+                String codComprador = encomenda.getComprador().getCodUtilizador();
                 Double preco_final = encomenda.get_PrecoFinal();
     
-                compradoresTotais.put(comprador, preco_final);
-                vendedoresTotais.put(vendedor, preco_final);
+                compradoresTotais.put(codComprador, preco_final);
+                vendedoresTotais.put(codVendedor, preco_final);
     
-                if (vendedoresTotais.containsKey(vendedor)) {
-                    Double preco_existente = vendedoresTotais.get(vendedor);
-                    vendedoresTotais.replace(vendedor, preco_final+preco_existente);
+                if (vendedoresTotais.containsKey(codVendedor)) {
+                    Double preco_existente = vendedoresTotais.get(codVendedor);
+                    vendedoresTotais.replace(codVendedor, preco_final+preco_existente);
                 }
     
-                if (compradoresTotais.containsKey(comprador)) {
-                    Double preco_existente = compradoresTotais.get(comprador);
-                    compradoresTotais.replace(comprador, preco_final+preco_existente);
+                if (compradoresTotais.containsKey(codComprador)) {
+                    Double preco_existente = compradoresTotais.get(codComprador);
+                    compradoresTotais.replace(codComprador, preco_final+preco_existente);
                 }
             }
         }
 
-        List<Map.Entry<Utilizador,Double>> organizarVendedores = new ArrayList<>(vendedoresTotais.entrySet());
+        List<Map.Entry<String,Double>> organizarVendedores = new ArrayList<>(vendedoresTotais.entrySet());
         organizarVendedores.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
         System.out.println("Maiores Vendedores:");
         int count = 1;
-        for (Map.Entry<Utilizador, Double> entry : organizarVendedores) {
-            Utilizador vendedor =  entry.getKey();
-            System.out.println(count + ". " + vendedor.getNome());
+        for (Map.Entry<String, Double> entry : organizarVendedores) {
+            String codVendedor =  entry.getKey();
+            System.out.println(count + ". " + codVendedor);
             count++;
             if (count > top) {
                 break;
             }
         }
+        if (count<top) System.out.println("Não existem mais vendedores diferentes nesse periodo!!");
 
-        List<Map.Entry<Utilizador, Double>> organizarCompradores = new ArrayList<>(compradoresTotais.entrySet());
+        List<Map.Entry<String, Double>> organizarCompradores = new ArrayList<>(compradoresTotais.entrySet());
         organizarCompradores.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
         System.out.println("\nMaiores Compradores:");
         count = 1;
-        for (Map.Entry<Utilizador, Double> entry : organizarCompradores) {
-            Utilizador comprador = entry.getKey();
-            System.out.println(count + ". " + comprador.getNome());
+        for (Map.Entry<String, Double> entry : organizarCompradores) {
+            String codComprador = entry.getKey();
+            System.out.println(count + ". " + codComprador);
             count++;
             if (count > top) {
                 break;
             }
         }
+        if (count<top) System.out.println("Não existem mais compradores diferentes nesse periodo!!");
     }
 
     private ArrayList<Encomenda> getEncomendasForPeriod(String dataInicio, String dataFim) throws DateTimeException {

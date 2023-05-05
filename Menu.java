@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.DateTimeException;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -13,7 +15,82 @@ public class Menu {
         this.input = new Scanner(System.in);
     }
 
-    public void run() throws DateTimeException {
+    public static Vintage carregaDefault_Changed() throws FileNotFoundException, ClassNotFoundException, IOException, 
+    DateTimeException, AddException, RemoveException, VintageException{
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("\n------Carregar Sistema-----");
+        System.out.println("Digite (1-> Sistema_Default)/(2->Sistema_Changed): ");
+
+        int default_changed=0;
+        try{
+            default_changed=input.nextInt();
+        }catch (InputMismatchException e){
+            System.out.println("Selecione 1 ou 2");
+        }
+
+        input.close();
+
+        if (default_changed==1) return Controlador_Menu_Vintage.carregaEstado("EstadoVintage_default.dat");
+        else if (default_changed==2) return Controlador_Menu_Vintage.carregaEstado("EstadoVintage_changed.dat");
+        else throw new VintageException("Escolha 1 ou 2!!!");
+    }
+
+    public static void run_AdminOrUser(Controlador_Menu_Vintage controlador_Menu_Vintage){
+        Menu menu = new Menu(controlador_Menu_Vintage);
+
+        System.out.println("\n------Vintage-----");
+        System.out.println("Digite (1-> Admin)/(2->User): ");
+
+        int admin_user=0;
+        try{
+            admin_user=menu.input.nextInt(); 
+            menu.input.nextLine();
+        }catch (InputMismatchException e){
+            System.out.println("Escolha 1 ou 2");
+        }
+
+        if(admin_user==1) menu.runAdmin();
+        else if (admin_user==2) menu.runUtilizador();
+        else {
+            System.out.println("Escolha 1 ou 2");
+            Menu.run_AdminOrUser(controlador_Menu_Vintage);
+        }
+    }
+
+    public void runAdmin(){
+        int opcao;
+
+        do{
+            System.out.println("1. Adicionar Utilizador");
+            System.out.println("2. Adicionar Transportadora");
+            System.out.println("0. Sair");
+
+            opcao=-1;
+
+            try {
+                opcao = input.nextInt();
+            } catch (InputMismatchException e) {
+                input.nextLine();
+            }
+
+            switch(opcao){
+                case 1:
+
+                case 2:
+
+                case 0:
+                    System.out.println("Saindo do programa...");
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+                    break;
+            }
+
+        }while(opcao!=0);
+    }
+
+    public void runUtilizador() throws DateTimeException {
         int opcao;
 
         System.out.println("\n------------LOGIN-----------");
@@ -21,18 +98,18 @@ public class Menu {
         String codUtilizadorLogin = input.nextLine();
         if(!controlador_Menu_Vintage.exists_Utilizador(codUtilizadorLogin)){
             System.out.println("Utilizador não existe!!");
-            this.run();
+            this.runUtilizador();
         }
 
         do {
             System.out.println("\n------ MENU ------");
             System.out.println("1. Verificar Estado do sistema");
             System.out.println("2. Avançar no Tempo");
-            System.out.println("3. Encomendas realizadas");
+            System.out.println("3. Encomendas realizadas (pelo utilizador atual)");
             System.out.println("4. Ganhos do Sistema");
             System.out.println("5. Vendedor que mais fatorou");
             System.out.println("6. Transportadora com mais volume de encomendas");
-            System.out.println("7. Melhores compradores e Vendedores num determinado periodo de tempo");
+            System.out.println("7. Melhores compradores e vendedores num determinado periodo de tempo");
             System.out.println("0. Sair");
             System.out.println("Escolha uma opção: ");
 

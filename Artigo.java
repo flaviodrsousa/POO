@@ -164,7 +164,6 @@ public abstract class Artigo implements Serializable{
         }
         sb.append("Descricao: "+this.getDescricao()+"\n");
         sb.append("Marca: "+this.getMarca()+"\n");
-        sb.append("Estado de utilizacao (0-1): "+this.getEstado_utilizacao()+"\n");
         sb.append("Preco base: "+this.getPreco_base()+"\n");
         sb.append("Desconto: "+this.getDesconto()+"\n");
         sb.append("Preco final: " + this.getPreco_final()+"\n");

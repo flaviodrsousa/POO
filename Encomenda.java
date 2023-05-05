@@ -9,7 +9,7 @@ public class Encomenda implements Serializable{
     }
     
     public enum Estado{
-        pendente,paga,expedida,entregue
+        pendente,entregue
     }
 
     private int numeroEncomenda;
@@ -26,7 +26,6 @@ public class Encomenda implements Serializable{
     private Transportadora transportadora;
 
     private static int contador = 1;
-
 
     //Construtores
     public Encomenda() {
@@ -70,8 +69,8 @@ public class Encomenda implements Serializable{
         this.dataCriacao=Data.StringtoDate(dataCriacao);
         this.dataEntrega=Data.StringtoDate(dataEntrega);     
         this.estado=estado;
-        this.vendedores=vendedores;
-        this.comprador=comprador;
+        this.vendedores=vendedores.clone(); 
+        this.comprador=comprador.clone();
         this.transportadora=comprador.getTransportadora(); //transportadora é definida por defeito pelo vendedor
     }
 
@@ -141,6 +140,10 @@ public class Encomenda implements Serializable{
         return this.transportadora.clone();
     }
 
+    public static int getContador() {
+        return contador;
+    }
+
     //sets
     public void setNumeroEncomenda(int numeroEncomenda) {
         this.numeroEncomenda = numeroEncomenda;
@@ -192,6 +195,10 @@ public class Encomenda implements Serializable{
         this.transportadora = transportadora;
     }
 
+    public static void setContador(int contador) {
+        Encomenda.contador = contador;
+    }
+
     //clone
     public Encomenda clone(){
         return new Encomenda(this);
@@ -233,8 +240,8 @@ public class Encomenda implements Serializable{
             sb.append("DimensãoEmbalagem: Grande\n");
         }
         sb.append("Vendedores: "+this.getVendedores().toString()+"\n");
-        sb.append("Comprador: \n"+this.getComprador().toString()+"\n");
-        sb.append("Transportadora utilizada: \n"+this.getTransportadora().toString()+"\n");
+        sb.append("Comprador: "+this.getComprador().getCodUtilizador()+"\n");
+        sb.append("Transportadora utilizada: "+this.getTransportadora().getNome()+"\n");
         sb.append("DataCriação: "+this.get_DataCriacao()+"\n");
         sb.append("DataEntrega: "+this.get_DataEntrega()+"\n");
         sb.append("Estado: "+this.getEstado()+'\n');
@@ -249,7 +256,14 @@ public class Encomenda implements Serializable{
         return sb.toString();
     }
 
-    //métodos adicionais  
+    //métodos adicionais
+    public void addArtigo(Artigo artigo,Utilizador vendedor,Utilizador comprador) throws AddException, RemoveException{
+        this.gestorArtigos.addArtigo(artigo);
+        this.vendedores.addUtilizador(vendedor);
+        comprador.artigo_Comprado(artigo);
+        vendedor.artigo_Vendido(artigo);
+    }
+
     public String fatura(){
         StringBuilder sb = new StringBuilder();
         sb.append("--FATURA--\n");
