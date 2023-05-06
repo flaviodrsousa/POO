@@ -156,14 +156,12 @@ public class GestorEncomendas implements Serializable{
     }
 
     //Q3
-    public String encomendasVendedor(String codUtilizador){
+    public String encomendasComprador(String codUtilizador){
         StringBuilder sb = new StringBuilder();
         sb.append("\nHistórico de encomendas: \n");
         for(Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
-            for (Map.Entry<String,Utilizador> Entry:entry.getValue().getVendedores().getUtilizadores().entrySet()){  
-                if (Entry.getValue().getCodUtilizador().equals(codUtilizador)){
-                    sb.append("Nº de Encomenda: ").append(entry.getKey().toString()+'\n');
-                }
+            if (entry.getValue().getComprador().getCodUtilizador().equals(codUtilizador)){
+                sb.append("Nº de Encomenda: ").append(entry.getKey().toString()+'\n');
             }
         }
         return sb.toString();

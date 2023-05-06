@@ -281,7 +281,7 @@ public class Menu {
 
             switch (opcao) { 
                 case 1:
-                    System.out.println(controlador_Menu_Vintage.encomendasVendedor(codUtilizadorLogin));
+                    System.out.println(controlador_Menu_Vintage.encomendasComprador(codUtilizadorLogin));
                     break;
                 case 2: 
                     try{

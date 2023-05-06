@@ -48,8 +48,8 @@ public class Controlador_Menu_Vintage {
     }
 
     //Q3
-    public String encomendasVendedor(String codUtilizador){
-        return vintage.encomendasVendedor(codUtilizador);
+    public String encomendasComprador(String codUtilizador){
+        return vintage.encomendasComprador(codUtilizador);
     }
 
     //Q4

@@ -371,8 +371,8 @@ public class Vintage implements Serializable{
     }
 
     //Q3
-    public String encomendasVendedor(String CodUtilizador){
-        return gestorEncomendas.encomendasVendedor(CodUtilizador);
+    public String encomendasComprador(String CodUtilizador){
+        return gestorEncomendas.encomendasComprador(CodUtilizador);
     }
 
     //Q4
