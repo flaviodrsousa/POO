@@ -95,7 +95,8 @@ public class GestorEncomendas implements Serializable{
     public List<Encomenda> entregaEncomenda(Vintage vintage){
         List<Encomenda> encomendasEntregues = new ArrayList<>();
         for (Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
-            if (vintage.get_DataAtual().compareTo(entry.getValue().get_DataEntrega())>0){
+            if (vintage.get_DataAtual().compareTo(entry.getValue().get_DataEntrega())>0
+            && Encomenda.Estado.pendente.equals(entry.getValue().getEstado())){
                 entry.getValue().setEstado(Encomenda.Estado.entregue);
                 encomendasEntregues.add(entry.getValue());
             }
@@ -158,14 +159,17 @@ public class GestorEncomendas implements Serializable{
     }
 
     //Q3
-    public void encomendasVendedor(String codUtilizador){
+    public String encomendasVendedor(String codUtilizador){
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nHistórico de encomendas: \n");
         for(Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
             for (Map.Entry<String,Utilizador> Entry:entry.getValue().getVendedores().getUtilizadores().entrySet()){  
                 if (Entry.getValue().getCodUtilizador().equals(codUtilizador)){
-                    System.out.println(entry.getValue().toString());
+                    sb.append("Nº de Encomenda: ").append(entry.getKey().toString()+'\n');
                 }
             }
         }
+        return sb.toString();
     }
 
     //Q4

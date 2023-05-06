@@ -48,8 +48,8 @@ public class Controlador_Menu_Vintage {
     }
 
     //Q3
-    public void encomendasVendedor(String codUtilizador){
-        vintage.encomendasVendedor(codUtilizador);
+    public String encomendasVendedor(String codUtilizador){
+        return vintage.encomendasVendedor(codUtilizador);
     }
 
     //Q4
@@ -67,16 +67,6 @@ public class Controlador_Menu_Vintage {
         return vintage.toString();
     }
 
-    //toString_Transportadoras
-    public String toString_Transportadoras(){
-        return vintage.getGestorTransportadoras().toString();
-    }
-
-    //getTransportadora
-    public Transportadora getTransportadora(String nome) throws GetException{
-        return vintage.getGestorTransportadoras().getTransportadora(nome);
-    }
-
     //addUtilizador
     public void addUtilizador(Utilizador utilizador) throws AddException{
         vintage.addUtilizador(utilizador);
@@ -87,6 +77,11 @@ public class Controlador_Menu_Vintage {
         vintage.removeUtilizador(codUtilizador);
     }
 
+    //getUtilizador
+    public Utilizador getUtilizador(String codUtilizador) throws GetException{
+        return vintage.getGestorUtilizadores().getUtilizador(codUtilizador);
+    }
+
     //addTransportadora
     public void addTransportadora(Transportadora transportadora) throws AddException{
         vintage.addTransportadora(transportadora);
@@ -95,6 +90,16 @@ public class Controlador_Menu_Vintage {
     //removerTransportadora
     public void removeTransportadora(String nome) throws RemoveException{
         vintage.removeTransportadora(nome);
+    }
+
+    //getTransportadora
+    public Transportadora getTransportadora(String nome) throws GetException{
+        return vintage.getGestorTransportadoras().getTransportadora(nome);
+    }
+
+    //toString_Transportadoras
+    public String toString_Transportadoras(){
+        return vintage.getGestorTransportadoras().toString();
     }
 
     //exists_Utilizador

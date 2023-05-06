@@ -9,6 +9,7 @@ public abstract class Artigo implements Serializable{
     private String marca;
     private double preco_base;
     private double estado_utilizacao; //valor de 0 a 1
+    private boolean foi_comprado;
 
     //calculados
     private double desconto;
@@ -26,7 +27,7 @@ public abstract class Artigo implements Serializable{
         this.estado_utilizacao=0;
         this.desconto=0;
         this.preco_final=0;
-
+        this.foi_comprado=false;
     }
 
     public Artigo(String cod_barras, boolean artigo_novo, String estado, int num_donos,
@@ -41,6 +42,7 @@ public abstract class Artigo implements Serializable{
         this.estado_utilizacao=estado_utilizacao;
         this.desconto=this.desconto();
         this.preco_final=this.preco_final();
+        this.foi_comprado=false;
     }
 
     public Artigo(Artigo novo){
@@ -52,8 +54,9 @@ public abstract class Artigo implements Serializable{
         this.marca=novo.getMarca();
         this.preco_base=novo.getPreco_base();
         this.estado_utilizacao=novo.getEstado_utilizacao();
-        this.desconto=this.desconto();
-        this.preco_final=this.preco_final();
+        this.desconto=novo.getDesconto();
+        this.preco_final=novo.getPreco_base();
+        this.foi_comprado=novo.getFoi_Comprado();
     }
 
     //gets
@@ -97,6 +100,10 @@ public abstract class Artigo implements Serializable{
         return preco_final;
     }
 
+    public boolean getFoi_Comprado(){
+        return foi_comprado;
+    }
+
     //sets
     public void setCod_barras(String cod_barras){
         this.cod_barras = cod_barras;
@@ -138,6 +145,10 @@ public abstract class Artigo implements Serializable{
         this.preco_final=preco_final;
     }
 
+    public void setFoi_comprado(boolean foi_comprado) {
+        this.foi_comprado = foi_comprado;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(obj==this) 
@@ -167,6 +178,7 @@ public abstract class Artigo implements Serializable{
         sb.append("Preco base: "+this.getPreco_base()+"\n");
         sb.append("Desconto: "+this.getDesconto()+"\n");
         sb.append("Preco final: " + this.getPreco_final()+"\n");
+        sb.append("Foi comprado: "+ this.foi_comprado+'\n');
 
         return sb.toString();
     }  

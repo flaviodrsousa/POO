@@ -132,27 +132,6 @@ public class Vintage implements Serializable{
         Artigo mala1g = new Mala("mala1g", true, "Novo", 2, "Mala de Mão",
         "Prada", 800.0, 1, Mala.Dimensao.MEDIO, "Couro", "01-03-2023", true);
 
-        this.gestorArtigos.addArtigo(sap1a); //ficar no historico do Vintage
-        this.gestorArtigos.addArtigo(sap1b);
-        this.gestorArtigos.addArtigo(sap1c);
-        this.gestorArtigos.addArtigo(sap1d);
-        this.gestorArtigos.addArtigo(sap1e);
-        this.gestorArtigos.addArtigo(sap1f);
-        this.gestorArtigos.addArtigo(sap1g);
-        this.gestorArtigos.addArtigo(tshirt_1a);
-        this.gestorArtigos.addArtigo(tshirt_1b);
-        this.gestorArtigos.addArtigo(tshirt_1c);
-        this.gestorArtigos.addArtigo(tshirt_1d);
-        this.gestorArtigos.addArtigo(tshirt_1e);
-        this.gestorArtigos.addArtigo(tshirt_1f);
-        this.gestorArtigos.addArtigo(tshirt_1g);
-        this.gestorArtigos.addArtigo(mala1a);
-        this.gestorArtigos.addArtigo(mala1b);
-        this.gestorArtigos.addArtigo(mala1c);
-        this.gestorArtigos.addArtigo(mala1d);
-        this.gestorArtigos.addArtigo(mala1e);
-        this.gestorArtigos.addArtigo(mala1f);
-        this.gestorArtigos.addArtigo(mala1g);
 
         //Transportadoras
         Transportadora fedex = new Transportadora("Fedex",1,2,5);
@@ -161,11 +140,6 @@ public class Vintage implements Serializable{
         Transportadora Amazon_Logistics = new Transportadora("Amazon Logistics",3,7,12);
         Transportadora CTT_Expresso = new Transportadora("CTT Expresso", 5, 7, 10);
 
-        this.gestorTransportadoras.addTransportadora(fedex);
-        this.gestorTransportadoras.addTransportadora(DPD);
-        this.gestorTransportadoras.addTransportadora(DHL);
-        this.gestorTransportadoras.addTransportadora(CTT_Expresso);
-        this.gestorTransportadoras.addTransportadora(Amazon_Logistics);
 
         //Utilizadores
         Utilizador u0001 = new Utilizador("u0001","u0001@gmail.com","Henrique Malheiro","Rua Braga Parque",
@@ -213,15 +187,6 @@ public class Vintage implements Serializable{
         u0008.artigo_aVenda(sap1d);
         u0008.artigo_aVenda(tshirt_1d);
 
-        this.gestorUtilizadores.addUtilizador(u0001);
-        this.gestorUtilizadores.addUtilizador(u0002);
-        this.gestorUtilizadores.addUtilizador(u0003);
-        this.gestorUtilizadores.addUtilizador(u0004);
-        this.gestorUtilizadores.addUtilizador(u0005);
-        this.gestorUtilizadores.addUtilizador(u0006);
-        this.gestorUtilizadores.addUtilizador(u0007);
-        this.gestorUtilizadores.addUtilizador(u0008);
-
         //Encomendas
         Encomenda encomenda1 = new Encomenda(new GestorArtigos(),Encomenda.DimensaoEmbalagem.pequeno,5,
         "05-07-2002","10-07-2002",Encomenda.Estado.entregue,new GestorUtilizadores(),u0001);
@@ -234,25 +199,63 @@ public class Vintage implements Serializable{
 
         Encomenda encomenda3 = new Encomenda(new GestorArtigos(), Encomenda.DimensaoEmbalagem.pequeno, 5.0,
         "10-05-2023", "15-10-2023", Encomenda.Estado.pendente, new GestorUtilizadores(), u0002);
-        encomenda3.addArtigo(mala1g, u0007, u0002);
-        encomenda3.addArtigo(mala1c, u0004, u0002);
+        encomenda3.addArtigo(mala1g, u0007,u0002);
+        encomenda3.addArtigo(mala1c, u0004,u0002);
 
         Encomenda encomenda4 = new Encomenda(new GestorArtigos(), Encomenda.DimensaoEmbalagem.medio, 7.5, 
         "12-05-2023", "07-04-2023", Encomenda.Estado.entregue, new GestorUtilizadores(), u0001);
-        encomenda4.addArtigo(sap1e, u0005, u0001);
+        encomenda4.addArtigo(sap1e, u0005,u0001);
 
         Encomenda encomenda5 = new Encomenda(new GestorArtigos(), Encomenda.DimensaoEmbalagem.grande, 10.0, 
         "15-05-2023", "20-05-2024", Encomenda.Estado.pendente, new GestorUtilizadores(), u0007);
-        encomenda5.addArtigo(sap1g, u0002, u0007);
+        encomenda5.addArtigo(sap1g, u0002,u0007);
 
         Encomenda encomenda6 = new Encomenda(new GestorArtigos(), Encomenda.DimensaoEmbalagem.pequeno, 4.0, 
         "01-03-2023", "22-03-2023", Encomenda.Estado.entregue, new GestorUtilizadores(), u0008);
-        encomenda6.addArtigo(sap1c, u0001, u0008);
+        encomenda6.addArtigo(sap1c, u0001,u0008);
 
         Encomenda encomenda7 = new Encomenda(new GestorArtigos(), Encomenda.DimensaoEmbalagem.medio, 6.0, 
         "01-05-2023", "25-09-2023", Encomenda.Estado.pendente, new GestorUtilizadores(), u0004);
-        encomenda7.addArtigo(tshirt_1e, u0007, u0004);
-        encomenda7.addArtigo(mala1e, u0006, u0004);
+        encomenda7.addArtigo(tshirt_1e, u0007,u0004);
+        encomenda7.addArtigo(mala1e, u0006,u0004);
+
+        //ficar no historico do Vintage
+        this.gestorArtigos.addArtigo(sap1a); 
+        this.gestorArtigos.addArtigo(sap1b);
+        this.gestorArtigos.addArtigo(sap1c);
+        this.gestorArtigos.addArtigo(sap1d);
+        this.gestorArtigos.addArtigo(sap1e);
+        this.gestorArtigos.addArtigo(sap1f);
+        this.gestorArtigos.addArtigo(sap1g);
+        this.gestorArtigos.addArtigo(tshirt_1a);
+        this.gestorArtigos.addArtigo(tshirt_1b);
+        this.gestorArtigos.addArtigo(tshirt_1c);
+        this.gestorArtigos.addArtigo(tshirt_1d);
+        this.gestorArtigos.addArtigo(tshirt_1e);
+        this.gestorArtigos.addArtigo(tshirt_1f);
+        this.gestorArtigos.addArtigo(tshirt_1g);
+        this.gestorArtigos.addArtigo(mala1a);
+        this.gestorArtigos.addArtigo(mala1b);
+        this.gestorArtigos.addArtigo(mala1c);
+        this.gestorArtigos.addArtigo(mala1d);
+        this.gestorArtigos.addArtigo(mala1e);
+        this.gestorArtigos.addArtigo(mala1f);
+        this.gestorArtigos.addArtigo(mala1g);
+
+        this.gestorTransportadoras.addTransportadora(fedex);
+        this.gestorTransportadoras.addTransportadora(DPD);
+        this.gestorTransportadoras.addTransportadora(DHL);
+        this.gestorTransportadoras.addTransportadora(CTT_Expresso);
+        this.gestorTransportadoras.addTransportadora(Amazon_Logistics);
+
+        this.gestorUtilizadores.addUtilizador(u0001);
+        this.gestorUtilizadores.addUtilizador(u0002);
+        this.gestorUtilizadores.addUtilizador(u0003);
+        this.gestorUtilizadores.addUtilizador(u0004);
+        this.gestorUtilizadores.addUtilizador(u0005);
+        this.gestorUtilizadores.addUtilizador(u0006);
+        this.gestorUtilizadores.addUtilizador(u0007);
+        this.gestorUtilizadores.addUtilizador(u0008);
 
         this.gestorEncomendas.addEncomenda(encomenda1);
         this.gestorEncomendas.addEncomenda(encomenda2);
@@ -354,9 +357,9 @@ public class Vintage implements Serializable{
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\nArtigos Registados: ").append(gestorArtigos.toString()+'\n');
-        sb.append("Encomendas Vendidas: ").append(gestorEncomendas.toString()+'\n');
-        sb.append("Transportadoras registadas: ").append(gestorTransportadoras.toString()+'\n');
-        sb.append("Utilizadores registrados: ").append(gestorUtilizadores.toString());
+        sb.append("Encomendas Realizadas: ").append(gestorEncomendas.toString()+'\n');
+        sb.append("Transportadoras Registadas: ").append(gestorTransportadoras.toString()+'\n');
+        sb.append("Utilizadores Registrados: ").append(gestorUtilizadores.toString());
         sb.append("\nData atual: ").append(data_atual.toString());
 
         return sb.toString();
@@ -368,8 +371,7 @@ public class Vintage implements Serializable{
     }
 
     public List<Encomenda> avancarTempo(String date) throws DateTimeException{
-        LocalDate newDate = Data.StringtoDate(date);
-        set_DataAtual(newDate);
+        set_DataAtual(Data.StringtoDate(date));
         return this.entregaEncomenda();
     }
 
@@ -384,8 +386,8 @@ public class Vintage implements Serializable{
     }
 
     //Q3
-    public void encomendasVendedor(String CodUtilizador){
-        gestorEncomendas.encomendasVendedor(CodUtilizador);
+    public String encomendasVendedor(String CodUtilizador){
+        return gestorEncomendas.encomendasVendedor(CodUtilizador);
     }
 
     //Q4

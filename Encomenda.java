@@ -36,11 +36,11 @@ public class Encomenda implements Serializable{
         this.custoExpedicao = 0;
         this.precoFinal = 0;
         this.dataCriacao = LocalDate.now();
-        this.dataEntrega = null;
-        this.estado=null;
+        this.dataEntrega = LocalDate.MAX;
+        this.estado=Estado.pendente;
         this.vendedores=new GestorUtilizadores();
-        this.comprador=null;
-        this.transportadora=null;
+        this.comprador=new Utilizador();
+        this.transportadora=new Transportadora();
     }
 
     private double calcularPrecoFinal() {
@@ -141,7 +141,7 @@ public class Encomenda implements Serializable{
     }
 
     public static int getContador() {
-        return contador;
+        return Encomenda.contador;
     }
 
     //sets
@@ -184,15 +184,15 @@ public class Encomenda implements Serializable{
     }
 
     public void setVendedores(GestorUtilizadores vendedores) {
-        this.vendedores = vendedores;
+        this.vendedores = vendedores.clone();
     }
 
     public void setComprador(Utilizador comprador) {
-        this.comprador = comprador;
+        this.comprador = comprador.clone();
     }
 
     public void setTransportadora(Transportadora transportadora) {
-        this.transportadora = transportadora;
+        this.transportadora = transportadora.clone();
     }
 
     public static void setContador(int contador) {
@@ -266,7 +266,7 @@ public class Encomenda implements Serializable{
 
     public String fatura(){
         StringBuilder sb = new StringBuilder();
-        sb.append("--FATURA--\n");
+        sb.append("\n--FATURA--\n");
         sb.append(this.toString());
         return sb.toString();
     }

@@ -2,6 +2,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.DateTimeException;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -67,10 +68,12 @@ public class Menu {
             System.out.println("4. Adicionar Transportadora");
             System.out.println("5. Remover Utilizador");
             System.out.println("6. Remover Transportadora");
-            System.out.println("7. Ganhos do Sistema");
-            System.out.println("8. Vendedor que mais fatorou");
-            System.out.println("9. Transportadora com mais volume de encomendas");
-            System.out.println("10. Melhores compradores e vendedores num determinado periodo de tempo");
+            System.out.println("7. Perfil Utilizador");
+            System.out.println("8. Perfil Transportadora");
+            System.out.println("9. Ganhos do Sistema");
+            System.out.println("10. Vendedor que mais fatorou");
+            System.out.println("11. Transportadora com mais volume de encomendas");
+            System.out.println("12. Melhores compradores e vendedores num determinado periodo de tempo");
             System.out.println("0. Sair");
 
             opcao=-1;
@@ -90,7 +93,10 @@ public class Menu {
                     System.out.println("Data (dd-MM-yyyy) para onde pertende avancar: ");
                     String data = input.nextLine();
                     try {
-                        controlador_Menu_Vintage.avancarTempo(data);
+                        List<Encomenda> encomendasEntregues= controlador_Menu_Vintage.avancarTempo(data);
+                        for (Encomenda encomenda : encomendasEntregues){
+                            System.out.println(encomenda.fatura());
+                        }
                     } catch (DateTimeException e) {
                         System.out.println("A data é no formato (dd-MM-yyyy)!");
                         break;
@@ -138,7 +144,7 @@ public class Menu {
                     }
                 case 4:
                     input.nextLine();
-                    System.out.println("\nNome: ");
+                    System.out.println("\nNome da Transportadora: ");
                     nome = input.nextLine();
                     System.out.println("Preço Encomenda pequena: ");
                     try{
@@ -152,7 +158,7 @@ public class Menu {
                         controlador_Menu_Vintage.addTransportadora(transportadora);
                         break;
                     }catch(InputMismatchException e){
-                        System.out.println("Os Preços são números!!");
+                        System.out.println("\nOs Preços são números!!");
                         input.nextLine();
                         break;
                     }catch(AddException e){
@@ -179,42 +185,53 @@ public class Menu {
                         System.out.println(e.getMessage());
                     }
                     break;
-                case 7:
-                    System.out.println("Ganhos do sistema: " + controlador_Menu_Vintage.ganhosVintage());
-                    break;
-                case 8:
-                    System.out.println("Vendedor que mais fatorou: " + controlador_Menu_Vintage.vendedorMaisFatorou());
+                case 7: 
+                    input.nextLine();
+                    System.out.println("\nNome do Utilizador: ");
+                    codUtilizador = input.nextLine();
+                    try{
+                        System.out.println(controlador_Menu_Vintage.getUtilizador(codUtilizador).toString());
+                    }catch (GetException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
                     break;
                 case 9:
-                    System.out.println("Transportadora mais usada: "+ controlador_Menu_Vintage.TransportadoraMaiorVolumeFatoracao());
+                    System.out.println("\nGanhos do sistema: " + controlador_Menu_Vintage.ganhosVintage());
                     break;
                 case 10:
-                    System.out.println("Data Inicial do Periodo (dd-MM-yyyy):  ");
+                    System.out.println("\nVendedor que mais fatorou: " + controlador_Menu_Vintage.vendedorMaisFatorou());
+                    break;
+                case 11:
+                    System.out.println("\nTransportadora mais usada: "+ controlador_Menu_Vintage.TransportadoraMaiorVolumeFatoracao());
+                    break;
+                case 12:
+                    System.out.println("\nData Inicial do Periodo (dd-MM-yyyy):  ");
                     input.nextLine();
                     String datai = input.nextLine();
-                    System.out.println("Data Final do Periodo (dd-MM-yyyy):  ");
+                    System.out.println("\nData Final do Periodo (dd-MM-yyyy):  ");
                     String dataf = input.nextLine();
-                    System.out.println("Quantos vendedores/compradores? ");
+                    System.out.println("\nQuantos vendedores/compradores? ");
                     int top=0;
                     try{
                         top = input.nextInt();
                     }catch(InputMismatchException e){
-                        System.out.println("A quantidade de utilizadores é um numero!!");
+                        System.out.println("\nA quantidade de utilizadores é um numero!!");
                         input.nextLine();
                         break;
                     }
                     try{
                         controlador_Menu_Vintage.topVendedoresCompradores(datai, dataf, top);
                     }catch(DateTimeException e){
-                        System.out.println("Datas sao no formato (dd-MM-yyyy)!!");
+                        System.out.println("\nDatas sao no formato (dd-MM-yyyy)!!");
                         break;
                     }
                     break;
                 case 0:
-                    System.out.println("Saindo do programa...");
+                    System.out.println("\nSaindo do programa...");
                     break;
                 default:
-                    System.out.println("Opção inválida. Tente novamente.");
+                    System.out.println("\nOpção inválida. Tente novamente.");
                     break;
             }
 
@@ -236,7 +253,7 @@ public class Menu {
 
         do {
             System.out.println("\n------ MENU ------");
-            System.out.println("1. Meu registo de encomendas");
+            System.out.println("1. Meu histórico de encomendas");
             System.out.println("0. Sair");
             System.out.println("Escolha uma opção: ");
 
@@ -250,7 +267,7 @@ public class Menu {
 
             switch (opcao) { 
                 case 1:
-                    controlador_Menu_Vintage.encomendasVendedor(codUtilizadorLogin);
+                    System.out.println(controlador_Menu_Vintage.encomendasVendedor(codUtilizadorLogin));
                     break;
                 case 0:
                     System.out.println("Saindo do programa...");
