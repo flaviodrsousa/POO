@@ -21,12 +21,12 @@ public class Mala extends Artigo{
     }
 
     public Mala(String cod_barras, boolean artigo_novo, String estado, int num_donos,
-    String descricao, String marca,double preco_base,double estado_utilizacao,
+    String descricao, String marca,double preco_base,double estado_utilizacao,Utilizador dono,
     Dimensao dimensao,String material,String data_colecao,boolean premium) throws DateTimeException{
-        super(cod_barras,artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao);
+        super(cod_barras,artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao,dono);
         this.dimensao=dimensao;
         this.material=material;
-        this.data_colecao=Data.StringtoDate(data_colecao);        
+        this.data_colecao=Data.StringEuropeia_toDate(data_colecao);        
         this.premium=premium;
     }
 

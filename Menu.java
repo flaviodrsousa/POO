@@ -292,30 +292,52 @@ public class Menu {
                     }
                     break;
                 case 3:
+                    input.nextLine();
                     System.out.println("\nArtigos à Venda: ");
                     System.out.println(controlador_Menu_Vintage.artigos_AVenda_Vintage());
 
                     double taxaGarantia = 10.5; //preco padrao do sistema
-   /*                  String dataCriacao= controlador_Menu_Vintage.getVintage().get_DataAtual().toString();
-                    System.out.println(dataCriacao); */
+                    LocalDate dataCriacao_Americano= controlador_Menu_Vintage.getVintage().get_DataAtual();
+                    LocalDate dataEntrega_Americano =dataCriacao_Americano.plusMonths(2);
 
+                    String dataCriacao = Data.DatetoString(dataCriacao_Americano);
+                    String dataEntrega = Data.DatetoString(dataEntrega_Americano);
 
                     Encomenda.Estado estadoEncomenda= Encomenda.Estado.pendente;
-/*                     LocalDate Local_dataEntrega = Data.StringtoDate(dataCriacao).plusMonths(2);
-                    String dataEntrega = LocalDate.of(Local_dataEntrega.getDayOfMonth(),
-                    Local_dataEntrega.getMonth(),Local_dataEntrega.getYear()).toString();
-                    System.out.println(dataEntrega); */
-
-                    String dataEntrega=null,dataCriacao=null;
                     try {
                         Utilizador comprador = controlador_Menu_Vintage.getUtilizador(codUtilizadorLogin);
                         Encomenda encomenda = new Encomenda(new GestorArtigos(), taxaGarantia, dataCriacao, 
                         dataEntrega, estadoEncomenda, new GestorUtilizadores(),comprador);
-                        controlador_Menu_Vintage.addEncomenda(encomenda);
+                        System.out.println("Número de artigos na Encomenda: ");
+                        int nArtigos=0;
+                        try{
+                            nArtigos = input.nextInt();
+                        }catch(InputMismatchException e){
+                            System.out.println("Escolha um numero!!!");
+                            input.nextLine();
+                            break;
+                        }
+                        input.nextLine();
+                        for (int i=0;i<nArtigos;i++){
+                            System.out.println("Código de barras do Artigo: ");
+                            String codBarras = input.nextLine();
+                            try {
+                                Artigo artigo = controlador_Menu_Vintage.getArtigo(codBarras);
+                                Utilizador vendedor = artigo.getDono();
+                                encomenda.addArtigo(artigo, vendedor, comprador);
+                                controlador_Menu_Vintage.addEncomenda(encomenda);
+                            }catch(GetException e){
+                                System.out.println(e.getMessage());
+                                break;
+                            }catch(AddException e){
+                                System.out.println(e.getMessage());
+                                break;
+                            }catch(RemoveException e){
+                                System.out.println(e.getMessage());
+                                break;
+                            }
+                        }
                     }catch(GetException e){
-                        System.out.println(e.getMessage());
-                        break;
-                    }catch(AddException e){
                         System.out.println(e.getMessage());
                         break;
                     }catch(DateTimeException e){

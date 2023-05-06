@@ -10,6 +10,7 @@ public abstract class Artigo implements Serializable{
     private double preco_base;
     private double estado_utilizacao; //valor de 0 a 1
     private boolean foi_comprado;
+    private Utilizador dono;
 
     //calculados
     private double desconto;
@@ -28,10 +29,12 @@ public abstract class Artigo implements Serializable{
         this.desconto=0;
         this.preco_final=0;
         this.foi_comprado=false;
+        this.dono = new Utilizador();
     }
 
     public Artigo(String cod_barras, boolean artigo_novo, String estado, int num_donos,
-    String descricao, String marca,double preco_base,double estado_utilizacao){
+    String descricao, String marca,double preco_base,double estado_utilizacao,
+    Utilizador dono){
         this.cod_barras=cod_barras;
         this.artigo_novo=artigo_novo;
         this.estado=estado;
@@ -43,6 +46,7 @@ public abstract class Artigo implements Serializable{
         this.desconto=this.desconto();
         this.preco_final=this.preco_final();
         this.foi_comprado=false;
+        this.dono=dono;
     }
 
     public Artigo(Artigo novo){
@@ -57,6 +61,7 @@ public abstract class Artigo implements Serializable{
         this.desconto=novo.getDesconto();
         this.preco_final=novo.getPreco_base();
         this.foi_comprado=novo.getFoi_Comprado();
+        this.dono=novo.getDono();
     }
 
     //gets
@@ -104,6 +109,10 @@ public abstract class Artigo implements Serializable{
         return foi_comprado;
     }
 
+    public Utilizador getDono() {
+        return dono.clone();
+    }
+
     //sets
     public void setCod_barras(String cod_barras){
         this.cod_barras = cod_barras;
@@ -149,6 +158,10 @@ public abstract class Artigo implements Serializable{
         this.foi_comprado = foi_comprado;
     }
 
+    public void setDono(Utilizador dono) {
+        this.dono = dono.clone();
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(obj==this) 
@@ -159,7 +172,8 @@ public abstract class Artigo implements Serializable{
         return (this.cod_barras.equals(art.getCod_barras()) && this.artigo_novo==art.getArtigo_novo() && 
         this.estado.equals(art.getEstado()) && this.num_donos==art.getNum_donos() && 
         this.descricao.equalsIgnoreCase(art.getDescricao()) && this.marca.equals(art.getMarca()) &&
-        this.preco_base==art.getPreco_base() && this.estado_utilizacao==art.getEstado_utilizacao());
+        this.preco_base==art.getPreco_base() && this.estado_utilizacao==art.getEstado_utilizacao() &&
+        this.dono.equals(art.getDono()));
     }
 
     @Override
@@ -179,6 +193,7 @@ public abstract class Artigo implements Serializable{
         sb.append("Desconto: "+this.getDesconto()+"\n");
         sb.append("Preco final: " + this.getPreco_final()+"\n");
         sb.append("Foi comprado: "+ this.foi_comprado+'\n');
+        sb.append("Dono: ").append(this.dono.getCodUtilizador()+'\n');
 
         return sb.toString();
     }  

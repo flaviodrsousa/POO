@@ -70,8 +70,8 @@ public class Encomenda implements Serializable{
         }
 
         this.precoFinal=this.calcularPrecoFinal();
-        this.dataCriacao=Data.StringtoDate(dataCriacao);
-        this.dataEntrega=Data.StringtoDate(dataEntrega);     
+        this.dataCriacao=Data.StringEuropeia_toDate(dataCriacao);
+        this.dataEntrega=Data.StringEuropeia_toDate(dataEntrega);     
         this.estado=estado;
         this.vendedores=vendedores.clone(); 
         this.comprador=comprador.clone();

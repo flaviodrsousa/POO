@@ -17,9 +17,9 @@ public class Tshirt extends Artigo{
     }
 
     public Tshirt(String cod_barras, boolean artigo_novo, String estado, int num_donos,
-    String descricao, String marca,double preco_base,double estado_utilizacao,
+    String descricao, String marca,double preco_base,double estado_utilizacao,Utilizador dono,
     Tamanho tamanho,Padrao padrao){
-        super(cod_barras,artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao);
+        super(cod_barras,artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao,dono);
         this.tamanho=tamanho;
         this.padrao=padrao;
     }

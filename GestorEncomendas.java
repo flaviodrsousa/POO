@@ -236,8 +236,8 @@ public class GestorEncomendas implements Serializable{
 
     private ArrayList<Encomenda> getEncomendasForPeriod(String dataInicio, String dataFim) throws DateTimeException {
         ArrayList<Encomenda> encomendasPeriodo = new ArrayList<>();
-        LocalDate dataInicioF = Data.StringtoDate(dataInicio);
-        LocalDate dataFimF = Data.StringtoDate(dataFim);
+        LocalDate dataInicioF = Data.StringEuropeia_toDate(dataInicio);
+        LocalDate dataFimF = Data.StringEuropeia_toDate(dataFim);
         for (Map.Entry<Integer, Encomenda> entry: vendas.entrySet()) {
             LocalDate dataCriacao = entry.getValue().get_DataCriacao();
             if (dataCriacao.compareTo(dataInicioF) >= 0 && dataCriacao.compareTo(dataFimF) <= 0) {

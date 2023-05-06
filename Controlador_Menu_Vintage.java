@@ -107,6 +107,11 @@ public class Controlador_Menu_Vintage {
         vintage.addEncomenda(encomenda);
     }
 
+    //getArtigo
+    public Artigo getArtigo(String codBarras) throws GetException{
+        return vintage.getGestorArtigos().getArtigo(codBarras);
+    }
+
     //exists_Utilizador
     public boolean exists_Utilizador(String codUtilizador){
         return vintage.getGestorUtilizadores().getUtilizadores().containsKey(codUtilizador);

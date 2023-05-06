@@ -43,97 +43,6 @@ public class Vintage implements Serializable{
     private void estadoInicial_Vintage() throws DateTimeException, AddException, RemoveException{
         this.data_atual = LocalDate.now();
 
-        //Sapatilhas
-
-        //u0002
-        Artigo sap1a = new Sapatilha("sap1a",true,"novo",1,"sapatilha vermelha Numero 45",
-        "Nike",50.5,1,45,true,Color.RED,false,"10-05-2000");
-
-        //0003
-        Artigo sap1b = new Sapatilha("sap1b",false,"pouco usado",3,"Sapatilha preta numero 39",
-        "reebok",50.7,0.6,39,false,Color.BLACK,true,"10-10-2020");
-        
-        //u0001
-        Artigo sap1c = new Sapatilha("sap1c", true, "Excelente estado", 1,"Sapatilha de corrida",
-        "Nike", 79.99, 1, 43, true, Color.BLACK,true, "01-01-2023");
-
-        //u0008
-        Artigo sap1d = new Sapatilha("sap1d", false, "Bom estado", 2,"Sapatilha de treino",
-        "Adidas", 89.99, 0.5, 42, true, Color.BLUE,false, "07-07-2022");
-
-        //u0005
-        Artigo sap1e = new Sapatilha("sap1e", true, "Excelente estado", 1,"Sapatilha de basquete", 
-        "Jordan", 129.99, 1, 44, true, Color.RED,true, "08-08-2023");
-
-        //u0005
-        Artigo sap1f = new Sapatilha("sap1f", false, "Bom estado", 2,"Sapatilha de futsal", 
-        "Puma", 69.99, 0.6, 41, true, Color.YELLOW,false, "09-09-2022");
-        
-        //u0002
-        Artigo sap1g = new Sapatilha("sap1g", true, "Novo", 0,"Sapatilha casual", 
-        "Converse", 49.99, 1.0, 39, false, Color.WHITE,false, "10-10-2023");
-
-        //Tshirts
-
-        //u0002
-        Artigo tshirt_1a = new Tshirt("Tshirt_1a",true,"novo",1,"Tshirt branca tamamho L",
-        "Adidas",25, 1,Tshirt.Tamanho.L,Tshirt.Padrao.LISO);
-        
-        //u0001
-        Artigo tshirt_1b = new Tshirt("Tshirt_1b",false,"bastante usado",5,"Tshirt vermelha às riscas tamanho M",
-        "Pull&Bear",33,0.7,Tshirt.Tamanho.M,Tshirt.Padrao.RISCAS); 
-
-        //0001
-        Artigo tshirt_1c = new Tshirt("tshirt_1c", true, "Novo", 1, "Camiseta branca", 
-        "Nike", 20.0, 1, Tshirt.Tamanho.M, Tshirt.Padrao.PALMEIRAS);
-
-        //u0008
-        Artigo tshirt_1d = new Tshirt("tshirt_1d", true, "Novo", 1, "Camiseta preta", 
-        "Adidas", 25.0, 1.0, Tshirt.Tamanho.L, Tshirt.Padrao.LISO);
-        
-        //u0007
-        Artigo tshirt_1e = new Tshirt("tshirt_1e", false, "Usado", 2, "Camiseta cinza", 
-        "Puma", 18.0, 0.3, Tshirt.Tamanho.S, Tshirt.Padrao.RISCAS);
-
-        //u0003
-        Artigo tshirt_1f = new Tshirt("tshirt_1f", true, "Novo", 1, "Camiseta rosa", 
-        "Reebok", 22.0, 1.0, Tshirt.Tamanho.M, Tshirt.Padrao.PALMEIRAS);
-
-        //u0007
-        Artigo tshirt_1g = new Tshirt("tshirt_1g", false, "Usado", 2, "Camiseta verde", 
-        "Under Armour", 30.0, 0.5, Tshirt.Tamanho.L, Tshirt.Padrao.RISCAS);
-
-        //Malas
-
-        //u0006
-        Artigo mala1a = new Mala("mala1a",false,"pouco usada",2,"mala amarela grande",
-        "Zara",35, 0.8,Mala.Dimensao.GRANDE,"tecido","10-08-2021",false);
-
-        //u0002
-        Artigo mala1b = new Mala("mala1b",true,"novo",1,"mala preta pequena",
-        "Prada",500,1,Mala.Dimensao.PEQUENO,"pele","10-05-2000",true);
-
-        //u0004
-        Artigo mala1c = new Mala("mala1c", true, "Novo", 1, "Mala de Viagem",
-        "Samsonite", 200.0, 0.5, Mala.Dimensao.GRANDE, "Poliéster", "01-01-2023", true);
-
-        //u0007
-        Artigo mala1d = new Mala("mala1d", true, "Novo", 2, "Mala de Mão", 
-        "Rimowa", 500.0, 1, Mala.Dimensao.PEQUENO, "Policarbonato", "01-04-2022", true);
-        
-        //u0006
-        Artigo mala1e = new Mala("mala1e", false, "Usado", 3, "Mala de Viagem",
-        "Louis Vuitton", 1000.0, 0.3, Mala.Dimensao.MEDIO, "Couro", "01-09-2022", false);
-
-        //u0004
-        Artigo mala1f = new Mala("mala1f", false, "Usado", 1, "Mala de Mão", 
-        "Gucci", 700.0, 0.6, Mala.Dimensao.GRANDE, "Couro", "01-06-2021", true);
-        
-        //u0007
-        Artigo mala1g = new Mala("mala1g", true, "Novo", 2, "Mala de Mão",
-        "Prada", 800.0, 1, Mala.Dimensao.MEDIO, "Couro", "01-03-2023", true);
-
-
         //Transportadoras
         Transportadora fedex = new Transportadora("Fedex",1,2,5);
         Transportadora DPD = new Transportadora("DPD",2,3,4);
@@ -141,50 +50,126 @@ public class Vintage implements Serializable{
         Transportadora Amazon_Logistics = new Transportadora("Amazon Logistics",3,7,12);
         Transportadora CTT_Expresso = new Transportadora("CTT Expresso", 5, 7, 10);
 
-
         //Utilizadores
         Utilizador u0001 = new Utilizador("u0001","u0001@gmail.com","Henrique Malheiro","Rua Braga Parque",
         967865421,new GestorArtigos(),new GestorArtigos(),new GestorArtigos(),fedex);
+
+        Utilizador u0002 = new Utilizador("u0002","u0002@gmail.com","Carolina Melo","Rua de Baixo",
+        973417390,new GestorArtigos(),new GestorArtigos(),new GestorArtigos(),DPD);
+
+        Utilizador u0003 = new Utilizador("u0003","u0003@gmail.com","Inês Rodrigues","Rua de Cima",
+        628183821,new GestorArtigos(),new GestorArtigos(),new GestorArtigos(),Amazon_Logistics);
+
+        Utilizador u0004 = new Utilizador("u0004", "u0004@gmail.com", "John Smith", "123 Main St", 
+        123456789, new GestorArtigos(), new GestorArtigos(), new GestorArtigos(), DHL);
+
+        Utilizador u0005 = new Utilizador("u0005", "u0005@gmail.com", "Jane Doe", "456 Elm St",
+        987654321, new GestorArtigos(), new GestorArtigos(), new GestorArtigos(), CTT_Expresso);
+
+        Utilizador u0006 = new Utilizador("u0006", "u0006@gmail.com", "Mike Johnson", "789 Oak St", 
+        246813579, new GestorArtigos(), new GestorArtigos(), new GestorArtigos(), Amazon_Logistics);
+
+        Utilizador u0007 = new Utilizador("u0007", "u0007@gmail.com", "Sarah Lee", "101 Maple St",
+        135792468, new GestorArtigos(), new GestorArtigos(), new GestorArtigos(), DHL);
+
+        Utilizador u0008 = new Utilizador("u0008", "u0008@gmail.com", "Tom Brown", "246 Pine St", 
+        369258147, new GestorArtigos(), new GestorArtigos(), new GestorArtigos(), fedex);
+
+        //Sapatilhas
+
+        Artigo sap1a = new Sapatilha("sap1a",true,"novo",1,"sapatilha vermelha Numero 45",
+        "Nike",50.5,1,u0002,45,true,Color.RED,false,"10-05-2000");
+
+        Artigo sap1b = new Sapatilha("sap1b",false,"pouco usado",3,"Sapatilha preta numero 39",
+        "reebok",50.7,0.6,u0003,39,false,Color.BLACK,true,"10-10-2020");
+  
+        Artigo sap1c = new Sapatilha("sap1c", true, "Excelente estado", 1,"Sapatilha de corrida",
+        "Nike", 79.99, 1,u0001, 43, true, Color.BLACK,true, "01-01-2023");
+
+        Artigo sap1d = new Sapatilha("sap1d", false, "Bom estado", 2,"Sapatilha de treino",
+        "Adidas", 89.99, 0.5,u0008, 42, true, Color.BLUE,false, "07-07-2022");
+
+        Artigo sap1e = new Sapatilha("sap1e", true, "Excelente estado", 1,"Sapatilha de basquete", 
+        "Jordan", 129.99, 1,u0005, 44, true, Color.RED,true, "08-08-2023");
+
+        Artigo sap1f = new Sapatilha("sap1f", false, "Bom estado", 2,"Sapatilha de futsal", 
+        "Puma", 69.99, 0.6,u0005, 41, true, Color.YELLOW,false, "09-09-2022");
+   
+        Artigo sap1g = new Sapatilha("sap1g", true, "Novo", 0,"Sapatilha casual", 
+        "Converse", 49.99, 1.0,u0002, 39, false, Color.WHITE,false, "10-10-2023");
+
+        //Tshirts
+
+        Artigo tshirt_1a = new Tshirt("Tshirt_1a",true,"novo",1,"Tshirt branca tamamho L",
+        "Adidas",25, 1,u0002,Tshirt.Tamanho.L,Tshirt.Padrao.LISO);
+
+        Artigo tshirt_1b = new Tshirt("Tshirt_1b",false,"bastante usado",5,"Tshirt vermelha às riscas tamanho M",
+        "Pull&Bear",33,0.7,u0001,Tshirt.Tamanho.M,Tshirt.Padrao.RISCAS); 
+
+        Artigo tshirt_1c = new Tshirt("tshirt_1c", true, "Novo", 1, "Camiseta branca", 
+        "Nike", 20.0, 1,u0001, Tshirt.Tamanho.M, Tshirt.Padrao.PALMEIRAS);
+
+        Artigo tshirt_1d = new Tshirt("tshirt_1d", true, "Novo", 1, "Camiseta preta", 
+        "Adidas", 25.0, 1.0,u0008, Tshirt.Tamanho.L, Tshirt.Padrao.LISO);
+        
+        Artigo tshirt_1e = new Tshirt("tshirt_1e", false, "Usado", 2, "Camiseta cinza", 
+        "Puma", 18.0, 0.3,u0007, Tshirt.Tamanho.S, Tshirt.Padrao.RISCAS);
+
+        Artigo tshirt_1f = new Tshirt("tshirt_1f", true, "Novo", 1, "Camiseta rosa", 
+        "Reebok", 22.0, 1.0,u0003, Tshirt.Tamanho.M, Tshirt.Padrao.PALMEIRAS);
+
+        Artigo tshirt_1g = new Tshirt("tshirt_1g", false, "Usado", 2, "Camiseta verde", 
+        "Under Armour", 30.0, 0.5,u0007, Tshirt.Tamanho.L, Tshirt.Padrao.RISCAS);
+
+        //Malas
+
+        Artigo mala1a = new Mala("mala1a",false,"pouco usada",2,"mala amarela grande",
+        "Zara",35, 0.8,u0006,Mala.Dimensao.GRANDE,"tecido","10-08-2021",false);
+
+        Artigo mala1b = new Mala("mala1b",true,"novo",1,"mala preta pequena",
+        "Prada",500,1,u0002,Mala.Dimensao.PEQUENO,"pele","10-05-2000",true);
+
+        Artigo mala1c = new Mala("mala1c", true, "Novo", 1, "Mala de Viagem",
+        "Samsonite", 200.0, 0.5,u0004, Mala.Dimensao.GRANDE, "Poliéster", "01-01-2023", true);
+
+        Artigo mala1d = new Mala("mala1d", true, "Novo", 2, "Mala de Mão", 
+        "Rimowa", 500.0, 1,u0007, Mala.Dimensao.PEQUENO, "Policarbonato", "01-04-2022", true);
+      
+        Artigo mala1e = new Mala("mala1e", false, "Usado", 3, "Mala de Viagem",
+        "Louis Vuitton", 1000.0, 0.3,u0006, Mala.Dimensao.MEDIO, "Couro", "01-09-2022", false);
+
+        Artigo mala1f = new Mala("mala1f", false, "Usado", 1, "Mala de Mão", 
+        "Gucci", 700.0, 0.6,u0004, Mala.Dimensao.GRANDE, "Couro", "01-06-2021", true);
+
+        Artigo mala1g = new Mala("mala1g", true, "Novo", 2, "Mala de Mão",
+        "Prada", 800.0, 1,u0007,Mala.Dimensao.MEDIO, "Couro", "01-03-2023", true);
+
         u0001.artigo_aVenda(tshirt_1b);
         u0001.artigo_aVenda(sap1c);
         u0001.artigo_aVenda(tshirt_1c);
 
-        Utilizador u0002 = new Utilizador("u0002","u0002@gmail.com","Carolina Melo","Rua de Baixo",
-        973417390,new GestorArtigos(),new GestorArtigos(),new GestorArtigos(),DPD);
         u0002.artigo_aVenda(sap1a);
         u0002.artigo_aVenda(tshirt_1a);
         u0002.artigo_aVenda(sap1g);
         u0002.artigo_aVenda(mala1b);
 
-        Utilizador u0003 = new Utilizador("u0003","u0003@gmail.com","Inês Rodrigues","Rua de Cima",
-        628183821,new GestorArtigos(),new GestorArtigos(),new GestorArtigos(),Amazon_Logistics);
         u0003.artigo_aVenda(sap1b);
         u0003.artigo_aVenda(tshirt_1f);
 
-        Utilizador u0004 = new Utilizador("u0004", "u0004@gmail.com", "John Smith", "123 Main St", 
-        123456789, new GestorArtigos(), new GestorArtigos(), new GestorArtigos(), DHL);
         u0004.artigo_aVenda(mala1c);
         u0004.artigo_aVenda(mala1f);
 
-        Utilizador u0005 = new Utilizador("u0005", "u0005@gmail.com", "Jane Doe", "456 Elm St",
-        987654321, new GestorArtigos(), new GestorArtigos(), new GestorArtigos(), CTT_Expresso);
         u0005.artigo_aVenda(sap1e);
         u0005.artigo_aVenda(sap1f);
 
-        Utilizador u0006 = new Utilizador("u0006", "u0006@gmail.com", "Mike Johnson", "789 Oak St", 
-        246813579, new GestorArtigos(), new GestorArtigos(), new GestorArtigos(), Amazon_Logistics);
         u0006.artigo_aVenda(mala1e);
         u0006.artigo_aVenda(mala1a);
 
-        Utilizador u0007 = new Utilizador("u0007", "u0007@gmail.com", "Sarah Lee", "101 Maple St",
-        135792468, new GestorArtigos(), new GestorArtigos(), new GestorArtigos(), DHL);
         u0007.artigo_aVenda(mala1g);
         u0007.artigo_aVenda(tshirt_1e);
         u0007.artigo_aVenda(tshirt_1g);
         u0007.artigo_aVenda(mala1d);
 
-        Utilizador u0008 = new Utilizador("u0008", "u0008@gmail.com", "Tom Brown", "246 Pine St", 
-        369258147, new GestorArtigos(), new GestorArtigos(), new GestorArtigos(), fedex);
         u0008.artigo_aVenda(sap1d);
         u0008.artigo_aVenda(tshirt_1d);
 
@@ -277,7 +262,7 @@ public class Vintage implements Serializable{
 
     public Vintage(String data_atual,GestorEncomendas gestorEncomendas,GestorTransportadoras gestorTransportadoras, 
     GestorUtilizadores gestorUtilizadores,GestorArtigos gestorArtigos) throws DateTimeException{
-        this.data_atual=Data.StringtoDate(data_atual);
+        this.data_atual=Data.StringEuropeia_toDate(data_atual);
         this.gestorEncomendas=gestorEncomendas.clone();
         this.gestorTransportadoras=gestorTransportadoras.clone();
         this.gestorUtilizadores=gestorUtilizadores.clone();
@@ -372,7 +357,7 @@ public class Vintage implements Serializable{
     }
 
     public List<Encomenda> avancarTempo(String date) throws DateTimeException{
-        set_DataAtual(Data.StringtoDate(date));
+        set_DataAtual(Data.StringEuropeia_toDate(date));
         return this.entregaEncomenda();
     }
 
