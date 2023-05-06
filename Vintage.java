@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 public class Vintage implements Serializable{
     private GestorEncomendas gestorEncomendas;
@@ -413,11 +412,14 @@ public class Vintage implements Serializable{
 
     //artigos_AVenda
     public String artigos_AVenda(){
-        StringBuilder sb = new StringBuilder();
+        return gestorUtilizadores.artigos_AVenda();
+    }
 
-        for (Map.Entry<String,Utilizador> entry: gestorUtilizadores.getUtilizadores().entrySet()){
-            sb.append(entry.getValue().artigos_AVenda());
-        }
-        return sb.toString();
+    //addArtigo_EncomendaVintage
+    public void addArtigo_Encomenda(Encomenda encomenda,Artigo artigo,
+    Utilizador comprador) throws GetException, AddException, RemoveException{
+        gestorUtilizadores.setHistorico_Comprador(comprador, artigo);
+        gestorUtilizadores.setHistorico_Vendedor(artigo.getDono(), artigo);
+        this.addEncomenda(encomenda);
     }
 }

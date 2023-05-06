@@ -5,8 +5,8 @@ import java.time.DateTimeException;
 public class Main {
     public static void main(String[] args) {
         try{
-            //Vintage vintage = Menu.carregaDefault_Changed();
-            Vintage vintage = new Vintage();
+            Vintage vintage = Menu.carregaDefault_Changed();
+            //Vintage vintage = new Vintage();
             Controlador_Menu_Vintage controlador_Menu_Vintage = new Controlador_Menu_Vintage(vintage);
             Menu menu = new Menu(controlador_Menu_Vintage);
             menu.run_AdminOrUser();
@@ -15,17 +15,17 @@ public class Main {
             System.out.println(e.getMessage());
         }catch (IOException e){
             System.out.println(e.getMessage());
-  /*       }catch (ClassNotFoundException e){
-            System.out.println(e.getMessage());  */
+        }catch (ClassNotFoundException e){
+            System.out.println(e.getMessage());  
         }catch (DateTimeException e){
             System.out.println(e.getMessage());
         }catch (AddException e){
             System.out.println(e.getMessage());
         }catch (RemoveException e){
             System.out.println(e.getMessage());
-/*         }catch (VintageException e){
+        }catch (VintageException e){
             System.out.println(e.getMessage());
-            Main.main(args); */
+            Main.main(args); 
         }
     }
 }

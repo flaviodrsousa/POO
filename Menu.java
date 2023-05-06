@@ -323,26 +323,20 @@ public class Menu {
                             String codBarras = input.nextLine();
                             try {
                                 Artigo artigo = controlador_Menu_Vintage.getArtigo(codBarras);
-                                Utilizador vendedor = artigo.getDono();
-                                encomenda.addArtigo(artigo, vendedor, comprador);
-                                controlador_Menu_Vintage.addEncomenda(encomenda);
-                            }catch(GetException e){
-                                System.out.println(e.getMessage());
-                                break;
-                            }catch(AddException e){
-                                System.out.println(e.getMessage());
-                                break;
+                                controlador_Menu_Vintage.addArtigo_EncomendaVintage(encomenda,artigo,comprador);
                             }catch(RemoveException e){
                                 System.out.println(e.getMessage());
-                                break;
                             }
                         }
+                        controlador_Menu_Vintage.addEncomenda(encomenda);
                     }catch(GetException e){
                         System.out.println(e.getMessage());
                         break;
                     }catch(DateTimeException e){
                         System.out.println("Data tem que estar no formato (dd-MM-yyyy)!!!");
                         break;
+                    } catch (AddException e) {
+                        System.out.println(e.getMessage());
                     }
                     break;
                 case 0:

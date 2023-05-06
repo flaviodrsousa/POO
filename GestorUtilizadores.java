@@ -89,4 +89,31 @@ public class GestorUtilizadores implements Serializable{
         return utilizador.clone();
     }
 
+    //artigos_AVenda
+    public String artigos_AVenda(){
+        StringBuilder sb = new StringBuilder();
+
+        for (Map.Entry<String,Utilizador> entry: utilizadores.entrySet()){
+            sb.append(entry.getValue().artigos_AVenda());
+        }
+        return sb.toString();
+    }
+
+    //setHistorico_Comprador
+    public void setHistorico_Comprador(Utilizador utilizador,Artigo artigo) throws AddException{
+        for(Map.Entry<String,Utilizador> entry: utilizadores.entrySet()){
+            if (entry.getKey().equals(utilizador.getCodUtilizador())) {
+                entry.getValue().artigo_Comprado(artigo);
+            }
+        }
+    }
+
+    //setHistorico_Vendedor
+    public void setHistorico_Vendedor(Utilizador utilizador,Artigo artigo) throws AddException, RemoveException{
+        for(Map.Entry<String,Utilizador> entry: utilizadores.entrySet()){
+            if (entry.getKey().equals(utilizador.getCodUtilizador())) {
+                entry.getValue().artigo_Vendido(artigo);
+            }
+        }
+    }
 }

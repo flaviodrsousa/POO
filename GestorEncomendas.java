@@ -70,11 +70,8 @@ public class GestorEncomendas implements Serializable{
     }
 
     //Outros métodos
-    public void addEncomenda(Encomenda encomenda) throws AddException{
-        Encomenda previousValue = vendas.putIfAbsent(encomenda.getNumeroEncomenda(),encomenda.clone());
-        if (previousValue != null) { //se a chave já existir no map
-            throw new AddException("Já existe no sistema uma Encomenda com esse Numero de Encomenda");
-        }
+    public void addEncomenda(Encomenda encomenda){
+        vendas.putIfAbsent(encomenda.getNumeroEncomenda(),encomenda.clone());
     }
 
     public void removeEncomenda(Integer numEncomenda) throws RemoveException{

@@ -121,4 +121,10 @@ public class Controlador_Menu_Vintage {
     public String artigos_AVenda_Vintage(){
         return vintage.artigos_AVenda();
     }
+
+    //addArtigo_EncomendaVintage
+    public void addArtigo_EncomendaVintage(Encomenda encomenda,Artigo artigo,
+    Utilizador comprador) throws GetException, AddException, RemoveException{
+        vintage.addArtigo_Encomenda(encomenda,artigo,comprador);
+    }
 }
