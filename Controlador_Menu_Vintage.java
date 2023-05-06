@@ -102,8 +102,18 @@ public class Controlador_Menu_Vintage {
         return vintage.getGestorTransportadoras().toString();
     }
 
+    //addEncomenda
+    public void addEncomenda(Encomenda encomenda) throws AddException{
+        vintage.addEncomenda(encomenda);
+    }
+
     //exists_Utilizador
     public boolean exists_Utilizador(String codUtilizador){
         return vintage.getGestorUtilizadores().getUtilizadores().containsKey(codUtilizador);
+    }
+
+    //artigos_AVenda
+    public String artigos_AVenda_Vintage(){
+        return vintage.artigos_AVenda();
     }
 }

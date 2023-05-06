@@ -48,13 +48,17 @@ public class Encomenda implements Serializable{
     }
 
 
-    public Encomenda(GestorArtigos gestorArtigos,DimensaoEmbalagem dimensaoEmbalagem,
-    double taxaGarantia,String dataCriacao,String dataEntrega,Estado estado,
-    GestorUtilizadores vendedores,Utilizador comprador) throws DateTimeException{
+    public Encomenda(GestorArtigos gestorArtigos,double taxaGarantia,String dataCriacao,
+    String dataEntrega,Estado estado,GestorUtilizadores vendedores,Utilizador comprador) throws DateTimeException{
         this.numeroEncomenda=contador++;
         this.gestorArtigos=gestorArtigos.clone();
 
-        this.dimensaoEmbalagem=dimensaoEmbalagem;
+        int numArtigos = gestorArtigos.getArtigos().size(); 
+
+        if (numArtigos<3) this.dimensaoEmbalagem=DimensaoEmbalagem.pequeno;
+        else if (numArtigos<5) this.dimensaoEmbalagem=DimensaoEmbalagem.medio;
+        else this.dimensaoEmbalagem=DimensaoEmbalagem.grande;
+
         this.taxaGarantia=taxaGarantia;
 
         if(dimensaoEmbalagem==DimensaoEmbalagem.pequeno){

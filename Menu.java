@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -52,7 +53,7 @@ public class Menu {
         if(admin_user==1) this.runAdmin();
         else if (admin_user==2) this.runUtilizador();
         else {
-            System.out.println("Escolha 1 ou 2!!!");
+            input.nextLine();
             this.run_AdminOrUser();
         }
     }
@@ -151,7 +152,7 @@ public class Menu {
                         int precoExpPequena = input.nextInt();
                         System.out.println("Preço Encomenda media: ");
                         int precoExpMedia = input.nextInt();
-                        System.out.println("preço Encomenda Grande: ");
+                        System.out.println("Preço Encomenda Grande: ");
                         int precoExpGrande = input.nextInt();
                         Transportadora transportadora = new Transportadora(nome, precoExpPequena,
                         precoExpMedia,precoExpGrande);
@@ -191,6 +192,17 @@ public class Menu {
                     codUtilizador = input.nextLine();
                     try{
                         System.out.println(controlador_Menu_Vintage.getUtilizador(codUtilizador).toString());
+                    }catch (GetException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                    break;
+                case 8:
+                    input.nextLine();
+                    System.out.println("\nNome da Transportadora: ");
+                    nomeTransportadora = input.nextLine();
+                    try{
+                        System.out.println(controlador_Menu_Vintage.getTransportadora(nomeTransportadora).toString());
                     }catch (GetException e){
                         System.out.println(e.getMessage());
                         break;
@@ -254,6 +266,8 @@ public class Menu {
         do {
             System.out.println("\n------ MENU ------");
             System.out.println("1. Meu histórico de encomendas");
+            System.out.println("2. Perfil Utilizador");
+            System.out.println("3. Realizar Encomendas");
             System.out.println("0. Sair");
             System.out.println("Escolha uma opção: ");
 
@@ -268,6 +282,46 @@ public class Menu {
             switch (opcao) { 
                 case 1:
                     System.out.println(controlador_Menu_Vintage.encomendasVendedor(codUtilizadorLogin));
+                    break;
+                case 2: 
+                    try{
+                        System.out.println(controlador_Menu_Vintage.getUtilizador(codUtilizadorLogin).toString());
+                    }catch (GetException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+                    break;
+                case 3:
+                    System.out.println("\nArtigos à Venda: ");
+                    System.out.println(controlador_Menu_Vintage.artigos_AVenda_Vintage());
+
+                    double taxaGarantia = 10.5; //preco padrao do sistema
+   /*                  String dataCriacao= controlador_Menu_Vintage.getVintage().get_DataAtual().toString();
+                    System.out.println(dataCriacao); */
+
+
+                    Encomenda.Estado estadoEncomenda= Encomenda.Estado.pendente;
+/*                     LocalDate Local_dataEntrega = Data.StringtoDate(dataCriacao).plusMonths(2);
+                    String dataEntrega = LocalDate.of(Local_dataEntrega.getDayOfMonth(),
+                    Local_dataEntrega.getMonth(),Local_dataEntrega.getYear()).toString();
+                    System.out.println(dataEntrega); */
+
+                    String dataEntrega=null,dataCriacao=null;
+                    try {
+                        Utilizador comprador = controlador_Menu_Vintage.getUtilizador(codUtilizadorLogin);
+                        Encomenda encomenda = new Encomenda(new GestorArtigos(), taxaGarantia, dataCriacao, 
+                        dataEntrega, estadoEncomenda, new GestorUtilizadores(),comprador);
+                        controlador_Menu_Vintage.addEncomenda(encomenda);
+                    }catch(GetException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }catch(AddException e){
+                        System.out.println(e.getMessage());
+                        break;
+                    }catch(DateTimeException e){
+                        System.out.println("Data tem que estar no formato (dd-MM-yyyy)!!!");
+                        break;
+                    }
                     break;
                 case 0:
                     System.out.println("Saindo do programa...");

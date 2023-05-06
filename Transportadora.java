@@ -84,11 +84,11 @@ public class Transportadora implements Serializable{
     //toString
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("........Transportadora......\n");
+        sb.append("\n........Transportadora......\n");
         sb.append("Nome: "+this.getNome()+"\n");
-        sb.append("PreçoExp Encomenda pequena: "+this.getPrecoExpPequena()+"\n");
-        sb.append("PreçoExp Encomenda media: "+this.getPrecoExpMedia()+"\n");
-        sb.append("PreçoExp Encomenda grande: "+this.getPrecoExpGrande()+"\n");
+        sb.append("Preço Expedição Encomenda pequena: "+this.getPrecoExpPequena()+"\n");
+        sb.append("Preço Expedição Encomenda media: "+this.getPrecoExpMedia()+"\n");
+        sb.append("Preço Expedição Encomenda grande: "+this.getPrecoExpGrande()+"\n");
 
         return sb.toString();
     }

@@ -151,7 +151,7 @@ public class Utilizador implements Serializable{
     //toString
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("........Utilizador......\n");
+        sb.append("\n........Utilizador......\n");
         sb.append("Código de Utilizador: "+this.getCodUtilizador()+"\n");
         sb.append("Email: "+this.getEmail()+"\n");
         sb.append("Nome: "+this.getNome()+"\n");
@@ -179,5 +179,9 @@ public class Utilizador implements Serializable{
     //Artigo comprado por um Comprador
     public void artigo_Comprado(Artigo artigo) throws AddException{
         this.historicoCompras.addArtigo(artigo);
+    }
+
+    public String artigos_AVenda(){
+        return aVenda.toString_withoutSize();
     }
 }

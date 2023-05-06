@@ -67,7 +67,7 @@ public class Mala extends Artigo{
 
     public void setData_colecao(LocalDate data_colecao){
         this.data_colecao = LocalDate.of(data_colecao.getYear(),
-        data_colecao.getMonth(),data_colecao.getDayOfMonth());;
+        data_colecao.getMonth(),data_colecao.getDayOfMonth());
     }
     
     public void setPremium(boolean premium){

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public class Vintage implements Serializable{
     private GestorEncomendas gestorEncomendas;
@@ -188,33 +189,33 @@ public class Vintage implements Serializable{
         u0008.artigo_aVenda(tshirt_1d);
 
         //Encomendas
-        Encomenda encomenda1 = new Encomenda(new GestorArtigos(),Encomenda.DimensaoEmbalagem.pequeno,5,
+        Encomenda encomenda1 = new Encomenda(new GestorArtigos(),5,
         "05-07-2002","10-07-2002",Encomenda.Estado.entregue,new GestorUtilizadores(),u0001);
         encomenda1.addArtigo(sap1a,u0002,u0001); //u0002 vendeu a sap1a ao u0001
 
-        Encomenda encomenda2 = new Encomenda(new GestorArtigos(),Encomenda.DimensaoEmbalagem.medio,20,
+        Encomenda encomenda2 = new Encomenda(new GestorArtigos(),0,
         "04-03-2023","10-10-2023",Encomenda.Estado.pendente,new GestorUtilizadores(),u0003);
         encomenda2.addArtigo(tshirt_1a,u0002,u0003);
         encomenda2.addArtigo(tshirt_1b,u0001,u0003);
 
-        Encomenda encomenda3 = new Encomenda(new GestorArtigos(), Encomenda.DimensaoEmbalagem.pequeno, 5.0,
+        Encomenda encomenda3 = new Encomenda(new GestorArtigos(), 5.0,
         "10-05-2023", "15-10-2023", Encomenda.Estado.pendente, new GestorUtilizadores(), u0002);
         encomenda3.addArtigo(mala1g, u0007,u0002);
         encomenda3.addArtigo(mala1c, u0004,u0002);
 
-        Encomenda encomenda4 = new Encomenda(new GestorArtigos(), Encomenda.DimensaoEmbalagem.medio, 7.5, 
+        Encomenda encomenda4 = new Encomenda(new GestorArtigos(), 7.5, 
         "12-05-2023", "07-04-2023", Encomenda.Estado.entregue, new GestorUtilizadores(), u0001);
         encomenda4.addArtigo(sap1e, u0005,u0001);
 
-        Encomenda encomenda5 = new Encomenda(new GestorArtigos(), Encomenda.DimensaoEmbalagem.grande, 10.0, 
+        Encomenda encomenda5 = new Encomenda(new GestorArtigos(), 10.0, 
         "15-05-2023", "20-05-2024", Encomenda.Estado.pendente, new GestorUtilizadores(), u0007);
         encomenda5.addArtigo(sap1g, u0002,u0007);
 
-        Encomenda encomenda6 = new Encomenda(new GestorArtigos(), Encomenda.DimensaoEmbalagem.pequeno, 4.0, 
+        Encomenda encomenda6 = new Encomenda(new GestorArtigos(), 4.0, 
         "01-03-2023", "22-03-2023", Encomenda.Estado.entregue, new GestorUtilizadores(), u0008);
         encomenda6.addArtigo(sap1c, u0001,u0008);
 
-        Encomenda encomenda7 = new Encomenda(new GestorArtigos(), Encomenda.DimensaoEmbalagem.medio, 6.0, 
+        Encomenda encomenda7 = new Encomenda(new GestorArtigos(), 6.0, 
         "01-05-2023", "25-09-2023", Encomenda.Estado.pendente, new GestorUtilizadores(), u0004);
         encomenda7.addArtigo(tshirt_1e, u0007,u0004);
         encomenda7.addArtigo(mala1e, u0006,u0004);
@@ -418,5 +419,20 @@ public class Vintage implements Serializable{
     //removeTransportadora
     public void removeTransportadora(String codTransportadora) throws RemoveException{
         gestorTransportadoras.removeTransportadora(codTransportadora);
+    }
+
+    //addEncomenda
+    public void addEncomenda(Encomenda encomenda) throws AddException{
+        gestorEncomendas.addEncomenda(encomenda);
+    }
+
+    //artigos_AVenda
+    public String artigos_AVenda(){
+        StringBuilder sb = new StringBuilder();
+
+        for (Map.Entry<String,Utilizador> entry: gestorUtilizadores.getUtilizadores().entrySet()){
+            sb.append(entry.getValue().artigos_AVenda());
+        }
+        return sb.toString();
     }
 }

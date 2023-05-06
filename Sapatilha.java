@@ -76,7 +76,7 @@ public class Sapatilha extends Artigo{
 
     public void setData_lancamento(LocalDate data_lancamento) {
         this.data_lancamento = LocalDate.of(data_lancamento.getYear(),
-        data_lancamento.getMonth(),data_lancamento.getDayOfMonth());;
+        data_lancamento.getMonth(),data_lancamento.getDayOfMonth());
     }
 
     public void serPremium(boolean premium){

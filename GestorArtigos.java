@@ -66,6 +66,16 @@ public class GestorArtigos implements Serializable{
     }
 
     //Outros métodos
+    public String toString_withoutSize(){
+        StringBuilder sb = new StringBuilder();
+    
+        for(Map.Entry<String,Artigo> entry: artigos.entrySet()){
+            sb.append(entry.getKey().toString()).append("\n");
+        }
+    
+        return sb.toString();
+    }
+
     public void addArtigo(Artigo artigo) throws AddException{
         Artigo previousValue = artigos.putIfAbsent(artigo.getCod_barras(),artigo.clone());
         if (previousValue != null) { //se a chave já existir no map
