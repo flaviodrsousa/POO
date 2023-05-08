@@ -22,6 +22,7 @@ public class Vintage implements Serializable{
     ClassNotFoundException{
         FileInputStream fis = new FileInputStream(nomeFicheiro);
         ObjectInputStream ois = new ObjectInputStream(fis);
+        Utilizador.setContador((int) ois.readObject()); 
         Mala.setContador((int) ois.readObject()); 
         Sapatilha.setContador((int) ois.readObject()); 
         Tshirt.setContador((int) ois.readObject()); 
@@ -35,6 +36,7 @@ public class Vintage implements Serializable{
     public void guardaEstado(String nomeFicheiro) throws FileNotFoundException,IOException{
         FileOutputStream fos = new FileOutputStream(nomeFicheiro);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(Utilizador.getContador());
         oos.writeObject(Mala.getContador());
         oos.writeObject(Sapatilha.getContador());
         oos.writeObject(Tshirt.getContador());
@@ -56,28 +58,28 @@ public class Vintage implements Serializable{
         Transportadora CTT_Expresso = new Transportadora("CTT Expresso", 5, 7, 10);
 
         //Utilizadores
-        Utilizador u0001 = new Utilizador("u0001","u0001@gmail.com","Henrique Malheiro","Rua Braga Parque",
+        Utilizador u0001 = new Utilizador("Henrique Malheiro","Rua Braga Parque",
         967865421,new GestorArtigos(),new GestorArtigos(),new GestorArtigos(),fedex);
 
-        Utilizador u0002 = new Utilizador("u0002","u0002@gmail.com","Carolina Melo","Rua de Baixo",
+        Utilizador u0002 = new Utilizador("Carolina Melo","Rua de Baixo",
         973417390,new GestorArtigos(),new GestorArtigos(),new GestorArtigos(),DPD);
 
-        Utilizador u0003 = new Utilizador("u0003","u0003@gmail.com","Inês Rodrigues","Rua de Cima",
+        Utilizador u0003 = new Utilizador("Inês Rodrigues","Rua de Cima",
         628183821,new GestorArtigos(),new GestorArtigos(),new GestorArtigos(),Amazon_Logistics);
 
-        Utilizador u0004 = new Utilizador("u0004", "u0004@gmail.com", "John Smith", "123 Main St", 
+        Utilizador u0004 = new Utilizador("John Smith", "123 Main St", 
         123456789, new GestorArtigos(), new GestorArtigos(), new GestorArtigos(), DHL);
 
-        Utilizador u0005 = new Utilizador("u0005", "u0005@gmail.com", "Jane Doe", "456 Elm St",
+        Utilizador u0005 = new Utilizador("Jane Doe", "456 Elm St",
         987654321, new GestorArtigos(), new GestorArtigos(), new GestorArtigos(), CTT_Expresso);
 
-        Utilizador u0006 = new Utilizador("u0006", "u0006@gmail.com", "Mike Johnson", "789 Oak St", 
+        Utilizador u0006 = new Utilizador("Mike Johnson", "789 Oak St", 
         246813579, new GestorArtigos(), new GestorArtigos(), new GestorArtigos(), Amazon_Logistics);
 
-        Utilizador u0007 = new Utilizador("u0007", "u0007@gmail.com", "Sarah Lee", "101 Maple St",
+        Utilizador u0007 = new Utilizador("Sarah Lee", "101 Maple St",
         135792468, new GestorArtigos(), new GestorArtigos(), new GestorArtigos(), DHL);
 
-        Utilizador u0008 = new Utilizador("u0008", "u0008@gmail.com", "Tom Brown", "246 Pine St", 
+        Utilizador u0008 = new Utilizador("Tom Brown", "246 Pine St", 
         369258147, new GestorArtigos(), new GestorArtigos(), new GestorArtigos(), fedex);
 
         //Sapatilhas

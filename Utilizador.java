@@ -11,6 +11,8 @@ public class Utilizador implements Serializable{
     private GestorArtigos historicoCompras; //Historico de artigos comprados
     private GestorArtigos historicoVendas; //Historico de artigos vendidos
     private GestorArtigos aVenda; //Artigos ainda à venda.
+
+    private static int contador = 1;
     
     //Construtores
     public Utilizador(){
@@ -25,11 +27,11 @@ public class Utilizador implements Serializable{
         this.aVenda= new GestorArtigos();
     }
 
-    public Utilizador(String codUtilizador,String email,String nome,String morada,
+    public Utilizador(String nome,String morada,
     int numFiscal,GestorArtigos historicoCompras,GestorArtigos historicoVendas,
     GestorArtigos aVenda,Transportadora transportadora){
-        this.codUtilizador=codUtilizador;
-        this.email=email;
+        this.codUtilizador="u"+contador++;
+        this.email=nome+"@gmail.com";
         this.nome=nome;
         this.morada=morada;
         this.numFiscal=numFiscal;
@@ -88,6 +90,10 @@ public class Utilizador implements Serializable{
         return this.transportadora.clone();
     }
 
+    public static int getContador() {
+        return contador;
+    }
+
     //sets
     public void setCodUtilizador(String codUtilizador) {
         this.codUtilizador = codUtilizador;
@@ -123,6 +129,10 @@ public class Utilizador implements Serializable{
 
     public void setTransportadora(Transportadora transportadora) {
         this.transportadora = transportadora.clone();
+    }
+
+    public static void setContador(int contador) {
+        Utilizador.contador = contador;
     }
 
     //clone

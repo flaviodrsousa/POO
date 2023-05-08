@@ -106,10 +106,6 @@ public class Menu {
                     break;
                 case 3:
                     input.nextLine();
-                    System.out.println("\nCodigo de utilizador: ");
-                    String codUtilizador = input.nextLine();
-                    System.out.println("Email: ");
-                    String email = input.nextLine();
                     System.out.println("Nome: ");
                     String nome = input.nextLine();
                     System.out.println("Morada: ");
@@ -132,8 +128,8 @@ public class Menu {
                         String nomeTransportadora = input.nextLine();
                         Transportadora transportadora = controlador_Menu_Vintage.getTransportadora(nomeTransportadora);
 
-                        Utilizador utilizador = new Utilizador(codUtilizador, email, nome, morada,
-                        numFiscal, new GestorArtigos(), new GestorArtigos(), new GestorArtigos(), transportadora);
+                        Utilizador utilizador = new Utilizador(nome, morada,numFiscal, new GestorArtigos(), 
+                        new GestorArtigos(), new GestorArtigos(), transportadora);
 
                         controlador_Menu_Vintage.addUtilizador(utilizador);
                         break;
@@ -170,7 +166,7 @@ public class Menu {
                 case 5:
                     input.nextLine();
                     System.out.println("\nCódigo do utilizador a remover: ");
-                    codUtilizador = input.nextLine();
+                    String codUtilizador = input.nextLine();
                     try {
                         controlador_Menu_Vintage.removeUtilizador(codUtilizador);
                     }catch (RemoveException e){
