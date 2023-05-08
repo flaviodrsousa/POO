@@ -12,6 +12,8 @@ public class Mala extends Artigo{
     private LocalDate data_colecao;
     private boolean premium;
 
+    private static int contador = 1;
+
     public Mala(){
         super();
         this.dimensao=Dimensao.PEQUENO;
@@ -20,10 +22,11 @@ public class Mala extends Artigo{
         this.premium=false;
     }
 
-    public Mala(String cod_barras, boolean artigo_novo, String estado, int num_donos,
+    public Mala(boolean artigo_novo, String estado, int num_donos,
     String descricao, String marca,double preco_base,double estado_utilizacao,Utilizador dono,
     Dimensao dimensao,String material,String data_colecao,boolean premium) throws DateTimeException{
-        super(cod_barras,artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao,dono);
+        super(artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao,dono);
+        super.setCod_barras("mala"+contador++);
         this.dimensao=dimensao;
         this.material=material;
         this.data_colecao=Data.StringEuropeia_toDate(data_colecao);        
@@ -56,6 +59,10 @@ public class Mala extends Artigo{
         return this.premium;
     }
 
+    public static int getContador() {
+        return contador;
+    }
+
     //set
     public void setDimensao(Dimensao dimensao){
         this.dimensao = dimensao;
@@ -72,6 +79,10 @@ public class Mala extends Artigo{
     
     public void setPremium(boolean premium){
         this.premium=premium;
+    }
+
+    public static void setContador(int contador) {
+        Mala.contador = contador;
     }
 
     @Override

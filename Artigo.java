@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 public abstract class Artigo implements Serializable{
-    private String cod_barras;
+    private String cod_barras; //cada subclasse dá o seu valor 
     private boolean artigo_novo; //true=novo;false=velho;
     private String estado; //quanto usado esta
     private int num_donos;
@@ -32,10 +32,9 @@ public abstract class Artigo implements Serializable{
         this.dono = new Utilizador();
     }
 
-    public Artigo(String cod_barras, boolean artigo_novo, String estado, int num_donos,
+    public Artigo(boolean artigo_novo, String estado, int num_donos,
     String descricao, String marca,double preco_base,double estado_utilizacao,
     Utilizador dono){
-        this.cod_barras=cod_barras;
         this.artigo_novo=artigo_novo;
         this.estado=estado;
         this.num_donos=num_donos;

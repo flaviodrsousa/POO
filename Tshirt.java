@@ -10,16 +10,19 @@ public class Tshirt extends Artigo{
     private Tamanho tamanho;
     private Padrao padrao;
 
+    private static int contador = 1; 
+
     public Tshirt(){
         super();
         this.tamanho=Tamanho.S;
         this.padrao=Padrao.LISO;
     }
 
-    public Tshirt(String cod_barras, boolean artigo_novo, String estado, int num_donos,
+    public Tshirt(boolean artigo_novo, String estado, int num_donos,
     String descricao, String marca,double preco_base,double estado_utilizacao,Utilizador dono,
     Tamanho tamanho,Padrao padrao){
-        super(cod_barras,artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao,dono);
+        super(artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao,dono);
+        super.setCod_barras("tshirt"+contador++);
         this.tamanho=tamanho;
         this.padrao=padrao;
     }
@@ -39,6 +42,10 @@ public class Tshirt extends Artigo{
         return this.padrao;
     }
 
+    public static int getContador() {
+        return contador;
+    }
+
     //sets
     public void setTamanho(Tamanho tamanho){
         this.tamanho = tamanho;
@@ -46,6 +53,10 @@ public class Tshirt extends Artigo{
 
     public void setPadrao(Padrao padrao){
         this.padrao = padrao;
+    }
+
+    public static void setContador(int contador) {
+        Tshirt.contador = contador;
     }
 
     @Override

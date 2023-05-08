@@ -100,20 +100,18 @@ public class GestorUtilizadores implements Serializable{
     }
 
     //setHistorico_Comprador
-    public void setHistorico_Comprador(Utilizador utilizador,Artigo artigo) throws AddException{
-        for(Map.Entry<String,Utilizador> entry: utilizadores.entrySet()){
-            if (entry.getKey().equals(utilizador.getCodUtilizador())) {
-                entry.getValue().artigo_Comprado(artigo);
-            }
-        }
+    public void setHistorico_Comprador(Utilizador comprador,Artigo artigo) throws AddException{
+        utilizadores.get(comprador.getCodUtilizador()).artigo_Comprado(artigo);
     }
 
     //setHistorico_Vendedor
-    public void setHistorico_Vendedor(Utilizador utilizador,Artigo artigo) throws AddException, RemoveException{
-        for(Map.Entry<String,Utilizador> entry: utilizadores.entrySet()){
-            if (entry.getKey().equals(utilizador.getCodUtilizador())) {
-                entry.getValue().artigo_Vendido(artigo);
-            }
-        }
+    public void setHistorico_Vendedor(Utilizador vendedor,Artigo artigo) throws AddException, RemoveException{
+        utilizadores.get(vendedor.getCodUtilizador()).artigo_Vendido(artigo);
+    }
+
+
+    //set_aVenda
+    public void set_aVenda(Utilizador vendedor,Artigo artigo) throws AddException, RemoveException{
+        utilizadores.get(vendedor.getCodUtilizador()).artigo_aVenda(artigo);
     }
 }

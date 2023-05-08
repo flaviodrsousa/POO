@@ -10,6 +10,8 @@ public class Sapatilha extends Artigo{
     private LocalDate data_lancamento; //Passada como argumento em String "dd-MM-yyyy"
     private boolean premium;
 
+    private static int contador = 1;
+
     public Sapatilha(){
         super();
         this.tamanho=0;
@@ -19,10 +21,11 @@ public class Sapatilha extends Artigo{
         this.premium=false;
     }
     
-    public Sapatilha(String cod_barras, boolean artigo_novo, String estado, int num_donos,
+    public Sapatilha(boolean artigo_novo, String estado, int num_donos,
     String descricao, String marca,double preco_base,double estado_utilizacao,Utilizador dono,
     int tamanho,boolean atacadores,Color cor,boolean premium,String data_colecao) throws DateTimeException{
-        super(cod_barras,artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao,dono);
+        super(artigo_novo,estado,num_donos,descricao,marca,preco_base,estado_utilizacao,dono);
+        super.setCod_barras("sap"+contador++);
         this.tamanho=tamanho;
         this.atacadores=atacadores;
         this.cor=cor;
@@ -61,6 +64,10 @@ public class Sapatilha extends Artigo{
         return this.premium;
     }
 
+    public static int getContador() {
+        return contador;
+    }
+
     //set
     public void setTamanho(int tamanho){
         this.tamanho = tamanho;
@@ -81,6 +88,10 @@ public class Sapatilha extends Artigo{
 
     public void serPremium(boolean premium){
         this.premium=premium;
+    }
+
+    public static void setContador(int contador) {
+        Sapatilha.contador = contador;
     }
 
     @Override

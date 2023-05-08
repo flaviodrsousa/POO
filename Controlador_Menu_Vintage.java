@@ -102,11 +102,6 @@ public class Controlador_Menu_Vintage {
         return vintage.getGestorTransportadoras().toString();
     }
 
-    //addEncomenda
-    public void addEncomenda(Encomenda encomenda) throws AddException{
-        vintage.addEncomenda(encomenda);
-    }
-
     //getArtigo
     public Artigo getArtigo(String codBarras) throws GetException{
         return vintage.getGestorArtigos().getArtigo(codBarras);
@@ -122,9 +117,15 @@ public class Controlador_Menu_Vintage {
         return vintage.artigos_AVenda();
     }
 
-    //addArtigo_EncomendaVintage
-    public void addArtigo_EncomendaVintage(Encomenda encomenda,Artigo artigo,
+    //addEncomenda_ArtigoVintage
+    public void addEncomenda_withArtigo_Vintage(Encomenda encomenda,Artigo artigo,
     Utilizador comprador) throws GetException, AddException, RemoveException{
-        vintage.addArtigo_Encomenda(encomenda,artigo,comprador);
+        vintage.addEncomenda_withArtigo(encomenda,artigo,comprador);
+    }
+
+    //addArtigo_VendedorVintage
+    public void addArtigo_VendedorVintage(Artigo artigo,Utilizador vendedor) throws 
+    GetException, AddException, RemoveException{
+        vintage.addArtigo_withVendedor(artigo,vendedor);
     }
 }

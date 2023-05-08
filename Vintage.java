@@ -22,6 +22,9 @@ public class Vintage implements Serializable{
     ClassNotFoundException{
         FileInputStream fis = new FileInputStream(nomeFicheiro);
         ObjectInputStream ois = new ObjectInputStream(fis);
+        Mala.setContador((int) ois.readObject()); 
+        Sapatilha.setContador((int) ois.readObject()); 
+        Tshirt.setContador((int) ois.readObject()); 
         Encomenda.setContador((int) ois.readObject()); 
         Vintage v = (Vintage) ois.readObject();
         ois.close();
@@ -32,6 +35,9 @@ public class Vintage implements Serializable{
     public void guardaEstado(String nomeFicheiro) throws FileNotFoundException,IOException{
         FileOutputStream fos = new FileOutputStream(nomeFicheiro);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(Mala.getContador());
+        oos.writeObject(Sapatilha.getContador());
+        oos.writeObject(Tshirt.getContador());
         oos.writeObject(Encomenda.getContador());
         oos.writeObject(this);
         oos.flush();
@@ -76,71 +82,71 @@ public class Vintage implements Serializable{
 
         //Sapatilhas
 
-        Artigo sap1a = new Sapatilha("sap1a",true,"novo",1,"sapatilha vermelha Numero 45",
+        Artigo sap1a = new Sapatilha(true,"novo",1,"sapatilha vermelha Numero 45",
         "Nike",50.5,1,u0002,45,true,Color.RED,false,"10-05-2000");
 
-        Artigo sap1b = new Sapatilha("sap1b",false,"pouco usado",3,"Sapatilha preta numero 39",
+        Artigo sap1b = new Sapatilha(false,"pouco usado",3,"Sapatilha preta numero 39",
         "reebok",50.7,0.6,u0003,39,false,Color.BLACK,true,"10-10-2020");
   
-        Artigo sap1c = new Sapatilha("sap1c", true, "Excelente estado", 1,"Sapatilha de corrida",
+        Artigo sap1c = new Sapatilha( true, "Excelente estado", 1,"Sapatilha de corrida",
         "Nike", 79.99, 1,u0001, 43, true, Color.BLACK,true, "01-01-2023");
 
-        Artigo sap1d = new Sapatilha("sap1d", false, "Bom estado", 2,"Sapatilha de treino",
+        Artigo sap1d = new Sapatilha( false, "Bom estado", 2,"Sapatilha de treino",
         "Adidas", 89.99, 0.5,u0008, 42, true, Color.BLUE,false, "07-07-2022");
 
-        Artigo sap1e = new Sapatilha("sap1e", true, "Excelente estado", 1,"Sapatilha de basquete", 
+        Artigo sap1e = new Sapatilha( true, "Excelente estado", 1,"Sapatilha de basquete", 
         "Jordan", 129.99, 1,u0005, 44, true, Color.RED,true, "08-08-2023");
 
-        Artigo sap1f = new Sapatilha("sap1f", false, "Bom estado", 2,"Sapatilha de futsal", 
+        Artigo sap1f = new Sapatilha( false, "Bom estado", 2,"Sapatilha de futsal", 
         "Puma", 69.99, 0.6,u0005, 41, true, Color.YELLOW,false, "09-09-2022");
    
-        Artigo sap1g = new Sapatilha("sap1g", true, "Novo", 0,"Sapatilha casual", 
+        Artigo sap1g = new Sapatilha( true, "Novo", 0,"Sapatilha casual", 
         "Converse", 49.99, 1.0,u0002, 39, false, Color.WHITE,false, "10-10-2023");
 
         //Tshirts
 
-        Artigo tshirt_1a = new Tshirt("Tshirt_1a",true,"novo",1,"Tshirt branca tamamho L",
+        Artigo tshirt_1a = new Tshirt(true,"novo",1,"Tshirt branca tamamho L",
         "Adidas",25, 1,u0002,Tshirt.Tamanho.L,Tshirt.Padrao.LISO);
 
-        Artigo tshirt_1b = new Tshirt("Tshirt_1b",false,"bastante usado",5,"Tshirt vermelha às riscas tamanho M",
+        Artigo tshirt_1b = new Tshirt(false,"bastante usado",5,"Tshirt vermelha às riscas tamanho M",
         "Pull&Bear",33,0.7,u0001,Tshirt.Tamanho.M,Tshirt.Padrao.RISCAS); 
 
-        Artigo tshirt_1c = new Tshirt("tshirt_1c", true, "Novo", 1, "Camiseta branca", 
+        Artigo tshirt_1c = new Tshirt( true, "Novo", 1, "Camiseta branca", 
         "Nike", 20.0, 1,u0001, Tshirt.Tamanho.M, Tshirt.Padrao.PALMEIRAS);
 
-        Artigo tshirt_1d = new Tshirt("tshirt_1d", true, "Novo", 1, "Camiseta preta", 
+        Artigo tshirt_1d = new Tshirt( true, "Novo", 1, "Camiseta preta", 
         "Adidas", 25.0, 1.0,u0008, Tshirt.Tamanho.L, Tshirt.Padrao.LISO);
         
-        Artigo tshirt_1e = new Tshirt("tshirt_1e", false, "Usado", 2, "Camiseta cinza", 
+        Artigo tshirt_1e = new Tshirt( false, "Usado", 2, "Camiseta cinza", 
         "Puma", 18.0, 0.3,u0007, Tshirt.Tamanho.S, Tshirt.Padrao.RISCAS);
 
-        Artigo tshirt_1f = new Tshirt("tshirt_1f", true, "Novo", 1, "Camiseta rosa", 
+        Artigo tshirt_1f = new Tshirt( true, "Novo", 1, "Camiseta rosa", 
         "Reebok", 22.0, 1.0,u0003, Tshirt.Tamanho.M, Tshirt.Padrao.PALMEIRAS);
 
-        Artigo tshirt_1g = new Tshirt("tshirt_1g", false, "Usado", 2, "Camiseta verde", 
+        Artigo tshirt_1g = new Tshirt( false, "Usado", 2, "Camiseta verde", 
         "Under Armour", 30.0, 0.5,u0007, Tshirt.Tamanho.L, Tshirt.Padrao.RISCAS);
 
         //Malas
 
-        Artigo mala1a = new Mala("mala1a",false,"pouco usada",2,"mala amarela grande",
+        Artigo mala1a = new Mala(false,"pouco usada",2,"mala amarela grande",
         "Zara",35, 0.8,u0006,Mala.Dimensao.GRANDE,"tecido","10-08-2021",false);
 
-        Artigo mala1b = new Mala("mala1b",true,"novo",1,"mala preta pequena",
+        Artigo mala1b = new Mala(true,"novo",1,"mala preta pequena",
         "Prada",500,1,u0002,Mala.Dimensao.PEQUENO,"pele","10-05-2000",true);
 
-        Artigo mala1c = new Mala("mala1c", true, "Novo", 1, "Mala de Viagem",
+        Artigo mala1c = new Mala( true, "Novo", 1, "Mala de Viagem",
         "Samsonite", 200.0, 0.5,u0004, Mala.Dimensao.GRANDE, "Poliéster", "01-01-2023", true);
 
-        Artigo mala1d = new Mala("mala1d", true, "Novo", 2, "Mala de Mão", 
+        Artigo mala1d = new Mala( true, "Novo", 2, "Mala de Mão", 
         "Rimowa", 500.0, 1,u0007, Mala.Dimensao.PEQUENO, "Policarbonato", "01-04-2022", true);
       
-        Artigo mala1e = new Mala("mala1e", false, "Usado", 3, "Mala de Viagem",
+        Artigo mala1e = new Mala( false, "Usado", 3, "Mala de Viagem",
         "Louis Vuitton", 1000.0, 0.3,u0006, Mala.Dimensao.MEDIO, "Couro", "01-09-2022", false);
 
-        Artigo mala1f = new Mala("mala1f", false, "Usado", 1, "Mala de Mão", 
+        Artigo mala1f = new Mala( false, "Usado", 1, "Mala de Mão", 
         "Gucci", 700.0, 0.6,u0004, Mala.Dimensao.GRANDE, "Couro", "01-06-2021", true);
 
-        Artigo mala1g = new Mala("mala1g", true, "Novo", 2, "Mala de Mão",
+        Artigo mala1g = new Mala( true, "Novo", 2, "Mala de Mão",
         "Prada", 800.0, 1,u0007,Mala.Dimensao.MEDIO, "Couro", "01-03-2023", true);
 
         u0001.artigo_aVenda(tshirt_1b);
@@ -405,21 +411,22 @@ public class Vintage implements Serializable{
         gestorTransportadoras.removeTransportadora(codTransportadora);
     }
 
-    //addEncomenda
-    public void addEncomenda(Encomenda encomenda) throws AddException{
-        gestorEncomendas.addEncomenda(encomenda);
-    }
-
     //artigos_AVenda
     public String artigos_AVenda(){
         return gestorUtilizadores.artigos_AVenda();
     }
 
-    //addArtigo_EncomendaVintage
-    public void addArtigo_Encomenda(Encomenda encomenda,Artigo artigo,
+    //addEncomenda_Artigo
+    public void addEncomenda_withArtigo(Encomenda encomenda,Artigo artigo,
     Utilizador comprador) throws GetException, AddException, RemoveException{
         gestorUtilizadores.setHistorico_Comprador(comprador, artigo);
         gestorUtilizadores.setHistorico_Vendedor(artigo.getDono(), artigo);
-        this.addEncomenda(encomenda);
+        gestorEncomendas.addEncomenda(encomenda);
+    }
+
+    //addArtigo_Utilizador
+    public void addArtigo_withVendedor(Artigo artigo,Utilizador vendedor) throws AddException, RemoveException{
+        gestorArtigos.addArtigo(artigo);
+        gestorUtilizadores.set_aVenda(vendedor,artigo);
     }
 }

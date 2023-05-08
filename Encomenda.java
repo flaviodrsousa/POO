@@ -266,6 +266,7 @@ public class Encomenda implements Serializable{
         this.vendedores.addUtilizador(vendedor);
         comprador.artigo_Comprado(artigo);
         vendedor.artigo_Vendido(artigo);
+        artigo.setFoi_comprado(true);
     }
 
     public String fatura(){
