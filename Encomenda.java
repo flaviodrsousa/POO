@@ -261,12 +261,21 @@ public class Encomenda implements Serializable{
     }
 
     //métodos adicionais
-    public void addArtigo(Artigo artigo,Utilizador vendedor,Utilizador comprador) throws AddException, RemoveException{
+    public void addArtigo_withUtilizadores(Artigo artigo,Utilizador vendedor,Utilizador comprador) throws AddException, RemoveException{
         this.gestorArtigos.addArtigo(artigo);
         this.vendedores.addUtilizador(vendedor);
         comprador.artigo_Comprado(artigo);
         vendedor.artigo_Vendido(artigo);
         artigo.setFoi_comprado(true);
+    }
+
+    public void addArtigo(Artigo artigo) throws AddException, RemoveException{
+        this.gestorArtigos.addArtigo(artigo);
+        artigo.setFoi_comprado(true);
+    }
+
+    public void addVendedor(Utilizador vendedor) throws AddException{
+        this.vendedores.addUtilizador(vendedor);
     }
 
     public String fatura(){

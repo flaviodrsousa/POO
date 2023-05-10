@@ -70,8 +70,11 @@ public class GestorEncomendas implements Serializable{
     }
 
     //Outros métodos
-    public void addEncomenda(Encomenda encomenda){
-        vendas.putIfAbsent(encomenda.getNumeroEncomenda(),encomenda.clone());
+    public void addEncomenda(Encomenda encomenda) throws AddException{
+        Encomenda previousValue = this.vendas.putIfAbsent(encomenda.getNumeroEncomenda(),encomenda.clone());
+        if (previousValue != null) { //se a chave já existir no map
+            throw new AddException("Já existe no sistema uma Encomenda com esse Nº Encomenda!");
+        }
     }
 
     public void removeEncomenda(Integer numEncomenda) throws RemoveException{
@@ -89,16 +92,16 @@ public class GestorEncomendas implements Serializable{
         return encomenda.clone();
     }
 
-    public List<Encomenda> entregaEncomenda(Vintage vintage){
-        List<Encomenda> encomendasEntregues = new ArrayList<>();
+    public String entregaEncomenda(Vintage vintage){
+        StringBuilder encomendasEntregues = new StringBuilder();
         for (Map.Entry<Integer,Encomenda> entry: vendas.entrySet()){
             if (vintage.get_DataAtual().compareTo(entry.getValue().get_DataEntrega())>0
             && Encomenda.Estado.pendente.equals(entry.getValue().getEstado())){
                 entry.getValue().setEstado(Encomenda.Estado.entregue);
-                encomendasEntregues.add(entry.getValue());
+                encomendasEntregues.append(entry.getValue().fatura());
             }
         }
-        return encomendasEntregues;
+        return encomendasEntregues.toString();
     }
 
     //Q1

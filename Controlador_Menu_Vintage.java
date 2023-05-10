@@ -1,7 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.DateTimeException;
-import java.util.List;
 
 public class Controlador_Menu_Vintage {
     private Vintage vintage;
@@ -33,7 +32,7 @@ public class Controlador_Menu_Vintage {
     }
 
     //Outros métodos
-    public List<Encomenda> avancarTempo(String date) throws DateTimeException{ //retorna uma lista de encomendas entregues no periodo
+    public String avancarTempo(String date) throws DateTimeException{ 
         return vintage.avancarTempo(date);
     }
 

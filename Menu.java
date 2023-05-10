@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -95,10 +94,7 @@ public class Menu {
                     System.out.println("Data (dd-MM-yyyy) para onde pertende avancar: ");
                     String data = input.nextLine();
                     try {
-                        List<Encomenda> encomendasEntregues= controlador_Menu_Vintage.avancarTempo(data);
-                        for (Encomenda encomenda : encomendasEntregues){
-                            System.out.println(encomenda.fatura());
-                        }
+                        System.out.println(controlador_Menu_Vintage.avancarTempo(data));
                     } catch (DateTimeException e) {
                         System.out.println("A data é no formato (dd-MM-yyyy)!");
                         break;
@@ -262,8 +258,8 @@ public class Menu {
 
         do {
             System.out.println("\n------ MENU ------");
-            System.out.println("1. Meu histórico de encomendas");
-            System.out.println("2. Perfil Utilizador");
+            System.out.println("1. Perfil Utilizador");
+            System.out.println("2. Meu histórico de encomendas");
             System.out.println("3. Realizar Encomendas");
             System.out.println("4. Colocar artigos à Venda");
             System.out.println("0. Sair");
@@ -277,17 +273,17 @@ public class Menu {
                 input.nextLine();
             }
 
-            switch (opcao) { 
-                case 1:
-                    System.out.println(controlador_Menu_Vintage.encomendasComprador(codUtilizadorLogin));
-                    break;
-                case 2: 
+            SwitchFalg: switch (opcao) { 
+                case 1: 
                     try{
                         System.out.println(controlador_Menu_Vintage.getUtilizador(codUtilizadorLogin).toString());
                     }catch (GetException e){
                         System.out.println(e.getMessage());
                         break;
                     }
+                    break;
+                case 2:
+                    System.out.println(controlador_Menu_Vintage.encomendasComprador(codUtilizadorLogin));
                     break;
                 case 3:
                     input.nextLine();
@@ -324,6 +320,7 @@ public class Menu {
                                 controlador_Menu_Vintage.addEncomenda_withArtigo_Vintage(encomenda, artigo, comprador);
                             }catch(RemoveException e){
                                 System.out.println(e.getMessage());
+                                break SwitchFalg;
                             }
                         }
                     }catch(GetException e){
@@ -334,6 +331,7 @@ public class Menu {
                         break;
                     } catch (AddException e) {
                         System.out.println(e.getMessage());
+                        break;
                     }
                     break;
                 case 4:

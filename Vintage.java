@@ -8,7 +8,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.List;
 
 public class Vintage implements Serializable{
     private GestorEncomendas gestorEncomendas;
@@ -183,34 +182,34 @@ public class Vintage implements Serializable{
         //Encomendas
         Encomenda encomenda1 = new Encomenda(new GestorArtigos(),5,
         "05-07-2002","10-07-2002",Encomenda.Estado.entregue,new GestorUtilizadores(),u0001);
-        encomenda1.addArtigo(sap1a,u0002,u0001); //u0002 vendeu a sap1a ao u0001
+        encomenda1.addArtigo_withUtilizadores(sap1a,u0002,u0001); //u0002 vendeu a sap1a ao u0001
 
         Encomenda encomenda2 = new Encomenda(new GestorArtigos(),0,
         "04-03-2023","10-10-2023",Encomenda.Estado.pendente,new GestorUtilizadores(),u0003);
-        encomenda2.addArtigo(tshirt_1a,u0002,u0003);
-        encomenda2.addArtigo(tshirt_1b,u0001,u0003);
+        encomenda2.addArtigo_withUtilizadores(tshirt_1a,u0002,u0003);
+        encomenda2.addArtigo_withUtilizadores(tshirt_1b,u0001,u0003);
 
         Encomenda encomenda3 = new Encomenda(new GestorArtigos(), 5.0,
         "10-05-2023", "15-10-2023", Encomenda.Estado.pendente, new GestorUtilizadores(), u0002);
-        encomenda3.addArtigo(mala1g, u0007,u0002);
-        encomenda3.addArtigo(mala1c, u0004,u0002);
+        encomenda3.addArtigo_withUtilizadores(mala1g, u0007,u0002);
+        encomenda3.addArtigo_withUtilizadores(mala1c, u0004,u0002);
 
         Encomenda encomenda4 = new Encomenda(new GestorArtigos(), 7.5, 
         "12-05-2023", "07-04-2023", Encomenda.Estado.entregue, new GestorUtilizadores(), u0001);
-        encomenda4.addArtigo(sap1e, u0005,u0001);
+        encomenda4.addArtigo_withUtilizadores(sap1e, u0005,u0001);
 
         Encomenda encomenda5 = new Encomenda(new GestorArtigos(), 10.0, 
         "15-05-2023", "20-05-2024", Encomenda.Estado.pendente, new GestorUtilizadores(), u0007);
-        encomenda5.addArtigo(sap1g, u0002,u0007);
+        encomenda5.addArtigo_withUtilizadores(sap1g, u0002,u0007);
 
         Encomenda encomenda6 = new Encomenda(new GestorArtigos(), 4.0, 
         "01-03-2023", "22-03-2023", Encomenda.Estado.entregue, new GestorUtilizadores(), u0008);
-        encomenda6.addArtigo(sap1c, u0001,u0008);
+        encomenda6.addArtigo_withUtilizadores(sap1c, u0001,u0008);
 
         Encomenda encomenda7 = new Encomenda(new GestorArtigos(), 6.0, 
         "01-05-2023", "25-09-2023", Encomenda.Estado.pendente, new GestorUtilizadores(), u0004);
-        encomenda7.addArtigo(tshirt_1e, u0007,u0004);
-        encomenda7.addArtigo(mala1e, u0006,u0004);
+        encomenda7.addArtigo_withUtilizadores(tshirt_1e, u0007,u0004);
+        encomenda7.addArtigo_withUtilizadores(mala1e, u0006,u0004);
 
         //ficar no historico do Vintage
         this.gestorArtigos.addArtigo(sap1a); 
@@ -359,11 +358,11 @@ public class Vintage implements Serializable{
     }
 
     //Outros métodos
-    private List<Encomenda> entregaEncomenda(){
+    private String entregaEncomenda(){
         return gestorEncomendas.entregaEncomenda(this);
     }
 
-    public List<Encomenda> avancarTempo(String date) throws DateTimeException{
+    public String avancarTempo(String date) throws DateTimeException{
         set_DataAtual(Data.StringEuropeia_toDate(date));
         return this.entregaEncomenda();
     }
@@ -423,6 +422,8 @@ public class Vintage implements Serializable{
     Utilizador comprador) throws GetException, AddException, RemoveException{
         gestorUtilizadores.setHistorico_Comprador(comprador, artigo);
         gestorUtilizadores.setHistorico_Vendedor(artigo.getDono(), artigo);
+        encomenda.addArtigo(artigo);
+        encomenda.addVendedor(artigo.getDono());
         gestorEncomendas.addEncomenda(encomenda);
     }
 
